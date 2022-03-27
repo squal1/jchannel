@@ -53,7 +53,7 @@ function App() {
                         <div className="nav_bar_left_f5_button">
                             <CachedRoundedIcon />
                         </div>
-                        <div className="nav_bar_left_create_topic_button">
+                        <div className="nav_bar_left_create_thread_button">
                             <AddIcon />
                         </div>
                     </div>
@@ -171,9 +171,20 @@ function App() {
                         <ThreadReply />
                         <ThreadReply />
                         <ThreadReply />
+                        <div className="end_of_thread_content">&nbsp;</div>
                     </div>
                 </div>
-                <div className="bottom_bar">I am bottom bar</div>
+                <div className="bottom_bar">
+                    <div className="bottom_bar_menu_button">
+                        <MenuIcon className="nav_bar_left_menu_icon" />
+                    </div>
+                    <div className="bottom_bar_f5_button">
+                        <CachedRoundedIcon />
+                    </div>
+                    <div className="bottom_bar_create_thread_button">
+                        <AddIcon />
+                    </div>
+                </div>
             </div>
         </div>
     );
