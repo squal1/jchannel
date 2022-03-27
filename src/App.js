@@ -2,12 +2,12 @@ import "./App.css";
 import ThreadBlock from "./ThreadBlock";
 import ThreadReply from "./ThreadReply";
 import { useState, useEffect } from "react";
-import CachedRoundedIcon from "@mui/icons-material/CachedRounded";
-import MenuIcon from "@mui/icons-material/Menu";
-import AddIcon from "@mui/icons-material/Add";
+
+import NavBar from "./NavBar";
+import SideMenu from "./SideMenu";
+import BottomBar from "./BottomBar";
 
 function App() {
-    const [threads, setThreads] = useState([]);
     const [sideMenuStyle, setSideMenuStyle] = useState({
         opacity: "0",
         left: "-300px",
@@ -39,56 +39,11 @@ function App() {
     return (
         <div className="app">
             <div className="app_body">
-                <nav className="nav_bar">
-                    <div className="nav_bar_left">
-                        <div
-                            className="nav_bar_left_menu_button"
-                            onClick={sideMenuOpen}
-                        >
-                            <MenuIcon className="nav_bar_left_menu_icon" />
-                        </div>
-
-                        <div className="category_name">Category name</div>
-
-                        <div className="nav_bar_left_f5_button">
-                            <CachedRoundedIcon />
-                        </div>
-                        <div className="nav_bar_left_create_thread_button">
-                            <AddIcon />
-                        </div>
-                    </div>
-                    <div className="nav_bar_right">
-                        <div className="nav_bar_right_thread_topic">
-                            I am the title of the topic. I am the title of the
-                            topic. I am the title of the topic. I am the title
-                            of the topic. I am the title of the topic. I am the
-                            title of the topic.
-                        </div>
-                    </div>
-                </nav>
-
-                <div className="side_menu_layer">
-                    <div
-                        className="side_menu_overlay"
-                        style={{
-                            opacity: sideMenuStyle.opacity,
-                            pointerEvents: sideMenuStyle.pointerEvents,
-                        }}
-                        onClick={sideMenuClose}
-                    ></div>
-                    <div
-                        className="side_menu"
-                        style={{
-                            left: sideMenuStyle.left,
-                            backgroundColor: sideMenuStyle.backgroundColor,
-                            opacity: sideMenuStyle.opacity,
-                            visibility: sideMenuStyle.visibility,
-                        }}
-                    >
-                        THis is side menu THis is side menu THis is side menu
-                        THis is side menu
-                    </div>
-                </div>
+                <NavBar sideMenuOpen={sideMenuOpen} />
+                <SideMenu
+                    sideMenuStyle={sideMenuStyle}
+                    sideMenuClose={sideMenuClose}
+                />
 
                 <div className="main_panel">
                     <div className="thread_bar">
@@ -174,17 +129,7 @@ function App() {
                         <div className="end_of_thread_content">&nbsp;</div>
                     </div>
                 </div>
-                <div className="bottom_bar">
-                    <div className="bottom_bar_menu_button">
-                        <MenuIcon className="nav_bar_left_menu_icon" />
-                    </div>
-                    <div className="bottom_bar_f5_button">
-                        <CachedRoundedIcon />
-                    </div>
-                    <div className="bottom_bar_create_thread_button">
-                        <AddIcon />
-                    </div>
-                </div>
+                <BottomBar sideMenuOpen={sideMenuOpen} />
             </div>
         </div>
     );

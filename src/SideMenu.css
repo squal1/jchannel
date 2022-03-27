@@ -1,0 +1,36 @@
+.side_menu_layer{
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  z-index: 30;
+  max-width: 1200px;
+  width: 100%;
+}
+  
+.side_menu_overlay{
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 40;
+  background: rgba(0,0,0,.5);
+  pointer-events: none;
+}
+  
+.side_menu{
+  color: aliceblue;
+  display: flex;
+  pointer-events: auto;
+  height: 100%;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  width: 300px;
+  z-index: 41;
+  transition: 0.4s;
+}
