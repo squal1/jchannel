@@ -3,14 +3,17 @@ import "./NavBar.css";
 import CachedRoundedIcon from "@mui/icons-material/CachedRounded";
 import MenuIcon from "@mui/icons-material/Menu";
 import AddIcon from "@mui/icons-material/Add";
+import { useDispatch } from "react-redux";
+import { sideMenuOpen } from "./actions";
 
-function NavBar({ sideMenuOpen }) {
+function NavBar() {
+    const dispatch = useDispatch();
     return (
         <nav className="nav_bar">
             <div className="nav_bar_left">
                 <div
                     className="nav_bar_left_menu_button"
-                    onClick={sideMenuOpen}
+                    onClick={() => dispatch(sideMenuOpen())}
                 >
                     <MenuIcon className="nav_bar_left_menu_icon" />
                 </div>

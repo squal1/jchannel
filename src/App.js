@@ -2,48 +2,16 @@ import "./App.css";
 import ThreadBlock from "./ThreadBlock";
 import ThreadReply from "./ThreadReply";
 import { useState, useEffect } from "react";
-
 import NavBar from "./NavBar";
 import SideMenu from "./SideMenu";
 import BottomBar from "./BottomBar";
 
 function App() {
-    const [sideMenuStyle, setSideMenuStyle] = useState({
-        opacity: "0",
-        left: "-300px",
-        pointerEvents: "none",
-        backgroundColor: "#000000",
-        visibility: "hidden",
-    });
-
-    const sideMenuOpen = () => {
-        setSideMenuStyle({
-            opacity: "1",
-            left: "0px",
-            pointerEvents: "auto",
-            backgroundColor: "#222222",
-            visibility: "visible",
-        });
-    };
-
-    const sideMenuClose = () => {
-        setSideMenuStyle({
-            opacity: "0",
-            left: "-300px",
-            pointerEvents: "none",
-            backgroundColor: "#000000",
-            visibility: "hidden",
-        });
-    };
-
     return (
         <div className="app">
             <div className="app_body">
-                <NavBar sideMenuOpen={sideMenuOpen} />
-                <SideMenu
-                    sideMenuStyle={sideMenuStyle}
-                    sideMenuClose={sideMenuClose}
-                />
+                <NavBar />
+                <SideMenu />
 
                 <div className="main_panel">
                     <div className="thread_bar">
@@ -129,7 +97,7 @@ function App() {
                         <div className="end_of_thread_content">&nbsp;</div>
                     </div>
                 </div>
-                <BottomBar sideMenuOpen={sideMenuOpen} />
+                <BottomBar />
             </div>
         </div>
     );
