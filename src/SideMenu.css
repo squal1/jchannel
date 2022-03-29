@@ -1,4 +1,4 @@
-.side_menu_layer{
+.side_menu{
   pointer-events: none;
   position: absolute;
   top: 0;
@@ -12,17 +12,17 @@
 }
   
 .side_menu_overlay{
+  position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  position: absolute;
   z-index: 40;
   background: rgba(0,0,0,.5);
   pointer-events: none;
 }
   
-.side_menu{
+.side_menu_window{
   color: aliceblue;
   display: flex;
   pointer-events: auto;
@@ -36,7 +36,6 @@
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
-  
 }
 
 .search_container{

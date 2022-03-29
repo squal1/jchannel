@@ -1,0 +1,35 @@
+/* Setting up the background layer of create thread window */
+.create_thread{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 50;
+    pointer-events: none;
+  }
+  
+  /* The darken layer, click will exit the create thread window */
+  .create_thread_overlay{
+    position: absolute;
+    background: rgba(0,0,0,.5);
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 51;
+    pointer-events: all; /* will change */
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .create_thread_window{
+    position: absolute;
+    background-color: skyblue;
+    max-height: 600px;
+    height: 100%;
+    max-width: 800px;
+    width: 100%;
+  }

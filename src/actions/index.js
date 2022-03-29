@@ -9,3 +9,15 @@ export const sideMenuClose = () => {
         type: "SIDEMENU_CLOSE",
     };
 };
+
+export const createThreadOpen = () => {
+    return {
+        type: "CREATE_THREAD_OPEN",
+    };
+};
+
+export const createThreadClose = () => {
+    return {
+        type: "CREATE_THREAD_CLOSE",
+    };
+};

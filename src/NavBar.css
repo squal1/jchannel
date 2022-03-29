@@ -3,6 +3,7 @@
   height: 3rem;
   width: 100%;
 }
+
 .nav_bar_left{
   background-color: #222;
   align-items: center;
@@ -20,7 +21,7 @@
   align-items: center;
 }
 
-.nav_bar_left_menu_button:hover{
+.nav_bar_left_menu_button:hover, .nav_bar_left_f5_button:hover, .nav_bar_left_create_thread_button:hover, .nav_bar_right_go_back_button:hover{
   background-color: rgb(68, 68, 68);
 }
 
@@ -37,18 +38,11 @@
   margin-left: auto;
   padding: 1rem;
   align-items: center;
-}
-
-.nav_bar_left_f5_button:hover{
-  background-color: rgb(68, 68, 68);
+  
 }
 
 .nav_bar_left_create_thread_button{
   padding: 1rem;
-  align-items: center;
-}
-.nav_bar_left_create_thread_button:hover{
-  background-color: rgb(68, 68, 68);
 }
 
 .nav_bar_right{
@@ -59,10 +53,16 @@
   align-items: center;
 }
 
+.nav_bar_right_go_back_button{
+  padding: 1rem;
+  align-items: center;
+  color: aliceblue;
+}
+
 .nav_bar_right_thread_topic{
   width: 100%;
   white-space: nowrap;
-    overflow: hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   color:rgb(248, 183, 123);
   font-size: 1.2rem;

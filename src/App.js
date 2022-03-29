@@ -1,17 +1,19 @@
 import "./App.css";
-import ThreadBlock from "./ThreadBlock";
-import ThreadReply from "./ThreadReply";
-import { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 import SideMenu from "./SideMenu";
 import BottomBar from "./BottomBar";
+import ThreadBlock from "./ThreadBlock";
+import ThreadReply from "./ThreadReply";
+import CreateThread from "./CreateThread";
+import { useState, useEffect } from "react";
 
 function App() {
     return (
         <div className="app">
             <div className="app_body">
                 <NavBar />
-                <SideMenu />
+                <SideMenu /> {/* Hidden. Appear when toggled */}
+                <CreateThread /> {/* Hidden. Appear when toggled */}
                 <div className="main_panel">
                     <div className="thread_bar">
                         <ThreadBlock

@@ -6,11 +6,13 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 
 function SideMenu() {
-    const style = useSelector((state) => state.sideMenuToggle); /* Toggling */
+    const style = useSelector(
+        (state) => state.sideMenuToggle
+    ); /* For toggling */
     const dispatch = useDispatch();
 
     return (
-        <div className="side_menu_layer">
+        <div className="side_menu">
             <div
                 className="side_menu_overlay"
                 style={{
@@ -20,7 +22,7 @@ function SideMenu() {
                 onClick={() => dispatch(sideMenuClose())}
             ></div>
             <div
-                className="side_menu"
+                className="side_menu_window"
                 style={{
                     left: style.left,
                     backgroundColor: style.backgroundColor,
