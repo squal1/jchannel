@@ -12,7 +12,6 @@ function App() {
             <div className="app_body">
                 <NavBar />
                 <SideMenu />
-
                 <div className="main_panel">
                     <div className="thread_bar">
                         <ThreadBlock

@@ -8,6 +8,7 @@ import { sideMenuOpen } from "./actions";
 
 function NavBar() {
     const dispatch = useDispatch();
+
     return (
         <nav className="nav_bar">
             <div className="nav_bar_left">

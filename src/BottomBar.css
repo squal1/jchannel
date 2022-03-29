@@ -9,7 +9,7 @@
   align-items: center;
 }
 
-.bottom_bar_menu_button{
+.bottom_bar_menu_button, .bottom_bar_f5_button, .bottom_bar_create_thread_button{
   display: flex;
   height: 100%;
   flex-grow: 1;
@@ -17,31 +17,7 @@
   align-items: center;
 }
 
-.bottom_bar_menu_button:hover{
-  background-color: rgb(68, 68, 68);
-}
-
-.bottom_bar_f5_button{
-  display: flex;
-  height: 100%;
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
-}
-
-.bottom_bar_f5_button:hover{
-  background-color: rgb(68, 68, 68);
-}
-
-.bottom_bar_create_thread_button{
-  display: flex;
-  height: 100%;
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
-}
-
-.bottom_bar_create_thread_button:hover{
+.bottom_bar_menu_button:hover, .bottom_bar_f5_button:hover, .bottom_bar_create_thread_button:hover{
   background-color: rgb(68, 68, 68);
 }
 

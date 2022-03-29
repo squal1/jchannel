@@ -5,6 +5,7 @@ const initialState = {
     backgroundColor: "#000000",
     visibility: "hidden",
 };
+
 const sideMenuToggleReducer = (state = initialState, action) => {
     switch (action.type) {
         case "SIDEMENU_OPEN":
