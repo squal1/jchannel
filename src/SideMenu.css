@@ -40,14 +40,15 @@
 
 .search_container{
   display: flex;
-  background-color: rgb(14, 14, 14);
+  background-color: rgb(26, 26, 26);
   margin-top: 1rem;
   padding: 0.6rem 0.8rem;
   border-radius: 8px;
   width: 68%;
   height: 1.5rem;
   border: 2px solid;
-  transition: 0.15s;
+  border-color: rgb(26, 26, 26);
+  transition: 0.2s;
 }
 
 .search_container:focus-within{
@@ -68,7 +69,7 @@
 .search_text_field{
   height: 100%;
   border: none;
-  background-color: rgb(14, 14, 14);
+  background-color: rgb(26, 26, 26);
   color:rgb(255, 255, 255);
   font-size: 14px;
   margin-left: 5px;
@@ -79,7 +80,6 @@
 #search_bar_clear{
   display:none;
 }
-
 
 .your_account_button, .your_posts_button{
   margin-top: 0.8rem;
@@ -96,7 +96,7 @@
   font-weight: 650;
 }
 
-.side_menu > hr{
+.side_menu_window > hr{
   border: 2px solid;
   width: 78%;
   color: rgb(14, 14, 14);

@@ -1,35 +1,114 @@
 /* Setting up the background layer of create thread window */
 .create_thread{
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 50;
-    pointer-events: none;
-  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* The darken layer, click will exit the create thread window */
+.create_thread_overlay{
+  z-index: 51;
+  position: absolute;
+  background: rgba(0,0,0,.5);
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   
-  /* The darken layer, click will exit the create thread window */
-  .create_thread_overlay{
-    position: absolute;
-    background: rgba(0,0,0,.5);
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 51;
-    pointer-events: all; /* will change */
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .create_thread_window{
-    position: absolute;
-    background-color: skyblue;
-    max-height: 600px;
-    height: 100%;
-    max-width: 800px;
-    width: 100%;
-  }
+}
+
+.create_thread_window{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  pointer-events: auto;
+  background-color: #222;
+  max-height: 650px;
+  height: 100%;
+  max-width: 850px;
+  width: 100%;
+  z-index: 52;
+}
+
+.create_thread_window_header{
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.create_thread_window_header > p{
+  padding: 1rem;
+  color:rgb(248, 183, 123);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.exit_button{
+  height: 3rem;
+  width: 3rem;
+  color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.exit_button:hover{
+  background-color: rgb(68, 68, 68);
+}
+
+.create_thread_window_title{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title{
+  width: 96%;
+  background-color: rgb(26, 26, 26);
+  color:rgb(255, 255, 255);
+  border-radius: 3px;
+  border: 1px solid;
+  border-color: rgb(26, 26, 26);
+  outline: none;
+  font-size: 20px;
+  transition: 0.2s;
+  padding: 6px;
+}
+
+.title:focus{
+  border-color: rgb(248, 183, 123);
+}
+
+.create_thread_window_content{
+  display: flex;
+  background-color: tomato;
+  max-width: 96%;
+  width: 100%;
+  max-height: 80%;
+  height: 100%;
+}
+
+.create_thread_window_footer{
+  background-color: aqua;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category_choosing{
+  display: flex;
+}
+
+.footer_buttons{
+  display: flex;
+}
