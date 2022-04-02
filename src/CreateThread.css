@@ -46,11 +46,21 @@
   justify-content: space-between;
 }
 
-.create_thread_window_header > p{
+.create_thread_window_header > div{
+  display: flex;
+}
+
+.create_thread_window_header > div > p{
   padding: 1rem;
   color:rgb(248, 183, 123);
   font-size: 20px;
   font-weight: 600;
+}
+
+.category_choose{
+  z-index: 30;
+  margin-top: 30px;
+  background-color: #222;
 }
 
 .exit_button{
@@ -91,24 +101,66 @@
 
 .create_thread_window_content{
   display: flex;
-  background-color: tomato;
-  max-width: 96%;
+  max-width: 100%;
   width: 100%;
   max-height: 80%;
   height: 100%;
-}
-
-.create_thread_window_footer{
-  background-color: aqua;
-  display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
-.category_choosing{
+.create_thread_window_footer{
+  height: 3rem;
   display: flex;
+  align-items: center;
 }
 
 .footer_buttons{
+  height: 100%;
   display: flex;
+  margin-left: auto;
+  align-items: center;
+}
+
+.cancel_button{
+  height: 90%;
+  width: 6rem;
+  color: aliceblue;
+  border-radius: 5px;
+  border: 1px solid;
+  color: red;
+  border-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.sumbit_button{
+  margin-left: 20px;
+  margin-right: 8px;
+  height: 90%;
+  width: 6rem;
+  color: rgb(248, 183, 123);
+  border: 1px solid;;
+  border-color: rgb(248, 183, 123);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.cancel_button:hover{
+  background-color: red;
+  color: #222;
+}
+
+.sumbit_button:hover{
+  background-color: rgb(248, 183, 123);
+  color: rgb(26, 26, 26);
 }
