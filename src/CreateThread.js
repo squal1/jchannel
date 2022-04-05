@@ -24,62 +24,67 @@ function CreateThread() {
                 display: style.display,
             }}
         >
-            <div className="create_thread_overlay">
-                <div className="create_thread_window">
-                    <div className="create_thread_window_header">
-                        <div>
-                            <p>Creating new thread in </p>
-                            <Select className="category_choose" />
-                        </div>
-
-                        <div
-                            className="exit_button"
-                            onClick={() => dispatch(createThreadClose())}
-                        >
-                            <ClearRoundedIcon />
-                        </div>
+            <div
+                className="create_thread_overlay"
+                onClick={() => dispatch(createThreadClose())}
+            ></div>
+            <div className="create_thread_window">
+                <div className="create_thread_window_header">
+                    <div>
+                        <p>Creating new thread in </p>
+                        <Select className="category_choose" />
                     </div>
-                    <div className="create_thread_window_title">
-                        <input
-                            className="title"
-                            placeholder="Title of the thread"
-                        ></input>
-                    </div>
-                    <div className="create_thread_window_content">
-                        <Editor
-                            apiKey="n6yu8t20ieccyzq70g4q8hqld8siccaoj0fa11nqkdj4kdds"
-                            initialValue="<p>Initial content</p>"
-                            init={{
-                                selector: ".editor",
-                                skin: false,
-                                content_css: "default",
-                                content_style: "body { color: white; }",
-                                menubar: false,
-                                resize: false,
-                                height: "99%",
-                                width: "98%",
-                                plugins: [
-                                    "advlist autolink lists link image",
-                                    "charmap print preview anchor help",
-                                    "searchreplace visualblocks code",
-                                    "insertdatetime media table paste wordcount",
-                                ],
 
-                                toolbar:
-                                    "formatselect | fontsizeselect | forecolor | bold italic underline strikethrough| \
+                    <div
+                        className="exit_button"
+                        onClick={() => dispatch(createThreadClose())}
+                    >
+                        <ClearRoundedIcon />
+                    </div>
+                </div>
+                <div className="create_thread_window_title">
+                    <input
+                        className="title"
+                        placeholder="Title of the thread"
+                    ></input>
+                </div>
+                <div className="create_thread_window_content">
+                    <Editor
+                        apiKey="n6yu8t20ieccyzq70g4q8hqld8siccaoj0fa11nqkdj4kdds"
+                        initialValue="<p>Initial content</p>"
+                        init={{
+                            selector: ".editor",
+                            skin: false,
+                            content_css: "default",
+                            content_style: "body { color: white; }",
+                            menubar: false,
+                            resize: false,
+                            height: "99%",
+                            width: "98%",
+                            plugins: [
+                                "advlist autolink lists link image",
+                                "charmap print preview anchor help",
+                                "searchreplace visualblocks code",
+                                "insertdatetime media table paste wordcount",
+                            ],
+
+                            toolbar:
+                                "formatselect | fontsizeselect | forecolor | bold italic underline strikethrough| \
                                     alignleft aligncenter alignright | \
                                     bullist numlist outdent indent | help",
-                            }}
-                        />
-                    </div>
-                    <div className="create_thread_window_footer">
-                        <div className="footer_buttons">
-                            <div className="cancel_button">
-                                <p>Cancel</p>
-                            </div>
-                            <div className="sumbit_button">
-                                <p>Submit</p>
-                            </div>
+                        }}
+                    />
+                </div>
+                <div className="create_thread_window_footer">
+                    <div className="footer_buttons">
+                        <div
+                            className="cancel_button"
+                            onClick={() => dispatch(createThreadClose())}
+                        >
+                            <p>Cancel</p>
+                        </div>
+                        <div className="sumbit_button">
+                            <p>Submit</p>
                         </div>
                     </div>
                 </div>

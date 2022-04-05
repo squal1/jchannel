@@ -1,42 +1,42 @@
 /* Setting up the background layer of create thread window */
 .create_thread{
+  display: flex;
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
   pointer-events: none;
-  z-index: 50;
+  z-index: 60;
+  justify-content: center;
+  align-items: center;
 }
 
 /* The darken layer, click will exit the create thread window */
 .create_thread_overlay{
-  z-index: 51;
+  display: flex;
   position: absolute;
+  z-index: 61;
   background: rgba(0,0,0,.5);
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
   pointer-events: auto;
-  align-items: center;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  
 }
 
 .create_thread_window{
   display: flex;
   flex-direction: column;
   position: absolute;
+  z-index: 72;
   pointer-events: auto;
   background-color: #222;
   max-height: 650px;
   height: 100%;
   max-width: 850px;
   width: 100%;
-  z-index: 52;
 }
 
 .create_thread_window_header{
@@ -93,6 +93,8 @@
   font-size: 20px;
   transition: 0.2s;
   padding: 6px;
+  z-index: 40;
+  margin-bottom: 3px;
 }
 
 .title:focus{
@@ -113,6 +115,7 @@
   height: 3rem;
   display: flex;
   align-items: center;
+  margin-top: 3px;
 }
 
 .footer_buttons{
