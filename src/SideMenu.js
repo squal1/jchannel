@@ -1,14 +1,13 @@
 import React from "react";
 import "./SideMenu.css";
 import { useSelector, useDispatch } from "react-redux";
-import { sideMenuClose } from "./actions";
+import { sideMenuClose, loginMenuOpen } from "./actions";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 
 function SideMenu() {
-    const style = useSelector(
-        (state) => state.sideMenuToggle
-    ); /* For toggling */
+    /* Redux */
+    const style = useSelector((state) => state.sideMenuToggle);
     const dispatch = useDispatch();
 
     return (
@@ -41,7 +40,12 @@ function SideMenu() {
                     </form>
                 </div>
 
-                <div className="your_account_button">Your account</div>
+                <div
+                    className="your_account_button"
+                    onClick={() => dispatch(loginMenuOpen())}
+                >
+                    Your account
+                </div>
                 <div className="your_posts_button">Your posts</div>
                 <hr />
                 <div className="category_select">

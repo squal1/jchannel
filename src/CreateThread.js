@@ -31,12 +31,12 @@ function CreateThread() {
             <div className="create_thread_window">
                 <div className="create_thread_window_header">
                     <div>
-                        <p>Creating new thread in </p>
+                        <p>Creating new thread in: </p>
                         <Select className="category_choose" />
                     </div>
 
                     <div
-                        className="exit_button"
+                        className="create_thread_window_exit_button"
                         onClick={() => dispatch(createThreadClose())}
                     >
                         <ClearRoundedIcon />

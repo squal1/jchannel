@@ -5,6 +5,7 @@ import BottomBar from "./BottomBar";
 import ThreadBlock from "./ThreadBlock";
 import ThreadReply from "./ThreadReply";
 import CreateThread from "./CreateThread";
+import LoginMenu from "./LoginMenu";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
                 <NavBar />
                 <SideMenu /> {/* Hidden. Appear when toggled */}
                 <CreateThread /> {/* Hidden. Appear when toggled */}
+                <LoginMenu /> {/* Hidden. Appear when toggled */}
                 <div className="main_panel">
                     <div className="thread_bar">
                         <ThreadBlock

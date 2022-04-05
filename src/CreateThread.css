@@ -63,7 +63,7 @@
   background-color: #222;
 }
 
-.exit_button{
+.create_thread_window_exit_button{
   height: 3rem;
   width: 3rem;
   color: aliceblue;
@@ -72,7 +72,7 @@
   align-items: center;
 }
 
-.exit_button:hover{
+.create_thread_window_exit_button:hover{
   background-color: rgb(68, 68, 68);
 }
 

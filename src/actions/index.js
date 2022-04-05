@@ -21,3 +21,15 @@ export const createThreadClose = () => {
         type: "CREATE_THREAD_CLOSE",
     };
 };
+
+export const loginMenuOpen = () => {
+    return {
+        type: "LOGIN_MENU_OPEN",
+    };
+};
+
+export const loginMenuClose = () => {
+    return {
+        type: "LOGIN_MENU_CLOSE",
+    };
+};

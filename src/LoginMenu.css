@@ -1,0 +1,50 @@
+.login{
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+}
+
+.login_overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 101;
+  background: rgba(0,0,0,.5);
+  pointer-events: auto;
+}
+  
+.login_window{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 111;
+  pointer-events: auto;
+  background-color: #222;
+  max-height: 450px;
+  height: 100%;
+  max-width: 320px;
+  width: 100%;
+}
+
+.login_window_header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 3rem;
+}
+
+.login_window_header > p{
+    font-size: 25px;
+    font-weight: 600;
+    color: aliceblue;
+}
