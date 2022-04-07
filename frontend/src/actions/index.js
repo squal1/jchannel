@@ -33,3 +33,33 @@ export const loginMenuClose = () => {
         type: "LOGIN_MENU_CLOSE",
     };
 };
+
+export const categoryChangeToTrending = () => {
+    return {
+        type: "TRENDING",
+    };
+};
+
+export const categoryChangeToGeneral = () => {
+    return {
+        type: "GENERAL",
+    };
+};
+
+export const categoryChangeToGossip = () => {
+    return {
+        type: "GOSSIP",
+    };
+};
+
+export const categoryChangeToCourse = () => {
+    return {
+        type: "COURSE",
+    };
+};
+
+export const categoryChangeToJob = () => {
+    return {
+        type: "JOB",
+    };
+};
