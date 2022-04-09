@@ -1,7 +1,7 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import "./ThreadBlock.css";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
+
 const selectTopic = () => {
     return null;
     /*history.push(`/post/${id}`);*/

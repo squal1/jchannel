@@ -1,5 +1,4 @@
 import React from "react";
-import Select from "react-select";
 import { useSelector, useDispatch } from "react-redux";
 import { createThreadClose } from "./actions";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
@@ -32,7 +31,7 @@ function CreateThread() {
                 <div className="create_thread_window_header">
                     <div>
                         <p>Creating new thread in: </p>
-                        <Select className="category_choose" />
+                        {/*<Select className="category_choose" />*/}
                     </div>
 
                     <div
@@ -51,11 +50,11 @@ function CreateThread() {
                 <div className="create_thread_window_content">
                     <Editor
                         apiKey="n6yu8t20ieccyzq70g4q8hqld8siccaoj0fa11nqkdj4kdds"
-                        initialValue="<p>Initial content</p>"
+                        initialValue="<p>This is the initial content of the editor.</p>"
                         init={{
                             selector: ".editor",
-                            skin: false,
                             content_css: "default",
+                            skin: false,
                             content_style: "body { color: white; }",
                             menubar: false,
                             resize: false,
