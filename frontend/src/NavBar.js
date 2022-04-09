@@ -3,11 +3,12 @@ import "./NavBar.css";
 import CachedRoundedIcon from "@mui/icons-material/CachedRounded";
 import MenuIcon from "@mui/icons-material/Menu";
 import AddIcon from "@mui/icons-material/Add";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { sideMenuOpen, createThreadOpen } from "./actions";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function NavBar() {
+    const category = useSelector((state) => state.changeCategory);
     const dispatch = useDispatch();
 
     return (
@@ -20,7 +21,7 @@ function NavBar() {
                     <MenuIcon className="nav_bar_left_menu_icon" />
                 </div>
 
-                <div className="category_name">Category name</div>
+                <div className="category_name">{category.categoryName}</div>
 
                 <div className="nav_bar_left_f5_button">
                     <CachedRoundedIcon />

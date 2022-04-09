@@ -24,7 +24,7 @@ const threadSchema = mongoose.Schema({
             ref: "Reply",
         },
     ],
-    last_replied: {
+    lastReplied: {
         type: Date,
         default: Date.now,
     },
@@ -76,7 +76,15 @@ const userSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    userName: {
+    email: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    username: {
         type: String,
         required: true,
     },

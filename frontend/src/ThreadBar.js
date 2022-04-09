@@ -1,80 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./ThreadBar.css";
 import ThreadBlock from "./ThreadBlock";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
+import axios from "./axios";
 
 function ThreadBar() {
     const category = useSelector((state) => state.changeCategory);
+    const [threads, setThreads] = useState([]);
+
+    // Load threads of a category
+    useEffect(() => {
+        axios.get(`/thread/category/${category.category}`).then((response) => {
+            console.log(response);
+            setThreads(response.data);
+        });
+    }, [category.category, setThreads]);
 
     useEffect(() => {
-        console.log("Load default category");
-    }, []);
-
-    useEffect(() => {
-        console.log("Category changed. Reload thread bar");
-    }, [category]);
+        console.log(threads);
+    }, [threads]);
 
     return (
         <div className="thread_bar">
-            <ThreadBlock
-                author={"Squall"}
-                time={"1h"}
-                title={
-                    "I am the title of the thread. I am the title of the thread. I am the title of the thread. I am the title of the thread.I am the title of the thread."
-                }
-                score={+2}
-                id={"topic id"}
-            />
-            <ThreadBlock
-                author={"Author2"}
-                time={"2m"}
-                title={"I am title. I am title. I am title. I am title."}
-                score={+4}
-                id={"topic id"}
-            />
-            <ThreadBlock
-                author={"Admin"}
-                time={"2m"}
-                title={"I am title. I am title. I am title. I am title."}
-                score={-40}
-                id={"topic id"}
-            />
-            <ThreadBlock
-                author={"Bruno_Fernandes"}
-                time={"2m"}
-                title={"I am title. I am title. I am title. I am title."}
-                score={+120}
-                id={"topic id"}
-            />
-            <ThreadBlock
-                author={"Author2"}
-                time={"2m"}
-                title={"I am title. I am title. I am title. I am title."}
-                score={+244}
-                id={"topic id"}
-            />
-            <ThreadBlock
-                author={"Author2"}
-                time={"2m"}
-                title={"I am title. I am title. I am title. I am title."}
-                score={+0}
-                id={"topic id"}
-            />
-            <ThreadBlock
-                author={"Author2"}
-                time={"2m"}
-                title={"I am title. I am title. I am title. I am title."}
-                score={+24}
-                id={"topic id"}
-            />
-            <ThreadBlock
-                author={"Author2"}
-                time={"2m"}
-                title={"I am title. I am title. I am title. I am title."}
-                score={-123}
-                id={"topic id"}
-            />
+            {threads.map((item, index) => {
+                return (
+                    <ThreadBlock
+                        author={item.author.username}
+                        title={item.title}
+                        score={item.upVote - item.downVote}
+                        id={item._id}
+                        time={item.lastReplied}
+                    />
+                );
+            })}
         </div>
     );
 }

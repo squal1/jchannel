@@ -18,7 +18,7 @@
 
 .nav_bar_left_menu_button{
   padding: 1rem;
-  align-items: center;
+
 }
 
 .nav_bar_left_menu_button:hover, .nav_bar_left_f5_button:hover, .nav_bar_left_create_thread_button:hover, .nav_bar_right_go_back_button:hover{
@@ -26,12 +26,16 @@
 }
 
 .nav_bar_left_menu_icon{
+  margin-top: 3px;
   transform: scale(1.1);
 }
 
 .category_name{
   margin-left: auto;
   color:rgb(248, 183, 123);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
 }
 
 .nav_bar_left_f5_button{
