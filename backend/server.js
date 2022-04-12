@@ -23,9 +23,6 @@ const db = mongoose.connection;
 
 db.once("open", () => {
     console.log("DB connected");
-
-    const threadCollection = db.collection("threads");
-    const changeStream = threadCollection.watch();
 });
 
 // End points

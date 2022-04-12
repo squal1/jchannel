@@ -15,6 +15,7 @@
   flex-grow: 1;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .bottom_bar_menu_button:hover, .bottom_bar_f5_button:hover, .bottom_bar_create_thread_button:hover{

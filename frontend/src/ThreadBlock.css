@@ -8,6 +8,7 @@
     transition: 0.15s;
     position: relative;
     z-index: 6;
+    cursor: pointer;
 }
 
 .thread_block:hover{

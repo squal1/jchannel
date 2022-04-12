@@ -3,7 +3,7 @@ import CachedRoundedIcon from "@mui/icons-material/CachedRounded";
 import MenuIcon from "@mui/icons-material/Menu";
 import AddIcon from "@mui/icons-material/Add";
 import "./BottomBar.css";
-import { sideMenuOpen } from "./actions";
+import { sideMenuOpen, createThreadOpen } from "./actions";
 import { useDispatch } from "react-redux";
 
 function BottomBar() {
@@ -19,7 +19,10 @@ function BottomBar() {
             <div className="bottom_bar_f5_button">
                 <CachedRoundedIcon />
             </div>
-            <div className="bottom_bar_create_thread_button">
+            <div
+                className="bottom_bar_create_thread_button"
+                onClick={() => dispatch(createThreadOpen())}
+            >
                 <AddIcon />
             </div>
         </div>

@@ -89,6 +89,7 @@
   transition: 0.1s;
   user-select: none;
   font-size: 17px;
+  cursor: pointer;
 }
 
 .your_account_button:hover, .your_posts_button:hover{
@@ -124,6 +125,7 @@
   transition: 0.1s;
   user-select: none;
   font-size: 17px;
+  cursor: pointer;
 }
 
 .category_select > div:hover{

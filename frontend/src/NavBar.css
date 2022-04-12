@@ -18,7 +18,7 @@
 
 .nav_bar_left_menu_button{
   padding: 1rem;
-
+  cursor: pointer;
 }
 
 .nav_bar_left_menu_button:hover, .nav_bar_left_f5_button:hover, .nav_bar_left_create_thread_button:hover, .nav_bar_right_go_back_button:hover{
@@ -41,12 +41,12 @@
 .nav_bar_left_f5_button{
   margin-left: auto;
   padding: 1rem;
-  align-items: center;
-  
+  cursor: pointer;
 }
 
 .nav_bar_left_create_thread_button{
   padding: 1rem;
+  cursor: pointer;
 }
 
 .nav_bar_right{
@@ -61,6 +61,7 @@
   padding: 1rem;
   align-items: center;
   color: aliceblue;
+  cursor: pointer;
 }
 
 .nav_bar_right_thread_topic{
