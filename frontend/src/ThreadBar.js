@@ -11,14 +11,9 @@ function ThreadBar() {
     // Load threads of a category
     useEffect(() => {
         axios.get(`/thread/category/${category.category}`).then((response) => {
-            console.log(response);
             setThreads(response.data);
         });
     }, [category.category, setThreads]);
-
-    useEffect(() => {
-        console.log(threads);
-    }, [threads]);
 
     return (
         <div className="thread_bar">

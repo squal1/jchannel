@@ -7,6 +7,7 @@ import Select from "react-select";
 import "tinymce/skins/ui/1.0/skin.css";
 import "tinymce/skins/ui/1.0/content.inline.css";
 import "./CreateThread.css";
+import axios from "./axios";
 
 function CreateThread() {
     // For toggling
@@ -55,46 +56,33 @@ function CreateThread() {
         { value: "job", label: "Job Connections" },
     ];
 
-    // For category selection
+    // Category of the new thread
     const [category, setCategory] = useState("");
 
-    const handleCategoryChange = (option) => {
-        setCategory(option.value);
-    };
-
-    // For title
+    // Title of the new thread
     const [title, setTitle] = useState("");
 
+    // Content of the new thread
+    const [content, setContent] = useState("");
+
     // Logging out new thread data
-    const logInput = () => {
-        console.log(category);
-        console.log(title);
+    const handleSumbit = () => {
+        const newThread = {
+            author: "625107c17fddad483649749f", // Will change
+            category: category.value,
+            title: title,
+            content: content,
+        };
+        // *Remember to check input before create new thread
+        axios
+            .post("/thread/new", newThread)
+            .then((res) => console.log("New thread created:", res))
+            .catch((err) => {
+                console.log(err.response);
+            });
+        dispatch(createThreadClose());
+        // *Reload the page and select the thread just created
     };
-
-    // Remember to check input before create new thread
-
-    /* Data needed to create a new thread 
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-    },
-    category: {
-        type: String,
-        required: true,
-    },
-    title: {
-        type: String,
-        required: true,
-    },
-    content: {
-        type: String,
-        required: true,
-    },
-    */
-
-    /* https://www.tiny.cloud/ */
-    /* https://www.google.com/search?q=tinymce+editor+get+html+content&client=firefox-b-1-d&ei=iPVDYrs189j0A4mKoNAD&oq=tinymce+editor+get&gs_lcp=Cgdnd3Mtd2l6EAMYADIFCAAQgAQyBQgAEIAEMgYIABAWEB4yBggAEBYQHjIGCAAQFhAeMgYIABAWEB4yBggAEBYQHjIGCAAQFhAeMgYIABAWEB4yBggAEBYQHjoHCAAQRxCwA0oECEEYAEoECEYYAFDQA1iyBWCGFGgBcAF4AIABWYgB-AGSAQEzmAEAoAEByAEIwAEB&sclient=gws-wiz */
 
     return (
         <div
@@ -114,7 +102,7 @@ function CreateThread() {
                         <Select
                             options={options}
                             styles={customStyles}
-                            onChange={(option) => handleCategoryChange(option)}
+                            onChange={(option) => setCategory(option)}
                         />
                     </div>
 
@@ -158,6 +146,9 @@ function CreateThread() {
                                     alignleft aligncenter alignright | \
                                     bullist numlist outdent indent | help",
                         }}
+                        onEditorChange={(context, editor) =>
+                            setContent(context)
+                        }
                     />
                 </div>
                 <div className="create_thread_window_footer">
@@ -170,7 +161,7 @@ function CreateThread() {
                         </div>
                         <div
                             className="sumbit_button"
-                            onClick={() => logInput()}
+                            onClick={() => handleSumbit()}
                         >
                             <p>Submit</p>
                         </div>
