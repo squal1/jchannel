@@ -45,23 +45,18 @@ const threadSchema = mongoose.Schema({
 var Thread = mongoose.model("Thread", threadSchema);
 
 const replySchema = mongoose.Schema({
-    floor: {
-        type: Number,
-        required: true,
-    },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
     },
-    time: {
-        type: Date,
-        default: Date.now,
-        required: true,
-    },
     content: {
         type: String,
         required: true,
+    },
+    time: {
+        type: Date,
+        default: Date.now,
     },
     upVote: {
         type: Number,

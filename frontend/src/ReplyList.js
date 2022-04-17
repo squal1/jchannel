@@ -9,18 +9,19 @@ function ReplyList() {
     return (
         <div className="thread_content">
             {selectThread.currentThread._id ? (
-                <ReplyBlock
-                    author={selectThread.currentThread.author.username}
-                    time={selectThread.currentThread.createdAt}
-                    content={selectThread.currentThread.content}
-                    upVote={selectThread.currentThread.upVote}
-                    downVote={selectThread.currentThread.downVote}
-                />
+                <div>
+                    <ReplyBlock
+                        author={selectThread.currentThread.author.username}
+                        time={selectThread.currentThread.createdAt}
+                        content={selectThread.currentThread.content}
+                        upVote={selectThread.currentThread.upVote}
+                        downVote={selectThread.currentThread.downVote}
+                    />
+                </div>
             ) : (
-                <>
-                    <div className="end_of_thread_content">&nbsp;</div>
-                </>
+                <></>
             )}
+            <div className="end_of_thread_content">&nbsp;</div>
         </div>
     );
 }

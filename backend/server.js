@@ -33,31 +33,12 @@ app.get("/", (req, res) => res.status(200).send("hello world"));
 app.get("/thread/category/:category", (req, res) => {
     Thread.find({ category: req.params.category })
         .populate("author")
-        .exec((err, data) => {
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                res.status(200).send(data);
-            }
-        });
-});
-
-// Get all threads under user *needs to be tested*
-app.get("/thread/user/:_id", (req, res) => {
-    console.log(req.params._id);
-    Thread.find({ author: req.params._id }, (err, data) => {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            res.status(200).send(data);
-        }
-    });
-});
-
-// Get all replys of certain thread
-app.get("/reply/thread/:_id", (req, res) => {
-    Thread.findOne({ _id: req.params_id })
-        .populate("reply")
+        .populate({
+            path: "reply",
+            populate: {
+                path: "author",
+            },
+        })
         .exec((err, data) => {
             if (err) {
                 res.status(500).send(err);
@@ -80,18 +61,57 @@ app.post("/thread/new", (req, res) => {
     });
 });
 
-// Create new user
-app.post("/user/new", (req, res) => {
+// Create new reply to a thread
+// Param _id --> id of the thread to be replied
+app.post("/reply/new/:_id", (req, res) => {
     const dbMessage = req.body;
 
-    User.create(dbMessage, (err, data) => {
+    // Create reply here
+    Reply.create(dbMessage, (err, data) => {
         if (err) {
             res.status(500).send(err);
         } else {
             res.status(201).send(data);
+            // If success, insert reply into the corresponding thread
+            Thread.updateOne(
+                { _id: req.params._id },
+                { $push: { reply: data._id } },
+                function (error, success) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log(success);
+                    }
+                }
+            );
         }
     });
 });
+
+// Get all threads under user *needs to be tested*
+//app.get("/thread/user/:_id", (req, res) => {
+//    console.log(req.params._id);
+//    Thread.find({ author: req.params._id }, (err, data) => {
+//        if (err) {
+//            res.status(500).send(err);
+//        } else {
+//            res.status(200).send(data);
+//        }
+//    });
+//});
+
+// Create new user
+//app.post("/user/new", (req, res) => {
+//    const dbMessage = req.body;
+//
+//    User.create(dbMessage, (err, data) => {
+//        if (err) {
+//            res.status(500).send(err);
+//        } else {
+//            res.status(201).send(data);
+//        }
+//    });
+//});
 
 // Delete test record
 app.delete("/thread", (req, res) => {
@@ -100,20 +120,3 @@ app.delete("/thread", (req, res) => {
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}`));
-
-/* 
-{
-    "postId": 1,
-    "author":"507f191e810c19729de860ea",
-    "category": "General",
-    "title": "Hello World",
-    "upVote": 0,
-    "downVote": 0,
-    "content": "Hello",
-    "reply": []
-}
-
-Insert refernced object id
-https://stackoverflow.com/questions/30491468/how-to-insert-a-document-with-a-referenced-document-in-mongodb
-
-*/
