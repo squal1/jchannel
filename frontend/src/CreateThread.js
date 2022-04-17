@@ -8,6 +8,7 @@ import "tinymce/skins/ui/1.0/skin.css";
 import "tinymce/skins/ui/1.0/content.inline.css";
 import "./CreateThread.css";
 import axios from "./axios";
+import DOMPurify from "dompurify";
 
 function CreateThread() {
     // For toggling
@@ -65,13 +66,12 @@ function CreateThread() {
     // Content of the new thread
     const [content, setContent] = useState("");
 
-    // Logging out new thread data
     const handleSumbit = () => {
         const newThread = {
             author: "625107c17fddad483649749f", // Will change
             category: category.value,
             title: title,
-            content: content,
+            content: DOMPurify.sanitize(content),
         };
         // *Remember to check input before create new thread
         axios

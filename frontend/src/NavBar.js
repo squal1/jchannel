@@ -1,14 +1,16 @@
 import React from "react";
 import "./NavBar.css";
-import CachedRoundedIcon from "@mui/icons-material/CachedRounded";
-import MenuIcon from "@mui/icons-material/Menu";
-import AddIcon from "@mui/icons-material/Add";
 import { useSelector, useDispatch } from "react-redux";
 import { sideMenuOpen, createThreadOpen } from "./actions";
+import MenuIcon from "@mui/icons-material/Menu";
+import AddIcon from "@mui/icons-material/Add";
+import ReplyIcon from "@mui/icons-material/Reply";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CachedRoundedIcon from "@mui/icons-material/CachedRounded";
 
 function NavBar() {
     const category = useSelector((state) => state.changeCategory);
+    const selectThread = useSelector((state) => state.selectThread);
     const dispatch = useDispatch();
 
     return (
@@ -38,9 +40,10 @@ function NavBar() {
                     <ArrowBackIcon id="go_back_icon" />
                 </div>
                 <div className="nav_bar_right_thread_topic">
-                    I am the title of the topic. I am the title of the topic. I
-                    am the title of the topic. I am the title of the topic. I am
-                    the title of the topic. I am the title of the topic.
+                    {selectThread.currentThread.title}
+                </div>
+                <div className="nav_bar_right_reply_button">
+                    <ReplyIcon id="reply_icon" />
                 </div>
             </div>
         </nav>

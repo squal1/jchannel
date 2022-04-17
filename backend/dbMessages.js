@@ -24,6 +24,10 @@ const threadSchema = mongoose.Schema({
             ref: "Reply",
         },
     ],
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
     lastReplied: {
         type: Date,
         default: Date.now,

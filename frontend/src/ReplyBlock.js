@@ -1,30 +1,28 @@
 import React from "react";
-import "./ThreadReply.css";
+import "./ReplyBlock.css";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 
-function ThreadReply() {
+function ReplyBlock({ author, time, content, upVote, downVote }) {
     return (
         <div className="thread_reply">
             <div className="thread_reply_container">
                 <div className="reply_upper_level">
                     <div className="reply_floor">#1</div>
-                    <div className="reply_username">Admin</div>
-                    <div className="reply_time">30min</div>
+                    <div className="reply_author">{author}</div>
+                    <div className="reply_time">{time}</div>
                 </div>
                 <div className="reply_mid_level">
                     <div className="reply_content">
-                        This is the reply content. This is the reply content.
-                        This is the reply content.This is the reply content.
-                        This is the reply content.
+                        <div dangerouslySetInnerHTML={{ __html: content }} />
                     </div>
                 </div>
                 <div className="reply_base_level">
                     <div className="vote">
                         <ThumbUpAltIcon className="upvote_button" />
-                        <div className="upvote_score">10</div>
+                        <div className="upvote_score">{upVote}</div>
                         <ThumbDownAltIcon className="downvote_button" />
-                        <div className="downvote_score">2</div>
+                        <div className="downvote_score">{downVote}</div>
                     </div>
                 </div>
             </div>
@@ -32,4 +30,4 @@ function ThreadReply() {
     );
 }
 
-export default ThreadReply;
+export default ReplyBlock;

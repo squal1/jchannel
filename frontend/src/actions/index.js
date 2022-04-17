@@ -63,3 +63,10 @@ export const categoryChangeToJob = () => {
         type: "JOB",
     };
 };
+
+export const selectThread = (thread) => {
+    return {
+        type: "SELECT_THREAD",
+        payload: thread,
+    };
+};

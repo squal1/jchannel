@@ -1,28 +1,37 @@
 import React from "react";
 import "./ThreadBlock.css";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
+import { useDispatch } from "react-redux";
+import { selectThread } from "./actions";
 
-const selectTopic = () => {
-    return null;
-    /*history.push(`/post/${id}`);*/
-};
+function ThreadBlock({ thread }) {
+    const dispatch = useDispatch();
 
-function ThreadBlock({ author, time, title, score, id }) {
+    const handleSelectThread = () => {
+        dispatch(selectThread(thread));
+    };
+
     return (
-        <div className="thread_block" onClick={selectTopic}>
+        <div className="thread_block" onClick={() => handleSelectThread()}>
             <div className="thread_block_container">
                 <div className="thread_block_upper_level">
                     <div className="thread_block_upper_level_left">
-                        <div className="thread_block_username">{author}</div>
+                        <div className="thread_block_username">
+                            {thread.author.username}
+                        </div>
                         <div className="fire_icon">
                             <LocalFireDepartmentIcon />
                         </div>
-                        <div className="thread_block_vote_score">{score}</div>
+                        <div className="thread_block_vote_score">
+                            {thread.upVote - thread.downVote}
+                        </div>
                     </div>
-                    <div className="thread_block_last_reply_time">{time}</div>
+                    <div className="thread_block_last_reply_time">
+                        {thread.lastReplied}
+                    </div>
                 </div>
                 <div className="thread_block_lower_half">
-                    <div className="thread_topic">{title}</div>
+                    <div className="thread_topic">{thread.title}</div>
                 </div>
             </div>
         </div>
