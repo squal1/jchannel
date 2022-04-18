@@ -16,7 +16,7 @@ import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 
 function SideMenu() {
     /* Redux */
-    const style = useSelector((state) => state.sideMenuToggle);
+    const style = useSelector((state) => state.toggleSideMenu);
     const category = useSelector((state) => state.changeCategory);
     const dispatch = useDispatch();
 

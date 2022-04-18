@@ -1,7 +1,7 @@
 import React from "react";
 import "./NavBar.css";
 import { useSelector, useDispatch } from "react-redux";
-import { sideMenuOpen, createThreadOpen } from "./actions";
+import { sideMenuOpen, createThreadOpen, createReplyOpen } from "./actions";
 import MenuIcon from "@mui/icons-material/Menu";
 import AddIcon from "@mui/icons-material/Add";
 import ReplyIcon from "@mui/icons-material/Reply";
@@ -20,7 +20,7 @@ function NavBar() {
             content: "<p>testing</p>",
         };
         axios
-            .post(`/reply/new/${selectThread.currentThread._id}`, newReply)
+            .post(`/reply/${selectThread.currentThread._id}`, newReply)
             .then((res) =>
                 console.log("New reply created with id:", res.data._id)
             )
@@ -60,11 +60,11 @@ function NavBar() {
                     <div className="nav_bar_right_thread_topic">
                         {selectThread.currentThread.title}
                     </div>
-                    <div className="nav_bar_right_reply_button">
-                        <ReplyIcon
-                            id="reply_icon"
-                            onClick={() => createReply()}
-                        />
+                    <div
+                        className="nav_bar_right_reply_button"
+                        onClick={() => dispatch(createReplyOpen())}
+                    >
+                        <ReplyIcon id="reply_icon" />
                     </div>
                 </div>
             ) : (

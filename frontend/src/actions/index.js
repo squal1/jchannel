@@ -70,3 +70,15 @@ export const selectThread = (thread) => {
         payload: thread,
     };
 };
+
+export const createReplyOpen = () => {
+    return {
+        type: "CREATE_REPLY_OPEN",
+    };
+};
+
+export const createReplyClose = () => {
+    return {
+        type: "CREATE_REPLY_CLOSE",
+    };
+};

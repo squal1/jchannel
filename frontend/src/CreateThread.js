@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./CreateThread.css";
 import { useSelector, useDispatch } from "react-redux";
 import { createThreadClose } from "./actions";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
@@ -6,13 +7,12 @@ import { Editor } from "@tinymce/tinymce-react";
 import Select from "react-select";
 import "tinymce/skins/ui/1.0/skin.css";
 import "tinymce/skins/ui/1.0/content.inline.css";
-import "./CreateThread.css";
 import axios from "./axios";
 import DOMPurify from "dompurify";
 
 function CreateThread() {
     // For toggling
-    const style = useSelector((state) => state.createThreadToggle);
+    const style = useSelector((state) => state.toggleCreateThread);
     const dispatch = useDispatch();
 
     // Styling react-select
@@ -75,7 +75,7 @@ function CreateThread() {
         };
         // *Remember to check input before create new thread
         axios
-            .post("/thread/new", newThread)
+            .post("/thread", newThread)
             .then((res) => console.log("New thread created:", res))
             .catch((err) => {
                 console.log(err.response);
@@ -160,7 +160,7 @@ function CreateThread() {
                             <p>Cancel</p>
                         </div>
                         <div
-                            className="sumbit_button"
+                            className="sumbit_thread"
                             onClick={() => handleSumbit()}
                         >
                             <p>Submit</p>

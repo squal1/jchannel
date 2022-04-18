@@ -138,7 +138,7 @@
   cursor: pointer;
 }
 
-.sumbit_button{
+.sumbit_thread{
   margin-left: 20px;
   margin-right: 8px;
   height: 90%;
@@ -161,7 +161,7 @@
   color: #222;
 }
 
-.sumbit_button:hover{
+.sumbit_thread:hover{
   background-color: rgb(248, 183, 123);
   color: rgb(26, 26, 26);
 }

@@ -10,7 +10,7 @@ function ThreadList() {
 
     // Load threads of a category
     useEffect(() => {
-        axios.get(`/thread/category/${category.category}`).then((response) => {
+        axios.get(`/thread/${category.category}`).then((response) => {
             setThreads(response.data);
         });
     }, [category.category]);

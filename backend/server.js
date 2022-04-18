@@ -30,7 +30,7 @@ app.get("/", (req, res) => res.status(200).send("hello world"));
 
 // Get all threads under cartail category
 // Param category --> "trending"/"general"/"gossip"/"course"/"job"
-app.get("/thread/category/:category", (req, res) => {
+app.get("/thread/:category", (req, res) => {
     Thread.find({ category: req.params.category })
         .populate("author")
         .populate({
@@ -49,7 +49,7 @@ app.get("/thread/category/:category", (req, res) => {
 });
 
 // Create new thread
-app.post("/thread/new", (req, res) => {
+app.post("/thread", (req, res) => {
     const dbMessage = req.body;
 
     Thread.create(dbMessage, (err, data) => {
@@ -63,7 +63,7 @@ app.post("/thread/new", (req, res) => {
 
 // Create new reply to a thread
 // Param _id --> id of the thread to be replied
-app.post("/reply/new/:_id", (req, res) => {
+app.post("/reply/:_id", (req, res) => {
     const dbMessage = req.body;
 
     // Create reply here

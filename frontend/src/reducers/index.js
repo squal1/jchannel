@@ -1,13 +1,15 @@
 import { combineReducers } from "redux";
-import sideMenuToggleReducer from "./SideMenuToggle";
-import createThreadToggleReducer from "./CreateThreadToggle";
+import togglesideMenuReducer from "./ToggleSideMenu";
+import toggleCreateThreadReducer from "./ToggleCreateThread";
 import loginWindowToggleReducer from "./LoginWindowToggle";
 import changeCategoryReducer from "./ChangeCategory";
 import selectThreadReducer from "./SelectThread";
+import toggleCreateReplyReducer from "./ToggleCreateReply";
 
 const allReducers = combineReducers({
-    sideMenuToggle: sideMenuToggleReducer,
-    createThreadToggle: createThreadToggleReducer,
+    toggleCreateReply: toggleCreateReplyReducer,
+    toggleCreateThread: toggleCreateThreadReducer,
+    toggleSideMenu: togglesideMenuReducer,
     loginWindowToggle: loginWindowToggleReducer,
     changeCategory: changeCategoryReducer,
     selectThread: selectThreadReducer,

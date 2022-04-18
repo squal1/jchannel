@@ -6,7 +6,7 @@ const initialState = {
     visibility: "hidden",
 };
 
-const sideMenuToggleReducer = (state = initialState, action) => {
+const toggleSideMenuReducer = (state = initialState, action) => {
     switch (action.type) {
         case "SIDEMENU_OPEN":
             return {
@@ -29,4 +29,4 @@ const sideMenuToggleReducer = (state = initialState, action) => {
     }
 };
 
-export default sideMenuToggleReducer;
+export default toggleSideMenuReducer;
