@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CreateReply.css";
 import { useSelector, useDispatch } from "react-redux";
 import { createReplyClose } from "./actions";
@@ -7,11 +7,34 @@ import { Editor } from "@tinymce/tinymce-react";
 import "tinymce/skins/ui/1.0/skin.css";
 import "tinymce/skins/ui/1.0/content.inline.css";
 import DOMPurify from "dompurify";
+import axios from "./axios";
 
 function CreateReply() {
     const selectThread = useSelector((state) => state.selectThread);
     const style = useSelector((state) => state.toggleCreateReply);
     const dispatch = useDispatch();
+
+    // Content of the new thread
+    const [content, setContent] = useState("");
+
+    const handleSumbit = () => {
+        // Todo: let user preview the reply
+        const newReply = {
+            author: "625107c17fddad483649749f", // Will change
+            content: DOMPurify.sanitize(content),
+        };
+        // Todo: check input before create reply
+        axios
+            .post(`/reply/${selectThread.currentThread._id}`, newReply)
+            .then((res) =>
+                console.log("New reply created with id:", res.data._id)
+            )
+            .catch((err) => {
+                console.log(err.response);
+            });
+        dispatch(createReplyClose());
+        // Todo: Clean up create new thread
+    };
 
     return (
         <div
@@ -51,14 +74,13 @@ function CreateReply() {
                         ],
 
                         toolbar:
-                            "formatselect | fontsizeselect | forecolor | bold italic underline strikethrough| \
-                                    alignleft aligncenter alignright | \
-                                    bullist numlist outdent indent | help",
+                            "formatselect | fontsizeselect | forecolor | bold italic underline strikethrough| alignleft aligncenter alignright | bullist numlist outdent indent | help",
                     }}
+                    onEditorChange={(context, editor) => setContent(context)}
                 />
             </div>
             <div className="create_reply_footer">
-                <div className="sumbit_reply">
+                <div className="sumbit_reply" onClick={() => handleSumbit()}>
                     <p>Submit</p>
                 </div>
             </div>

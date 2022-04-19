@@ -10,23 +10,16 @@ function ReplyList() {
         <div className="thread_content">
             {selectThread.currentThread._id ? (
                 <div>
-                    <ReplyBlock
-                        floor={"#1"}
-                        author={selectThread.currentThread.author.username}
-                        time={selectThread.currentThread.createdAt}
-                        content={selectThread.currentThread.content}
-                        upVote={selectThread.currentThread.upVote}
-                        downVote={selectThread.currentThread.downVote}
-                    />
                     {selectThread.currentThread.reply.map((item, index) => {
                         return (
                             <ReplyBlock
-                                floor={`#${index + 2}`}
+                                id={item._id}
+                                floor={`#${index + 1}`}
                                 author={item.author.username}
                                 time={item.time}
                                 content={item.content}
-                                upVote={item.upVote}
-                                downVote={item.downVote}
+                                upvote={item.upvote}
+                                downvote={item.downvote}
                             />
                         );
                     })}

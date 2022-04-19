@@ -7,27 +7,11 @@ import AddIcon from "@mui/icons-material/Add";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CachedRoundedIcon from "@mui/icons-material/CachedRounded";
-import axios from "./axios";
 
 function NavBar() {
     const category = useSelector((state) => state.changeCategory);
     const selectThread = useSelector((state) => state.selectThread);
     const dispatch = useDispatch();
-
-    const createReply = () => {
-        const newReply = {
-            author: "625107c17fddad483649749f", // Will change
-            content: "<p>testing</p>",
-        };
-        axios
-            .post(`/reply/${selectThread.currentThread._id}`, newReply)
-            .then((res) =>
-                console.log("New reply created with id:", res.data._id)
-            )
-            .catch((err) => {
-                console.log(err.response);
-            });
-    };
 
     return (
         <nav className="nav_bar">

@@ -23,7 +23,7 @@ function ThreadBlock({ thread }) {
                             <LocalFireDepartmentIcon />
                         </div>
                         <div className="thread_block_vote_score">
-                            {thread.upVote - thread.downVote}
+                            {thread.reply[0].upvote - thread.reply[0].downvote}
                         </div>
                     </div>
                     <div className="thread_block_last_reply_time">

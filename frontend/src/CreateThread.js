@@ -59,29 +59,43 @@ function CreateThread() {
 
     // Category of the new thread
     const [category, setCategory] = useState("");
-
     // Title of the new thread
     const [title, setTitle] = useState("");
-
     // Content of the new thread
     const [content, setContent] = useState("");
 
     const handleSumbit = () => {
+        // Todo: let user preview the new thread
         const newThread = {
             author: "625107c17fddad483649749f", // Will change
             category: category.value,
             title: title,
+        };
+
+        const newReply = {
+            author: "625107c17fddad483649749f", // Will change
             content: DOMPurify.sanitize(content),
         };
-        // *Remember to check input before create new thread
-        axios
+
+        // Todo: check input before create new thread
+        axios // Create new thread here
             .post("/thread", newThread)
-            .then((res) => console.log("New thread created:", res))
+            .then((res) => {
+                // Insert reply after creating a new thread object
+                axios
+                    .post(`/reply/${res.data._id}`, newReply)
+                    .then((res) => {
+                        console.log(res);
+                    })
+                    .catch((err) => {
+                        console.log(err.response);
+                    });
+            })
             .catch((err) => {
                 console.log(err.response);
             });
         dispatch(createThreadClose());
-        // *Reload the page and select the thread just created
+        // Todo: Clean up create new thread
     };
 
     return (
@@ -142,9 +156,7 @@ function CreateThread() {
                             ],
 
                             toolbar:
-                                "formatselect | fontsizeselect | forecolor | bold italic underline strikethrough| \
-                                    alignleft aligncenter alignright | \
-                                    bullist numlist outdent indent | help",
+                                "formatselect | fontsizeselect | forecolor | bold italic underline strikethrough| alignleft aligncenter alignright | bullist numlist outdent indent | help",
                         }}
                         onEditorChange={(context, editor) =>
                             setContent(context)

@@ -61,11 +61,10 @@
 .upvote_button{
     margin-left: 2px;
     transform: scale(0.7);
-    transition: 2s;
 }
 
 .upvote_button:hover{
-    color: rgb(255, 38, 0);
+    color: rgb(231, 91, 91);
 }
 
 .upvote_score{
@@ -76,11 +75,10 @@
 .downvote_button{
     margin-left: 4px;
     transform: scale(0.7);
-    transition: 2s;
 }
 
 .downvote_button:hover{
-    color: rgb(26, 92, 236);
+    color: rgb(91, 154, 231);
 }
 
 .downvote_score{

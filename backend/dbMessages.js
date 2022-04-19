@@ -14,31 +14,15 @@ const threadSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    content: {
-        type: String,
-        required: true,
-    },
     reply: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Reply",
         },
     ],
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
     lastReplied: {
         type: Date,
         default: Date.now,
-    },
-    upVote: {
-        type: Number,
-        default: 0,
-    },
-    downVote: {
-        type: Number,
-        default: 0,
     },
 });
 
@@ -58,11 +42,11 @@ const replySchema = mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    upVote: {
+    upvote: {
         type: Number,
         default: 0,
     },
-    downVote: {
+    downvote: {
         type: Number,
         default: 0,
     },

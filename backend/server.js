@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { Thread, Reply, User } from "./dbMessages.js";
 import { createRequire } from "module";
 import cors from "cors";
+import { time } from "console";
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -75,17 +76,52 @@ app.post("/reply/:_id", (req, res) => {
             // If success, insert reply into the corresponding thread
             Thread.updateOne(
                 { _id: req.params._id },
-                { $push: { reply: data._id } },
-                function (error, success) {
-                    if (error) {
-                        console.log(error);
+                {
+                    $push: { reply: data._id },
+                    $set: { lastReplied: new Date() },
+                },
+                (err, data) => {
+                    if (err) {
+                        console.log(err);
                     } else {
-                        console.log(success);
+                        console.log(data);
                     }
                 }
             );
         }
     });
+});
+
+// Upvote a reply
+// Param id => id of the thread or reply
+app.post("/upvote/:_id", (req, res) => {
+    Reply.updateOne(
+        { _id: req.params._id },
+        { $inc: { upvote: 1 } },
+        (err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        }
+    );
+});
+
+// Downvote a reply
+// Param id => id of the thread or reply
+app.post("/downvote/:_id", (req, res) => {
+    Reply.updateOne(
+        { _id: req.params._id },
+        { $inc: { downvote: 1 } },
+        (err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        }
+    );
 });
 
 // Get all threads under user *needs to be tested*

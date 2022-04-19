@@ -2,8 +2,32 @@ import React from "react";
 import "./ReplyBlock.css";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
+import axios from "./axios";
 
-function ReplyBlock({ floor, author, time, content, upVote, downVote }) {
+function ReplyBlock({ id, floor, author, time, content, upvote, downvote }) {
+    // Todo: prevent multiple upvote/downvote
+    const handleUpvote = () => {
+        axios
+            .post(`/upvote/${id}`)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err.response);
+            });
+    };
+
+    const handleDownvote = () => {
+        axios
+            .post(`/downvote/${id}`)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err.response);
+            });
+    };
+
     return (
         <div className="thread_reply">
             <div className="thread_reply_container">
@@ -19,10 +43,16 @@ function ReplyBlock({ floor, author, time, content, upVote, downVote }) {
                 </div>
                 <div className="reply_base_level">
                     <div className="vote">
-                        <ThumbUpAltIcon className="upvote_button" />
-                        <div className="upvote_score">{upVote}</div>
-                        <ThumbDownAltIcon className="downvote_button" />
-                        <div className="downvote_score">{downVote}</div>
+                        <ThumbUpAltIcon
+                            className="upvote_button"
+                            onClick={() => handleUpvote()}
+                        />
+                        <div className="upvote_score">{upvote}</div>
+                        <ThumbDownAltIcon
+                            className="downvote_button"
+                            onClick={() => handleDownvote()}
+                        />
+                        <div className="downvote_score">{downvote}</div>
                     </div>
                 </div>
             </div>
