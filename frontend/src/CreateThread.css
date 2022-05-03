@@ -1,4 +1,4 @@
-/* Setting up the background layer of create thread window */
+/* The background layer of create thread window */
 .create_thread{
   display: flex;
   position: absolute;
@@ -111,7 +111,8 @@
   height: 3rem;
   display: flex;
   align-items: center;
-  margin-top: 3px;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 .footer_buttons{
@@ -124,11 +125,27 @@
 .cancel_button{
   height: 90%;
   width: 6rem;
-  color: aliceblue;
   border-radius: 5px;
   border: 1px solid;
   color: red;
   border-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.preview_button{
+  margin-left: 20px;
+  height: 90%;
+  width: 6rem;
+  border-radius: 5px;
+  border: 1px solid;
+  color:aliceblue;
+  border-color: aliceblue;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -161,7 +178,12 @@
   color: #222;
 }
 
+.preview_button:hover{
+  background-color: aliceblue;
+  color:#222;
+}
+
 .sumbit_thread:hover{
   background-color: rgb(248, 183, 123);
-  color: rgb(26, 26, 26);
+  color: #222;
 }

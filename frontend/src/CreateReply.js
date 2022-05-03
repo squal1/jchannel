@@ -14,7 +14,7 @@ function CreateReply() {
     const style = useSelector((state) => state.toggleCreateReply);
     const dispatch = useDispatch();
 
-    // Content of the new thread
+    // Content of the new reply
     const [content, setContent] = useState("");
 
     const handleSumbit = () => {

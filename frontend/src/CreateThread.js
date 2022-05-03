@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./CreateThread.css";
 import { useSelector, useDispatch } from "react-redux";
-import { createThreadClose } from "./actions";
+import { createThreadClose, previewThreadOpen } from "./actions";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { Editor } from "@tinymce/tinymce-react";
 import Select from "react-select";
@@ -9,6 +9,7 @@ import "tinymce/skins/ui/1.0/skin.css";
 import "tinymce/skins/ui/1.0/content.inline.css";
 import axios from "./axios";
 import DOMPurify from "dompurify";
+import PreviewThread from "./PreviewThread";
 
 function CreateThread() {
     // For toggling
@@ -65,7 +66,6 @@ function CreateThread() {
     const [content, setContent] = useState("");
 
     const handleSumbit = () => {
-        // Todo: let user preview the new thread
         const newThread = {
             author: "625107c17fddad483649749f", // Will change
             category: category.value,
@@ -136,6 +136,8 @@ function CreateThread() {
                     ></input>
                 </div>
                 <div className="create_thread_window_content">
+                    {/* Hidden. Appear when toggled */}
+                    <PreviewThread title={title} content={content} />
                     <Editor
                         apiKey="n6yu8t20ieccyzq70g4q8hqld8siccaoj0fa11nqkdj4kdds"
                         initialValue="<p></p>"
@@ -156,7 +158,7 @@ function CreateThread() {
                             ],
 
                             toolbar:
-                                "formatselect | fontsizeselect | forecolor | bold italic underline strikethrough| alignleft aligncenter alignright | bullist numlist outdent indent | help",
+                                "formatselect | fontsizeselect | forecolor backcolor | bold italic underline strikethrough| alignleft aligncenter alignright | bullist numlist | outdent indent | help",
                         }}
                         onEditorChange={(context, editor) =>
                             setContent(context)
@@ -170,6 +172,12 @@ function CreateThread() {
                             onClick={() => dispatch(createThreadClose())}
                         >
                             <p>Cancel</p>
+                        </div>
+                        <div
+                            className="preview_button"
+                            onClick={() => dispatch(previewThreadOpen())}
+                        >
+                            <p>Preview</p>
                         </div>
                         <div
                             className="sumbit_thread"

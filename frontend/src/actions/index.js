@@ -82,3 +82,15 @@ export const createReplyClose = () => {
         type: "CREATE_REPLY_CLOSE",
     };
 };
+
+export const previewThreadOpen = () => {
+    return {
+        type: "PREVIEW_THREAD_OPEN",
+    };
+};
+
+export const previewThreadClose = () => {
+    return {
+        type: "PREVIEW_THREAD_CLOSE",
+    };
+};

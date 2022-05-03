@@ -1,0 +1,51 @@
+/* The background layer of preivew thread window */
+.preview_thread{
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  z-index: 80;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The darken layer, click will exit the preview thread window */
+.preview_thread_overlay{
+  display: flex;
+  position: absolute;
+  z-index: 81;
+  background: rgba(0,0,0,.5);
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: auto;
+  flex-direction: column;
+}
+
+.preview_thread_window{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 82;
+  pointer-events: auto;
+  background-color: rgb(32, 32, 32);
+  overflow-y: scroll;
+  height: 100%;
+  width: 100%;
+}
+
+.preview_thread_exit_button{
+    display: flex;
+    background-color:gold;
+    color: rgb(3, 3, 3);
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    width: 100%;
+    font-size: large;
+    cursor: pointer;
+}

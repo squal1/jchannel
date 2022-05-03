@@ -5,6 +5,7 @@ import loginWindowToggleReducer from "./LoginWindowToggle";
 import changeCategoryReducer from "./ChangeCategory";
 import selectThreadReducer from "./SelectThread";
 import toggleCreateReplyReducer from "./ToggleCreateReply";
+import toggleThreadPreviewReducer from "./ToggleThreadPreview";
 
 const allReducers = combineReducers({
     toggleCreateReply: toggleCreateReplyReducer,
@@ -13,6 +14,7 @@ const allReducers = combineReducers({
     loginWindowToggle: loginWindowToggleReducer,
     changeCategory: changeCategoryReducer,
     selectThread: selectThreadReducer,
+    toggleThreadPreview: toggleThreadPreviewReducer,
 });
 
 export default allReducers;
