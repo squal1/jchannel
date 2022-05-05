@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import ReplyBlock from "./ReplyBlock";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { previewThreadClose } from "./actions";
+import { togglePreviewThread } from "./actions";
 
 function PreviewThread({ title, content }) {
     // For toggling
@@ -22,12 +22,15 @@ function PreviewThread({ title, content }) {
             <div className="preview_thread_window">
                 <div
                     className="preview_thread_exit_button"
-                    onClick={() => dispatch(previewThreadClose())}
+                    onClick={() => dispatch(togglePreviewThread())}
                 >
                     Exit Previewing Mode
                 </div>
                 <div className="nav_bar_right">
-                    <div className="nav_bar_right_go_back_button">
+                    <div
+                        className="nav_bar_right_go_back_button"
+                        onClick={() => dispatch(togglePreviewThread())}
+                    >
                         <ArrowBackIcon id="go_back_icon" />
                     </div>
                     <div className="nav_bar_right_thread_topic">{title}</div>
@@ -37,7 +40,7 @@ function PreviewThread({ title, content }) {
                 </div>
                 <ReplyBlock
                     id={0}
-                    floor={`#1`}
+                    floor={`##`}
                     author={"username"}
                     time={"time"}
                     content={content}

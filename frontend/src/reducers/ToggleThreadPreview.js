@@ -4,14 +4,12 @@ const initialState = {
 
 const toggleThreadPreviewReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "PREVIEW_THREAD_OPEN":
-            return {
-                display: "flex",
-            };
-        case "PREVIEW_THREAD_CLOSE":
-            return {
-                display: "none",
-            };
+        case "TOGGLE_PREVIEW_THREAD":
+            if (state.display === "flex") {
+                return { display: "none" };
+            } else {
+                return { display: "flex" };
+            }
         default:
             return state;
     }

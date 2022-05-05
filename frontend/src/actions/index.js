@@ -10,18 +10,6 @@ export const sideMenuClose = () => {
     };
 };
 
-export const createThreadOpen = () => {
-    return {
-        type: "CREATE_THREAD_OPEN",
-    };
-};
-
-export const createThreadClose = () => {
-    return {
-        type: "CREATE_THREAD_CLOSE",
-    };
-};
-
 export const loginMenuOpen = () => {
     return {
         type: "LOGIN_MENU_OPEN",
@@ -71,26 +59,26 @@ export const selectThread = (thread) => {
     };
 };
 
-export const createReplyOpen = () => {
+export const toggleCreateThread = () => {
     return {
-        type: "CREATE_REPLY_OPEN",
+        type: "TOGGLE_CREATE_THREAD",
     };
 };
 
-export const createReplyClose = () => {
+export const toggleCreateReply = () => {
     return {
-        type: "CREATE_REPLY_CLOSE",
+        type: "TOGGLE_CREATE_REPLY",
     };
 };
 
-export const previewThreadOpen = () => {
+export const togglePreviewThread = () => {
     return {
-        type: "PREVIEW_THREAD_OPEN",
+        type: "TOGGLE_PREVIEW_THREAD",
     };
 };
 
-export const previewThreadClose = () => {
+export const togglePreviewReply = () => {
     return {
-        type: "PREVIEW_THREAD_CLOSE",
+        type: "TOGGLE_PREVIEW_REPLY",
     };
 };

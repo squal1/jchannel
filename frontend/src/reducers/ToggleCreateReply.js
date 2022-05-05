@@ -4,14 +4,12 @@ const initialState = {
 
 const toggleCreateReplyReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "CREATE_REPLY_OPEN":
-            return {
-                display: "flex",
-            };
-        case "CREATE_REPLY_CLOSE":
-            return {
-                display: "none",
-            };
+        case "TOGGLE_CREATE_REPLY":
+            if (state.display === "flex") {
+                return { display: "none" };
+            } else {
+                return { display: "flex" };
+            }
         default:
             return state;
     }

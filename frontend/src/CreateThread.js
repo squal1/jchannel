@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./CreateThread.css";
 import { useSelector, useDispatch } from "react-redux";
-import { createThreadClose, previewThreadOpen } from "./actions";
+import { toggleCreateThread, togglePreviewThread } from "./actions";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { Editor } from "@tinymce/tinymce-react";
 import Select from "react-select";
@@ -10,11 +10,15 @@ import "tinymce/skins/ui/1.0/content.inline.css";
 import axios from "./axios";
 import DOMPurify from "dompurify";
 import PreviewThread from "./PreviewThread";
+import { Snackbar, Alert } from "@mui/material";
 
 function CreateThread() {
     // For toggling
     const style = useSelector((state) => state.toggleCreateThread);
     const dispatch = useDispatch();
+
+    // Snackbar status
+    const [alertOpen, setAlertOpen] = useState(false);
 
     // Styling react-select
     const customStyles = {
@@ -66,6 +70,12 @@ function CreateThread() {
     const [content, setContent] = useState("");
 
     const handleSumbit = () => {
+        // Input check
+        if (category === "" || title === "" || content === "") {
+            setAlertOpen(true);
+            return;
+        }
+
         const newThread = {
             author: "625107c17fddad483649749f", // Will change
             category: category.value,
@@ -77,7 +87,6 @@ function CreateThread() {
             content: DOMPurify.sanitize(content),
         };
 
-        // Todo: check input before create new thread
         axios // Create new thread here
             .post("/thread", newThread)
             .then((res) => {
@@ -94,8 +103,15 @@ function CreateThread() {
             .catch((err) => {
                 console.log(err.response);
             });
-        dispatch(createThreadClose());
+        dispatch(toggleCreateThread());
         // Todo: Clean up create new thread
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+        setAlertOpen(false);
     };
 
     return (
@@ -107,7 +123,7 @@ function CreateThread() {
         >
             <div
                 className="create_thread_overlay"
-                onClick={() => dispatch(createThreadClose())}
+                onClick={() => dispatch(toggleCreateThread())}
             ></div>
             <div className="create_thread_window">
                 <div className="create_thread_window_header">
@@ -122,7 +138,7 @@ function CreateThread() {
 
                     <div
                         className="create_thread_window_exit_button"
-                        onClick={() => dispatch(createThreadClose())}
+                        onClick={() => dispatch(toggleCreateThread())}
                     >
                         <ClearRoundedIcon />
                     </div>
@@ -169,13 +185,13 @@ function CreateThread() {
                     <div className="footer_buttons">
                         <div
                             className="cancel_button"
-                            onClick={() => dispatch(createThreadClose())}
+                            onClick={() => dispatch(toggleCreateThread())}
                         >
                             <p>Cancel</p>
                         </div>
                         <div
-                            className="preview_button"
-                            onClick={() => dispatch(previewThreadOpen())}
+                            className="preview_thread_button"
+                            onClick={() => dispatch(togglePreviewThread())}
                         >
                             <p>Preview</p>
                         </div>
@@ -187,6 +203,19 @@ function CreateThread() {
                         </div>
                     </div>
                 </div>
+                <Snackbar
+                    open={alertOpen}
+                    autoHideDuration={1500}
+                    onClose={handleClose}
+                >
+                    <Alert
+                        onClose={handleClose}
+                        severity="error"
+                        sx={{ width: "100%" }}
+                    >
+                        Insufficient Input. Please try again.
+                    </Alert>
+                </Snackbar>
             </div>
         </div>
     );

@@ -138,7 +138,7 @@
   cursor: pointer;
 }
 
-.preview_button{
+.preview_thread_button{
   margin-left: 20px;
   height: 90%;
   width: 6rem;
@@ -178,7 +178,7 @@
   color: #222;
 }
 
-.preview_button:hover{
+.preview_thread_button:hover{
   background-color: aliceblue;
   color:#222;
 }

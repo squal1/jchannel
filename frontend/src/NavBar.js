@@ -1,7 +1,7 @@
 import React from "react";
 import "./NavBar.css";
 import { useSelector, useDispatch } from "react-redux";
-import { sideMenuOpen, createThreadOpen, createReplyOpen } from "./actions";
+import { sideMenuOpen, toggleCreateThread, toggleCreateReply } from "./actions";
 import MenuIcon from "@mui/icons-material/Menu";
 import AddIcon from "@mui/icons-material/Add";
 import ReplyIcon from "@mui/icons-material/Reply";
@@ -30,7 +30,7 @@ function NavBar() {
                 </div>
                 <div
                     className="nav_bar_left_create_thread_button"
-                    onClick={() => dispatch(createThreadOpen())}
+                    onClick={() => dispatch(toggleCreateThread())}
                 >
                     <AddIcon />
                 </div>
@@ -46,7 +46,7 @@ function NavBar() {
                     </div>
                     <div
                         className="nav_bar_right_reply_button"
-                        onClick={() => dispatch(createReplyOpen())}
+                        onClick={() => dispatch(toggleCreateReply())}
                     >
                         <ReplyIcon id="reply_icon" />
                     </div>
