@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ReplyList.css";
 import ReplyBlock from "./ReplyBlock";
-import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import axios from "./axios";
 
 function ReplyList() {
-    const selectThread = useSelector((state) => state.selectThread);
+    const { _id } = useParams();
+    const [reply, setReply] = useState([]);
+
+    // Load Reply after selected a thread
+    useEffect(() => {
+        if (typeof _id !== "undefined") {
+            axios.get(`/thread/reply/${_id}`).then((response) => {
+                setReply(response.data.reply);
+            });
+        }
+    }, [_id]);
 
     return (
         <div className="thread_content">
-            {selectThread.currentThread._id ? (
+            {reply ? (
                 <div>
-                    {selectThread.currentThread.reply.map((item, index) => {
+                    {reply.map((item, index) => {
                         return (
                             <ReplyBlock
                                 id={item._id}

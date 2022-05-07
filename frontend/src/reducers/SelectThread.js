@@ -1,11 +1,10 @@
 const initialState = {
     currentThread: {
         author: "",
+        category: "",
         title: "",
-        content: "",
-        createdAt: "",
-        upVote: "",
-        downVote: "",
+        reply: "",
+        lastReplied: "",
     },
 };
 

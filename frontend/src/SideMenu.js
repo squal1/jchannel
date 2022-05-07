@@ -2,28 +2,28 @@ import React from "react";
 import "./SideMenu.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    sideMenuClose,
-    loginMenuOpen,
-    categoryChangeToTrending,
-    categoryChangeToGeneral,
-    categoryChangeToGossip,
-    categoryChangeToCourse,
-    categoryChangeToJob,
-} from "./actions";
+import { sideMenuClose, loginMenuOpen, selectCategory } from "./actions";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import { useNavigate } from "react-router";
+import { useParams } from "react-router-dom";
 
 function SideMenu() {
-    /* Redux */
+    let navigate = useNavigate();
     const style = useSelector((state) => state.toggleSideMenu);
-    const category = useSelector((state) => state.changeCategory);
     const dispatch = useDispatch();
+    const { category } = useParams();
 
-    // Close SideMenu when select new category
+    // Close SideMenu after selected new category
     useEffect(() => {
         dispatch(sideMenuClose());
     }, [category]);
+
+    const handleCategorySelect = (category) => {
+        navigate(`category/${category}`);
+        dispatch(selectCategory(category));
+        dispatch(sideMenuClose());
+    };
 
     return (
         <div className="side_menu">
@@ -67,31 +67,31 @@ function SideMenu() {
                     <p>Categories</p>
                     <div
                         className="category_trending"
-                        onClick={() => dispatch(categoryChangeToTrending())}
+                        onClick={() => handleCategorySelect("trending")}
                     >
                         Trending
                     </div>
                     <div
                         className="category_general"
-                        onClick={() => dispatch(categoryChangeToGeneral())}
+                        onClick={() => handleCategorySelect("general")}
                     >
                         General
                     </div>
                     <div
                         className="category_gossip"
-                        onClick={() => dispatch(categoryChangeToGossip())}
+                        onClick={() => handleCategorySelect("gossip")}
                     >
                         Gossip
                     </div>
                     <div
                         className="category_courses_profs"
-                        onClick={() => dispatch(categoryChangeToCourse())}
+                        onClick={() => handleCategorySelect("course")}
                     >
                         Courses&amp;Profs
                     </div>
                     <div
                         className="category_job_connections"
-                        onClick={() => dispatch(categoryChangeToJob())}
+                        onClick={() => handleCategorySelect("job")}
                     >
                         Job connections
                     </div>

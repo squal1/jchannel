@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import { Thread, Reply, User } from "./dbMessages.js";
 import { createRequire } from "module";
 import cors from "cors";
-import { time } from "console";
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -27,13 +26,36 @@ db.once("open", () => {
 });
 
 // End points
-app.get("/", (req, res) => res.status(200).send("hello world"));
+app.get("/", (req, res) => {
+    // REDIRECT goes here
+    res.redirect("/category");
+});
 
-// Get all threads under cartail category
+// Get all threads of a category
 // Param category --> "trending"/"general"/"gossip"/"course"/"job"
 app.get("/thread/:category", (req, res) => {
     Thread.find({ category: req.params.category })
         .populate("author")
+        .populate({
+            path: "reply",
+            populate: {
+                path: "author",
+            },
+        })
+        .exec((err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        });
+});
+
+// Get all replies under a thread
+// Param _id --> id of the thread
+app.get("/thread/reply/:_id", (req, res) => {
+    Thread.findOne({ _id: req.params._id })
+        .select("reply")
         .populate({
             path: "reply",
             populate: {

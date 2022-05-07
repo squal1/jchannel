@@ -28,21 +28,3 @@
     display: none;
   }
 }
-
-/* When topic is not seelcted
-@media (max-width: 750px){
-  .nav_bar_left{
-    min-width: 100%;
-  }
-
-  .thread_bar{
-    min-width: 100%;
-  }
-
-  .bottom_bar{
-    display: flex;
-  }
-}
-*/
-
-

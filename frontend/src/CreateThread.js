@@ -38,7 +38,7 @@ function CreateThread() {
         menu: (base) => ({
             ...base,
             marginTop: 0,
-            zIndex: 9999,
+            zIndex: 999,
         }),
         menuList: (base) => ({
             ...base,

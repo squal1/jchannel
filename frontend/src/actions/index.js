@@ -22,40 +22,17 @@ export const loginMenuClose = () => {
     };
 };
 
-export const categoryChangeToTrending = () => {
-    return {
-        type: "TRENDING",
-    };
-};
-
-export const categoryChangeToGeneral = () => {
-    return {
-        type: "GENERAL",
-    };
-};
-
-export const categoryChangeToGossip = () => {
-    return {
-        type: "GOSSIP",
-    };
-};
-
-export const categoryChangeToCourse = () => {
-    return {
-        type: "COURSE",
-    };
-};
-
-export const categoryChangeToJob = () => {
-    return {
-        type: "JOB",
-    };
-};
-
 export const selectThread = (thread) => {
     return {
         type: "SELECT_THREAD",
         payload: thread,
+    };
+};
+
+export const selectCategory = (category) => {
+    return {
+        type: "SELECT_CATEGORY",
+        payload: category,
     };
 };
 

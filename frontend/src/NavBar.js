@@ -9,7 +9,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CachedRoundedIcon from "@mui/icons-material/CachedRounded";
 
 function NavBar() {
-    const category = useSelector((state) => state.changeCategory);
+    const { category } = useSelector((state) => state.selectCategory);
     const selectThread = useSelector((state) => state.selectThread);
     const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ function NavBar() {
                     <MenuIcon className="nav_bar_left_menu_icon" />
                 </div>
 
-                <div className="category_name">{category.categoryName}</div>
+                <div className="category_name">{category.toUpperCase()}</div>
 
                 <div className="nav_bar_left_f5_button">
                     <CachedRoundedIcon />

@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./ThreadList.css";
 import ThreadBlock from "./ThreadBlock";
-import { useSelector, useDispatch } from "react-redux";
 import axios from "./axios";
+import { useParams } from "react-router-dom";
 
 function ThreadList() {
-    const category = useSelector((state) => state.changeCategory);
+    const { category } = useParams();
     const [threads, setThreads] = useState([]);
 
-    // Load threads of a category
+    // Load threads after selected a category
     useEffect(() => {
-        axios.get(`/thread/${category.category}`).then((response) => {
-            console.log(response);
-            setThreads(response.data);
-        });
-    }, [category.category]);
+        if (typeof category !== "undefined") {
+            axios.get(`/thread/${category}`).then((response) => {
+                setThreads(response.data);
+            });
+        }
+    }, [category]);
 
     return (
         <div className="thread_bar">

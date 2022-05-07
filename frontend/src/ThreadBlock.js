@@ -3,11 +3,14 @@ import "./ThreadBlock.css";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import { useDispatch } from "react-redux";
 import { selectThread } from "./actions";
+import { useNavigate } from "react-router";
 
 function ThreadBlock({ thread }) {
+    let navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleSelectThread = () => {
+        navigate(`/thread/${thread._id}`);
         dispatch(selectThread(thread));
     };
 
