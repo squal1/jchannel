@@ -1,9 +1,10 @@
-import React from "react";
 import "./ThreadBlock.css";
-import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { selectThread } from "./actions";
 import { useNavigate } from "react-router";
+import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 
 function ThreadBlock({ thread }) {
     let navigate = useNavigate();
@@ -27,6 +28,12 @@ function ThreadBlock({ thread }) {
                         </div>
                         <div className="thread_block_vote_score">
                             {thread.reply[0].upvote - thread.reply[0].downvote}
+                        </div>
+                        <div className="reply_count_icon">
+                            <ForumRoundedIcon />
+                        </div>
+                        <div className="thread_block_reply_count">
+                            {thread.reply.length}
                         </div>
                     </div>
                     <div className="thread_block_last_reply_time">

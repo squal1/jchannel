@@ -40,12 +40,12 @@
     font-weight: 300;
 }
 
-.fire_icon{
+.fire_icon, .reply_count_icon{
     margin-top: 3px;
-    margin-left: 12px;
+    margin-left: 10px;
     transform: scale(0.7);
 }
-.thread_block_vote_score{
+.thread_block_vote_score,.thread_block_reply_count{
     font-size: 12px;
     font-weight: 500;
 }

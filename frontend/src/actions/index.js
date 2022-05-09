@@ -59,3 +59,15 @@ export const togglePreviewReply = () => {
         type: "TOGGLE_PREVIEW_REPLY",
     };
 };
+
+export const refreshThreadStart = () => {
+    return {
+        type: "REFRESH_THREAD_START",
+    };
+};
+
+export const refreshThreadEnd = () => {
+    return {
+        type: "REFRESH_THREAD_END",
+    };
+};
