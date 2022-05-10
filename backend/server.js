@@ -35,6 +35,7 @@ app.get("/", (req, res) => {
 // Param category --> "trending"/"general"/"gossip"/"course"/"job"
 app.get("/thread/:category", (req, res) => {
     Thread.find({ category: req.params.category })
+        .sort({ lastReplied: -1 })
         .populate("author")
         .populate({
             path: "reply",

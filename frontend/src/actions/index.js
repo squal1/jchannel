@@ -71,3 +71,10 @@ export const refreshThreadEnd = () => {
         type: "REFRESH_THREAD_END",
     };
 };
+
+export const setThread = (threads) => {
+    return {
+        type: "SET_THREAD",
+        payload: threads,
+    };
+};

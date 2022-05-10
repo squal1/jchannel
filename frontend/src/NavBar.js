@@ -1,5 +1,6 @@
 import React from "react";
 import "./NavBar.css";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
     sideMenuOpen,
@@ -14,9 +15,10 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CachedRoundedIcon from "@mui/icons-material/CachedRounded";
 
 function NavBar() {
+    let navigate = useNavigate();
+    const dispatch = useDispatch();
     const { category } = useSelector((state) => state.selectCategory);
     const selectThread = useSelector((state) => state.selectThread);
-    const dispatch = useDispatch();
 
     return (
         <nav className="nav_bar">
@@ -46,7 +48,10 @@ function NavBar() {
             {selectThread.currentThread._id ? (
                 /* When thread is selected */
                 <div className="nav_bar_right">
-                    <div className="nav_bar_right_go_back_button">
+                    <div
+                        className="nav_bar_right_go_back_button"
+                        onClick={() => navigate(-1)}
+                    >
                         <ArrowBackIcon id="go_back_icon" />
                     </div>
                     <div className="nav_bar_right_thread_topic">

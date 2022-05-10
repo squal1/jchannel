@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import "./CreateThread.css";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleCreateThread, togglePreviewThread } from "./actions";
+import {
+    toggleCreateThread,
+    togglePreviewThread,
+    selectCategory,
+    refreshThreadStart,
+    refreshThreadEnd,
+    setThread,
+} from "./actions";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { Editor } from "@tinymce/tinymce-react";
 import Select from "react-select";
@@ -11,11 +18,17 @@ import axios from "./axios";
 import DOMPurify from "dompurify";
 import PreviewThread from "./PreviewThread";
 import { Snackbar, Alert } from "@mui/material";
+import { useNavigate } from "react-router";
 
 function CreateThread() {
+    let navigate = useNavigate();
     // For toggling
     const style = useSelector((state) => state.toggleCreateThread);
     const dispatch = useDispatch();
+
+    const currentCategory = useSelector(
+        (state) => state.selectCategory.category
+    );
 
     // Snackbar status
     const [alertOpen, setAlertOpen] = useState(false);
@@ -95,6 +108,21 @@ function CreateThread() {
                     .post(`/reply/${res.data._id}`, newReply)
                     .then((res) => {
                         console.log(res);
+                        // Auto refresh after created new thread
+                        if (currentCategory === category.value) {
+                            dispatch(refreshThreadStart());
+                            axios
+                                .get(`/thread/${currentCategory}`)
+                                .then((response) => {
+                                    setTimeout(() => {
+                                        dispatch(setThread(response.data));
+                                        dispatch(refreshThreadEnd());
+                                    }, 500);
+                                });
+                        } else {
+                            navigate(`category/${category.value}`);
+                            dispatch(selectCategory(category.value));
+                        }
                     })
                     .catch((err) => {
                         console.log(err.response);
@@ -103,8 +131,10 @@ function CreateThread() {
             .catch((err) => {
                 console.log(err.response);
             });
+        // Todo: reset variables
+
+        // Close the window at the end
         dispatch(toggleCreateThread());
-        // Todo: Clean up create new thread
     };
 
     const handleClose = (event, reason) => {

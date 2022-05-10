@@ -20,6 +20,7 @@ function SideMenu() {
     }, [category]);
 
     const handleCategorySelect = (category) => {
+        // URL navigate
         navigate(`category/${category}`);
         dispatch(selectCategory(category));
         dispatch(sideMenuClose());
