@@ -30,8 +30,6 @@ function CreateReply() {
     const [content, setContent] = useState("");
 
     const handleSumbit = () => {
-        // Todo: let user preview the reply
-
         // Input Check
         if (content === "") {
             setAlertOpen(true);

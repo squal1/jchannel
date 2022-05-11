@@ -30,12 +30,38 @@ app.get("/", (req, res) => {
     // REDIRECT goes here
     res.redirect("/category");
 });
-
+/*
 // Get all threads of a category
 // Param category --> "trending"/"general"/"gossip"/"course"/"job"
 app.get("/thread/:category", (req, res) => {
     Thread.find({ category: req.params.category })
         .sort({ lastReplied: -1 })
+        .populate("author")
+        .populate({
+            path: "reply",
+            populate: {
+                path: "author",
+            },
+        })
+        .exec((err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        });
+});
+*/
+// **Test skipping and limit**
+app.get("/thread/:category", (req, res) => {
+    const skip =
+        req.query.skip && /^\d+$/.test(req.query.skip)
+            ? Number(req.query.skip)
+            : 0;
+    Thread.find({ category: req.params.category })
+        .sort({ lastReplied: -1 })
+        .skip(skip)
+        .limit(8)
         .populate("author")
         .populate({
             path: "reply",
