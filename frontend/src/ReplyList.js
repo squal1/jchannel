@@ -10,11 +10,12 @@ function ReplyList() {
 
     // Load Reply after selected a thread
     useEffect(() => {
-        if (typeof _id !== "undefined") {
-            axios.get(`/thread/reply/${_id}`).then((response) => {
-                setReply(response.data.reply);
-            });
+        if (typeof _id === "undefined") {
+            return;
         }
+        axios.get(`/thread/reply/${_id}`).then((response) => {
+            setReply(response.data.reply);
+        });
     }, [_id]);
 
     return (
@@ -24,6 +25,7 @@ function ReplyList() {
                     {reply.map((item, index) => {
                         return (
                             <ReplyBlock
+                                key={item._id}
                                 id={item._id}
                                 floor={`#${index + 1}`}
                                 author={item.author.username}

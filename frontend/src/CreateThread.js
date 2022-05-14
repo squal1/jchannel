@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import "./CreateThread.css";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
     toggleCreateThread,
@@ -22,9 +22,9 @@ import { useNavigate } from "react-router";
 
 function CreateThread() {
     let navigate = useNavigate();
-    // For toggling
     const style = useSelector((state) => state.toggleCreateThread);
     const dispatch = useDispatch();
+    const [sumbitted, setSubmitted] = useState(false);
 
     const currentCategory = useSelector(
         (state) => state.selectCategory.category
@@ -123,6 +123,11 @@ function CreateThread() {
                             navigate(`category/${category.value}`);
                             dispatch(selectCategory(category.value));
                         }
+                        // Reset variables
+                        setTitle("");
+                        setCategory("");
+                        setContent("");
+                        setSubmitted(true);
                     })
                     .catch((err) => {
                         console.log(err.response);
@@ -131,12 +136,18 @@ function CreateThread() {
             .catch((err) => {
                 console.log(err.response);
             });
-        // Todo: reset variables
-
         // Close the window at the end
         dispatch(toggleCreateThread());
     };
 
+    // For resetting tinymce
+    useEffect(() => {
+        if (sumbitted === true) {
+            setSubmitted(false);
+        }
+    }, [sumbitted]);
+
+    // For error snack bar
     const handleClose = (event, reason) => {
         if (reason === "clickaway") {
             return;
@@ -160,8 +171,9 @@ function CreateThread() {
                     <div>
                         <p>Creating new thread in: </p>
                         <Select
-                            options={options}
                             styles={customStyles}
+                            options={options}
+                            value={category}
                             onChange={(option) => setCategory(option)}
                         />
                     </div>
@@ -182,34 +194,37 @@ function CreateThread() {
                     ></input>
                 </div>
                 <div className="create_thread_window_content">
-                    {/* Hidden. Appear when toggled */}
+                    {/* PreviewThread is hidden in default. Appear when toggled */}
                     <PreviewThread title={title} content={content} />
-                    <Editor
-                        apiKey="n6yu8t20ieccyzq70g4q8hqld8siccaoj0fa11nqkdj4kdds"
-                        initialValue="<p></p>"
-                        init={{
-                            selector: ".editor",
-                            content_css: "default",
-                            skin: false,
-                            content_style: "body { color: white; }",
-                            menubar: false,
-                            resize: false,
-                            height: "99%",
-                            width: "98%",
-                            plugins: [
-                                "advlist autolink lists link image",
-                                "charmap print preview anchor help",
-                                "searchreplace visualblocks code",
-                                "insertdatetime media table paste wordcount",
-                            ],
-
-                            toolbar:
-                                "formatselect | fontsizeselect | forecolor backcolor | bold italic underline strikethrough| alignleft aligncenter alignright | bullist numlist | outdent indent | help",
-                        }}
-                        onEditorChange={(context, editor) =>
-                            setContent(context)
-                        }
-                    />
+                    {!sumbitted ? (
+                        <Editor
+                            apiKey="n6yu8t20ieccyzq70g4q8hqld8siccaoj0fa11nqkdj4kdds"
+                            initialValue="<p></p>"
+                            init={{
+                                selector: ".editor",
+                                content_css: "default",
+                                skin: false,
+                                content_style: "body { color: white; }",
+                                menubar: false,
+                                resize: false,
+                                height: "99%",
+                                width: "98%",
+                                plugins: [
+                                    "advlist autolink lists link image",
+                                    "charmap print preview anchor help",
+                                    "searchreplace visualblocks code",
+                                    "insertdatetime media table paste wordcount",
+                                ],
+                                toolbar:
+                                    "formatselect | fontsizeselect | forecolor backcolor | bold italic underline strikethrough| alignleft aligncenter alignright | bullist numlist | outdent indent | help",
+                            }}
+                            onEditorChange={(context, editor) =>
+                                setContent(context)
+                            }
+                        />
+                    ) : (
+                        <></>
+                    )}
                 </div>
                 <div className="create_thread_window_footer">
                     <div className="footer_buttons">

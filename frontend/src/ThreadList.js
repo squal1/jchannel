@@ -65,7 +65,7 @@ function ThreadList() {
         console.log(
             `offsetHeight: ${offsetHeight} scrollTop: ${scrollTop} scrollHeight: ${scrollHeight}`
         );
-        if (offsetHeight + scrollTop - 1 === scrollHeight) {
+        if (offsetHeight + scrollTop >= scrollHeight) {
             setSkip(currentThreads.length);
         }
     };
