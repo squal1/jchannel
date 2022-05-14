@@ -2,9 +2,9 @@ const initialState = {
     list: [],
 };
 
-const setThreadReducer = (state = initialState, action) => {
+const replyReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "SET_THREAD":
+        case "SET_REPLY":
             return {
                 ...state,
                 list: action.payload,
@@ -14,4 +14,4 @@ const setThreadReducer = (state = initialState, action) => {
     }
 };
 
-export default setThreadReducer;
+export default replyReducer;

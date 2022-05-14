@@ -8,7 +8,8 @@ import toggleCreateReplyReducer from "./ToggleCreateReply";
 import toggleThreadPreviewReducer from "./ToggleThreadPreview";
 import toggleReplyPreviewReducer from "./ToggleReplyPreview";
 import refreshThreadReducer from "./RefreshThread";
-import setThreadReducer from "./SetThread";
+import threadReducer from "./Thread";
+import replyReducer from "./Reply";
 
 const allReducers = combineReducers({
     selectCategory: selectCategoryReducer,
@@ -20,7 +21,8 @@ const allReducers = combineReducers({
     toggleThreadPreview: toggleThreadPreviewReducer,
     toggleReplyPreview: toggleReplyPreviewReducer,
     refreshThread: refreshThreadReducer,
-    threads: setThreadReducer,
+    threads: threadReducer,
+    replies: replyReducer,
 });
 
 export default allReducers;

@@ -78,3 +78,10 @@ export const setThread = (threads) => {
         payload: threads,
     };
 };
+
+export const setReply = (replies) => {
+    return {
+        type: "SET_REPLY",
+        payload: replies,
+    };
+};

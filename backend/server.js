@@ -30,29 +30,10 @@ app.get("/", (req, res) => {
     // REDIRECT goes here
     res.redirect("/category");
 });
-/*
-// Get all threads of a category
+
+// Get threads of a category
 // Param category --> "trending"/"general"/"gossip"/"course"/"job"
-app.get("/thread/:category", (req, res) => {
-    Thread.find({ category: req.params.category })
-        .sort({ lastReplied: -1 })
-        .populate("author")
-        .populate({
-            path: "reply",
-            populate: {
-                path: "author",
-            },
-        })
-        .exec((err, data) => {
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                res.status(200).send(data);
-            }
-        });
-});
-*/
-// **Test skipping and limit**
+// Param skip --> skipping first n elements (0,10,20,30...)
 app.get("/thread/:category", (req, res) => {
     const skip =
         req.query.skip && /^\d+$/.test(req.query.skip)
@@ -61,7 +42,7 @@ app.get("/thread/:category", (req, res) => {
     Thread.find({ category: req.params.category })
         .sort({ lastReplied: -1 })
         .skip(skip)
-        .limit(8)
+        .limit(10)
         .populate("author")
         .populate({
             path: "reply",
@@ -78,9 +59,14 @@ app.get("/thread/:category", (req, res) => {
         });
 });
 
-// Get all replies under a thread
+// Get replies of a thread
 // Param _id --> id of the thread
+// Param skip --> skipping first n elements (0,25,50,75...)
 app.get("/thread/reply/:_id", (req, res) => {
+    const skip =
+        req.query.skip && /^\d+$/.test(req.query.skip)
+            ? Number(req.query.skip)
+            : 0;
     Thread.findOne({ _id: req.params._id })
         .select("reply")
         .populate({
@@ -89,6 +75,7 @@ app.get("/thread/reply/:_id", (req, res) => {
                 path: "author",
             },
         })
+        .slice("reply", [skip, 25])
         .exec((err, data) => {
             if (err) {
                 res.status(500).send(err);
