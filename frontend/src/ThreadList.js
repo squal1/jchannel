@@ -36,7 +36,7 @@ function ThreadList() {
         axios
             .get(`/thread/${currentCategory}?skip=${skip}`)
             .then((response) => {
-                // Append the new threads threads list
+                // Append the new threads to the threads list
                 dispatch(setThread([...currentThreads, ...response.data]));
             });
     }, [skip]);

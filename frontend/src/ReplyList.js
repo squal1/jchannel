@@ -5,10 +5,12 @@ import { useParams } from "react-router-dom";
 import axios from "./axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setReply } from "./actions";
+import ReplyPage from "./ReplyPage";
+
 function ReplyList() {
+    const pageSize = 25;
     const dispatch = useDispatch();
     const { _id } = useParams();
-    //const [reply, setReply] = useState([]);
     const [skip, setSkip] = useState(0);
     const currentReplies = useSelector((state) => state.replies.list);
 
@@ -17,17 +19,23 @@ function ReplyList() {
         if (typeof _id === "undefined") {
             return;
         }
+        setSkip(0);
         axios.get(`/thread/reply/${_id}?skip=${0}`).then((response) => {
-            dispatch(setReply(response.data.reply));
+            setTimeout(() => {
+                dispatch(setReply([response.data.reply]));
+            }, 200);
         });
     }, [_id]);
 
     // Infinite scroll
     useEffect(() => {
         axios.get(`/thread/reply/${_id}?skip=${skip}`).then((response) => {
-            // Append the new threads threads list
-
-            dispatch(setReply([...currentReplies, ...response.data.reply]));
+            // Case when no reply on new page
+            if (response.data.reply.length === 0) {
+                return;
+            }
+            // Append new replies to the list
+            dispatch(setReply([...currentReplies, [...response.data.reply]]));
         });
     }, [skip]);
 
@@ -36,9 +44,12 @@ function ReplyList() {
         console.log(
             `offsetHeight: ${offsetHeight} scrollTop: ${scrollTop} scrollHeight: ${scrollHeight}`
         );
-        if (offsetHeight + scrollTop + 1 >= scrollHeight) {
-            console.log(currentReplies.length);
-            setSkip(currentReplies.length);
+        if (offsetHeight + scrollTop + 10 >= scrollHeight) {
+            if (currentReplies[currentReplies.length - 1].length < 25) {
+                return;
+            }
+            console.log(currentReplies.length * pageSize);
+            setSkip(currentReplies.length * pageSize);
         }
     };
 
@@ -47,18 +58,7 @@ function ReplyList() {
             {currentReplies ? (
                 <div>
                     {currentReplies.map((item, index) => {
-                        return (
-                            <ReplyBlock
-                                key={item._id}
-                                id={item._id}
-                                floor={`#${index + 1}`}
-                                author={item.author.username}
-                                time={item.time}
-                                content={item.content}
-                                upvote={item.upvote}
-                                downvote={item.downvote}
-                            />
-                        );
+                        return <ReplyPage pageNumber={index} replies={item} />;
                     })}
                 </div>
             ) : (

@@ -1,12 +1,12 @@
 .reply_list{
-    background-color: rgb(32, 32, 32);
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    overflow-y:scroll;
-    scrollbar-color: #3f3f3f #151515;
-  }
+  background-color: rgb(32, 32, 32);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y:scroll;
+  scrollbar-color: #3f3f3f #151515;
+}
   
-  .end_of_thread_content{
-    min-height: 3rem;
-  }
+.end_of_thread_content{
+  min-height: 3rem;
+}
