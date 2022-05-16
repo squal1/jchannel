@@ -8,6 +8,7 @@ import toggleCreateReplyReducer from "./ToggleCreateReply";
 import toggleThreadPreviewReducer from "./ToggleThreadPreview";
 import toggleReplyPreviewReducer from "./ToggleReplyPreview";
 import refreshThreadReducer from "./RefreshThread";
+import refreshReplyReducer from "./RefreshReply";
 import threadReducer from "./Thread";
 import replyReducer from "./Reply";
 
@@ -21,6 +22,7 @@ const allReducers = combineReducers({
     toggleThreadPreview: toggleThreadPreviewReducer,
     toggleReplyPreview: toggleReplyPreviewReducer,
     refreshThread: refreshThreadReducer,
+    refreshReply: refreshReplyReducer,
     threads: threadReducer,
     replies: replyReducer,
 });

@@ -1,0 +1,8 @@
+.reply_page_header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:rgb(248, 183, 123);
+    margin-top: 15px;
+    font-size: 18px;
+}

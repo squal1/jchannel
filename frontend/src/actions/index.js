@@ -72,6 +72,18 @@ export const refreshThreadEnd = () => {
     };
 };
 
+export const refreshReplyStart = () => {
+    return {
+        type: "REFRESH_REPLY_START",
+    };
+};
+
+export const refreshReplyEnd = () => {
+    return {
+        type: "REFRESH_REPLY_END",
+    };
+};
+
 export const setThread = (threads) => {
     return {
         type: "SET_THREAD",

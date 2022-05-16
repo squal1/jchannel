@@ -52,6 +52,7 @@ function ThreadList() {
             left: 0,
             behavior: "smooth",
         });
+        // Reset thread list
         axios.get(`/thread/${currentCategory}?skip=${0}`).then((response) => {
             setTimeout(() => {
                 dispatch(setThread(response.data));

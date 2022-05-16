@@ -62,11 +62,16 @@ app.get("/thread/:category", (req, res) => {
 // Get replies of a thread
 // Param _id --> id of the thread
 // Param skip --> skipping first n elements (0,25,50,75...)
+// Param count --> number of replies returning (default:25)
 app.get("/thread/reply/:_id", (req, res) => {
     const skip =
         req.query.skip && /^\d+$/.test(req.query.skip)
             ? Number(req.query.skip)
             : 0;
+    const count =
+        req.query.count && /^\d+$/.test(req.query.count)
+            ? Number(req.query.count)
+            : 25;
     Thread.findOne({ _id: req.params._id })
         .select("reply")
         .populate({
@@ -75,7 +80,7 @@ app.get("/thread/reply/:_id", (req, res) => {
                 path: "author",
             },
         })
-        .slice("reply", [skip, 25])
+        .slice("reply", [skip, count])
         .exec((err, data) => {
             if (err) {
                 res.status(500).send(err);
