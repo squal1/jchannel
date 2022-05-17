@@ -18,7 +18,9 @@ function NavBar() {
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const { category } = useSelector((state) => state.selectCategory);
-    const selectThread = useSelector((state) => state.selectThread);
+    const currentThread = useSelector(
+        (state) => state.selectThread.currentThread
+    );
 
     return (
         <nav className="nav_bar">
@@ -45,7 +47,7 @@ function NavBar() {
                     <AddIcon />
                 </div>
             </div>
-            {selectThread.currentThread._id ? (
+            {currentThread._id ? (
                 /* When thread is selected */
                 <div className="nav_bar_right">
                     <div
@@ -55,11 +57,22 @@ function NavBar() {
                         <ArrowBackIcon id="go_back_icon" />
                     </div>
                     <div className="nav_bar_right_thread_topic">
-                        {selectThread.currentThread.title}
+                        {currentThread.title}
                     </div>
                     <div
                         className="nav_bar_right_reply_button"
-                        onClick={() => dispatch(toggleCreateReply())}
+                        onClick={() => {
+                            if (currentThread.reply.length >= 500) {
+                                return;
+                            }
+                            dispatch(toggleCreateReply());
+                        }}
+                        style={{
+                            cursor:
+                                currentThread.reply.length >= 500
+                                    ? "not-allowed"
+                                    : "pointer",
+                        }}
                     >
                         <ReplyIcon id="reply_icon" />
                     </div>

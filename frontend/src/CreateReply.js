@@ -77,7 +77,12 @@ function CreateReply() {
                 dispatch(refreshReplyStart());
             })
             .catch((error) => {
-                console.log(error.response);
+                // Error message
+                setSnackbarInfo({
+                    severity: "error",
+                    content: error.response.data.message,
+                });
+                setAlertOpen(true);
             });
 
         dispatch(toggleCreateReply());
@@ -160,7 +165,7 @@ function CreateReply() {
             </div>
             <Snackbar
                 open={alertOpen}
-                autoHideDuration={1000}
+                autoHideDuration={1500}
                 onClose={handleClose}
             >
                 <Alert

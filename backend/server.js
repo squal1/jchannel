@@ -108,29 +108,46 @@ app.post("/thread", (req, res) => {
 app.post("/reply/:_id", (req, res) => {
     const dbMessage = req.body;
 
-    // Create reply here
-    Reply.create(dbMessage, (err, data) => {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            res.status(201).send(data);
-            // If success, insert reply into the corresponding thread
-            Thread.updateOne(
-                { _id: req.params._id },
-                {
-                    $push: { reply: data._id },
-                    $set: { lastReplied: new Date() },
-                },
-                (err, data) => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        console.log(data);
-                    }
+    // Check reply number (>=500)
+    Thread.findOne({ _id: req.params._id })
+        .select("reply")
+        .exec((err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                if (data.reply.length >= 500) {
+                    // Maximum reply reached
+                    return res.status(500).json({
+                        message:
+                            "Maximum reply number reached. Replying to this thread is not allowed",
+                    });
+                } else {
+                    // If reply < 500, create reply
+                    Reply.create(dbMessage, (err, data) => {
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            res.status(201).send(data);
+                            // If success, insert reply into the corresponding thread
+                            Thread.updateOne(
+                                { _id: req.params._id },
+                                {
+                                    $push: { reply: data._id },
+                                    $set: { lastReplied: new Date() },
+                                },
+                                (err, data) => {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        console.log(data);
+                                    }
+                                }
+                            );
+                        }
+                    });
                 }
-            );
-        }
-    });
+            }
+        });
 });
 
 // Upvote a reply
