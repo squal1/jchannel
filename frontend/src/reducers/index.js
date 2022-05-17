@@ -5,8 +5,8 @@ import togglesideMenuReducer from "./ToggleSideMenu";
 import toggleCreateThreadReducer from "./ToggleCreateThread";
 import loginWindowToggleReducer from "./LoginWindowToggle";
 import toggleCreateReplyReducer from "./ToggleCreateReply";
-import toggleThreadPreviewReducer from "./ToggleThreadPreview";
-import toggleReplyPreviewReducer from "./ToggleReplyPreview";
+import togglePreviewThreadReducer from "./TogglePreviewThread";
+import togglePreviewReplyReducer from "./togglePreviewReply";
 import refreshThreadReducer from "./RefreshThread";
 import refreshReplyReducer from "./RefreshReply";
 import threadReducer from "./Thread";
@@ -19,8 +19,8 @@ const allReducers = combineReducers({
     toggleCreateThread: toggleCreateThreadReducer,
     toggleSideMenu: togglesideMenuReducer,
     loginWindowToggle: loginWindowToggleReducer,
-    toggleThreadPreview: toggleThreadPreviewReducer,
-    toggleReplyPreview: toggleReplyPreviewReducer,
+    togglePreviewThread: togglePreviewThreadReducer,
+    togglePreviewReply: togglePreviewReplyReducer,
     refreshThread: refreshThreadReducer,
     refreshReply: refreshReplyReducer,
     threads: threadReducer,

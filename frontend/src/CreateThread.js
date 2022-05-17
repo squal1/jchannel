@@ -32,6 +32,10 @@ function CreateThread() {
 
     // Snackbar status
     const [alertOpen, setAlertOpen] = useState(false);
+    const [snackbarInfo, setSnackbarInfo] = useState({
+        severity: "error",
+        content: "",
+    });
 
     // Styling react-select
     const customStyles = {
@@ -85,6 +89,10 @@ function CreateThread() {
     const handleSumbit = () => {
         // Input check
         if (category === "" || title === "" || content === "") {
+            setSnackbarInfo({
+                severity: "error",
+                content: "Insufficient input. Please try again.",
+            });
             setAlertOpen(true);
             return;
         }
@@ -107,6 +115,12 @@ function CreateThread() {
                 axios
                     .post(`/reply/${res.data._id}`, newReply)
                     .then((res) => {
+                        // Success message
+                        setSnackbarInfo({
+                            severity: "success",
+                            content: "New thread created.",
+                        });
+                        setAlertOpen(true);
                         console.log(res);
                         // Auto refresh after created new thread
                         if (currentCategory === category.value) {
@@ -147,7 +161,7 @@ function CreateThread() {
         }
     }, [sumbitted]);
 
-    // For error snack bar
+    // For snack bar
     const handleClose = (event, reason) => {
         if (reason === "clickaway") {
             return;
@@ -156,112 +170,114 @@ function CreateThread() {
     };
 
     return (
-        <div
-            className="create_thread"
-            style={{
-                display: style.display,
-            }}
-        >
+        <div>
             <div
-                className="create_thread_overlay"
-                onClick={() => dispatch(toggleCreateThread())}
-            ></div>
-            <div className="create_thread_window">
-                <div className="create_thread_window_header">
-                    <div>
-                        <p>Creating new thread in: </p>
-                        <Select
-                            styles={customStyles}
-                            options={options}
-                            value={category}
-                            onChange={(option) => setCategory(option)}
-                        />
-                    </div>
+                className="create_thread"
+                style={{
+                    display: style.display,
+                }}
+            >
+                <div
+                    className="create_thread_overlay"
+                    onClick={() => dispatch(toggleCreateThread())}
+                ></div>
+                <div className="create_thread_window">
+                    <div className="create_thread_window_header">
+                        <div>
+                            <p>Creating new thread in: </p>
+                            <Select
+                                styles={customStyles}
+                                options={options}
+                                value={category}
+                                onChange={(option) => setCategory(option)}
+                            />
+                        </div>
 
-                    <div
-                        className="create_thread_window_exit_button"
-                        onClick={() => dispatch(toggleCreateThread())}
-                    >
-                        <ClearRoundedIcon />
-                    </div>
-                </div>
-                <div className="create_thread_window_title">
-                    <input
-                        className="title"
-                        placeholder="Title of the thread"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    ></input>
-                </div>
-                <div className="create_thread_window_content">
-                    {/* PreviewThread is hidden in default. Appear when toggled */}
-                    <PreviewThread title={title} content={content} />
-                    {!sumbitted ? (
-                        <Editor
-                            apiKey="n6yu8t20ieccyzq70g4q8hqld8siccaoj0fa11nqkdj4kdds"
-                            initialValue="<p></p>"
-                            init={{
-                                selector: ".editor",
-                                content_css: "default",
-                                skin: false,
-                                content_style: "body { color: white; }",
-                                menubar: false,
-                                resize: false,
-                                height: "99%",
-                                width: "98%",
-                                plugins: [
-                                    "advlist autolink lists link image",
-                                    "charmap print preview anchor help",
-                                    "searchreplace visualblocks code",
-                                    "insertdatetime media table paste wordcount",
-                                ],
-                                toolbar:
-                                    "formatselect | fontsizeselect | forecolor backcolor | bold italic underline strikethrough| alignleft aligncenter alignright | bullist numlist | outdent indent | help",
-                            }}
-                            onEditorChange={(context, editor) =>
-                                setContent(context)
-                            }
-                        />
-                    ) : (
-                        <></>
-                    )}
-                </div>
-                <div className="create_thread_window_footer">
-                    <div className="footer_buttons">
                         <div
-                            className="cancel_button"
+                            className="create_thread_window_exit_button"
                             onClick={() => dispatch(toggleCreateThread())}
                         >
-                            <p>Cancel</p>
+                            <ClearRoundedIcon />
                         </div>
-                        <div
-                            className="preview_thread_button"
-                            onClick={() => dispatch(togglePreviewThread())}
-                        >
-                            <p>Preview</p>
-                        </div>
-                        <div
-                            className="sumbit_thread"
-                            onClick={() => handleSumbit()}
-                        >
-                            <p>Submit</p>
+                    </div>
+                    <div className="create_thread_window_title">
+                        <input
+                            className="title"
+                            placeholder="Title of the thread"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        ></input>
+                    </div>
+                    <div className="create_thread_window_content">
+                        {/* PreviewThread is hidden in default. Appear when toggled */}
+                        <PreviewThread title={title} content={content} />
+                        {!sumbitted ? (
+                            <Editor
+                                apiKey="n6yu8t20ieccyzq70g4q8hqld8siccaoj0fa11nqkdj4kdds"
+                                initialValue="<p></p>"
+                                init={{
+                                    selector: ".editor",
+                                    content_css: "default",
+                                    skin: false,
+                                    content_style: "body { color: white; }",
+                                    menubar: false,
+                                    resize: false,
+                                    height: "99%",
+                                    width: "98%",
+                                    plugins: [
+                                        "advlist autolink lists link image",
+                                        "charmap print preview anchor help",
+                                        "searchreplace visualblocks code",
+                                        "insertdatetime media table paste wordcount",
+                                    ],
+                                    toolbar:
+                                        "formatselect | fontsizeselect | forecolor backcolor | bold italic underline strikethrough| alignleft aligncenter alignright | bullist numlist | outdent indent | help",
+                                }}
+                                onEditorChange={(context, editor) =>
+                                    setContent(context)
+                                }
+                            />
+                        ) : (
+                            <></>
+                        )}
+                    </div>
+                    <div className="create_thread_window_footer">
+                        <div className="footer_buttons">
+                            <div
+                                className="cancel_button"
+                                onClick={() => dispatch(toggleCreateThread())}
+                            >
+                                <p>Cancel</p>
+                            </div>
+                            <div
+                                className="preview_thread_button"
+                                onClick={() => dispatch(togglePreviewThread())}
+                            >
+                                <p>Preview</p>
+                            </div>
+                            <div
+                                className="sumbit_thread"
+                                onClick={() => handleSumbit()}
+                            >
+                                <p>Submit</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <Snackbar
-                    open={alertOpen}
-                    autoHideDuration={1500}
-                    onClose={handleClose}
-                >
-                    <Alert
-                        onClose={handleClose}
-                        severity="error"
-                        sx={{ width: "100%" }}
-                    >
-                        Insufficient Input. Please try again.
-                    </Alert>
-                </Snackbar>
             </div>
+            <Snackbar
+                open={alertOpen}
+                autoHideDuration={1500}
+                onClose={handleClose}
+            >
+                <Alert
+                    onClose={handleClose}
+                    severity={snackbarInfo.severity}
+                    sx={{ width: "100%" }}
+                >
+                    {snackbarInfo.content}
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

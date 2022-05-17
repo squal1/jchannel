@@ -1,5 +1,5 @@
 import "./ReplyList.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { refreshReplyStart, refreshReplyEnd, setReply } from "./actions";
@@ -38,7 +38,7 @@ function ReplyList() {
         axios
             .get(`/thread/reply/${_id}?skip=${0}&count=${500}`)
             .then((response) => {
-                var replies = [];
+                let replies = [];
                 while (response.data.reply.length > 0) {
                     replies.push(response.data.reply.splice(0, 25));
                 }
@@ -63,15 +63,12 @@ function ReplyList() {
 
     const handleScroll = (e) => {
         const { offsetHeight, scrollTop, scrollHeight } = e.target;
-        console.log(
-            `offsetHeight: ${offsetHeight} scrollTop: ${scrollTop} scrollHeight: ${scrollHeight}`
-        );
+
         if (offsetHeight + scrollTop + 50 >= scrollHeight) {
-            // Won't load more reply if there is not a full page at the end
+            // Won't trigger infinite scroll if there is not a full page at the end
             if (currentReplies[currentReplies.length - 1].length < 25) {
                 return;
             }
-            console.log(currentReplies.length * pageSize);
             setSkip(currentReplies.length * pageSize);
         }
     };
@@ -83,28 +80,28 @@ function ReplyList() {
                     {currentReplies.map((item, index) => {
                         return <ReplyPage pageNumber={index} replies={item} />;
                     })}
+                    <div className="reply_list_footer">
+                        <div
+                            className="reply_list_refresh_button"
+                            onClick={() => dispatch(refreshReplyStart())}
+                            style={{
+                                pointerEvents: isRefreshing ? "none" : "auto",
+                                borderColor: isRefreshing
+                                    ? "rgb(100, 100, 100)"
+                                    : "rgb(248, 183, 123)",
+                            }}
+                        >
+                            {isRefreshing ? (
+                                <RefreshIcon className="reply_list_refresh_icon" />
+                            ) : (
+                                <div>Refresh</div>
+                            )}
+                        </div>
+                    </div>
                 </div>
             ) : (
                 <></>
             )}
-            <div className="reply_list_footer">
-                <div
-                    className="reply_list_refresh_button"
-                    onClick={() => dispatch(refreshReplyStart())}
-                    style={{
-                        pointerEvents: isRefreshing ? "none" : "auto",
-                        borderColor: isRefreshing
-                            ? "rgb(100, 100, 100)"
-                            : "rgb(248, 183, 123)",
-                    }}
-                >
-                    {isRefreshing ? (
-                        <RefreshIcon className="reply_list_refresh_icon" />
-                    ) : (
-                        <div>Refresh</div>
-                    )}
-                </div>
-            </div>
         </div>
     );
 }

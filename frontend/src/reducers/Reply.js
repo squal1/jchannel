@@ -1,5 +1,5 @@
 const initialState = {
-    list: [],
+    list: null,
 };
 
 const replyReducer = (state = initialState, action) => {

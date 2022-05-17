@@ -8,7 +8,7 @@ import { togglePreviewThread } from "./actions";
 
 function PreviewThread({ title, content }) {
     // For toggling
-    const style = useSelector((state) => state.toggleThreadPreview);
+    const style = useSelector((state) => state.togglePreviewThread);
     const dispatch = useDispatch();
 
     return (

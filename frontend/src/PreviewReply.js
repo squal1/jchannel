@@ -5,7 +5,7 @@ import ReplyBlock from "./ReplyBlock";
 
 function PreviewReply({ content }) {
     // For toggling
-    const style = useSelector((state) => state.toggleReplyPreview);
+    const style = useSelector((state) => state.togglePreviewReply);
     const dispatch = useDispatch();
 
     return (
