@@ -1,5 +1,6 @@
 import "./ThreadBlock.css";
-import React from "react";
+import moment from "moment";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { selectThread } from "./actions";
 import { useNavigate } from "react-router";
@@ -9,8 +10,10 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 function ThreadBlock({ thread }) {
     let navigate = useNavigate();
     const dispatch = useDispatch();
+    const [selected, setSelected] = useState(false);
 
     const handleSelectThread = () => {
+        setSelected(true);
         navigate(`/thread/${thread._id}`);
         dispatch(selectThread(thread));
     };
@@ -37,11 +40,16 @@ function ThreadBlock({ thread }) {
                         </div>
                     </div>
                     <div className="thread_block_last_reply_time">
-                        {thread.lastReplied}
+                        {moment(thread.lastReplied).fromNow()}
                     </div>
                 </div>
                 <div className="thread_block_lower_half">
-                    <div className="thread_topic">{thread.title}</div>
+                    <div
+                        className="thread_topic"
+                        style={{ color: selected ? "#7a7a7a" : "#f0f8ff" }}
+                    >
+                        {thread.title}
+                    </div>
                 </div>
             </div>
         </div>

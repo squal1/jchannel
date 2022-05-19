@@ -3,6 +3,7 @@ import "./ReplyBlock.css";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import axios from "./axios";
+import moment from "moment";
 
 function ReplyBlock({ id, floor, author, time, content, upvote, downvote }) {
     // Todo: prevent multiple upvote/downvote
@@ -34,7 +35,9 @@ function ReplyBlock({ id, floor, author, time, content, upvote, downvote }) {
                 <div className="reply_upper_level">
                     <div className="reply_floor">{floor}</div>
                     <div className="reply_author">{author}</div>
-                    <div className="reply_time">{time}</div>
+                    <div className="reply_time">
+                        {moment(time).format("L h:mma")}
+                    </div>
                 </div>
                 <div className="reply_mid_level">
                     <div className="reply_content">

@@ -4,8 +4,7 @@
     min-height: 90px;
     height: auto;
     border-bottom: 1px solid #7a7a7a;
-    color: #ffffff;
-    transition: 0.15s;
+    color:aliceblue;
     position: relative;
     cursor: pointer;
 }

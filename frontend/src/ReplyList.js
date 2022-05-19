@@ -20,6 +20,11 @@ function ReplyList() {
         if (typeof _id === "undefined") {
             return;
         }
+        // Scroll to top when refresh
+        document.getElementById("reply_scroller").scrollTo({
+            top: 0,
+            left: 0,
+        });
         setSkip(0);
         axios.get(`/thread/reply/${_id}?skip=${0}`).then((response) => {
             setTimeout(() => {

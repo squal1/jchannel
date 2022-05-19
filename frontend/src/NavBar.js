@@ -13,6 +13,7 @@ import AddIcon from "@mui/icons-material/Add";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CachedRoundedIcon from "@mui/icons-material/CachedRounded";
+import VerticalAlignBottomIcon from "@mui/icons-material/VerticalAlignBottom";
 
 function NavBar() {
     let navigate = useNavigate();
@@ -21,6 +22,16 @@ function NavBar() {
     const currentThread = useSelector(
         (state) => state.selectThread.currentThread
     );
+
+    const scrollToBottom = () => {
+        document.getElementById("reply_scroller").scrollTo({
+            top:
+                document.getElementById("reply_scroller").scrollHeight -
+                document.getElementById("reply_scroller").offsetHeight,
+            left: 0,
+            behavior: "smooth",
+        });
+    };
 
     return (
         <nav className="nav_bar">
@@ -58,6 +69,12 @@ function NavBar() {
                     </div>
                     <div className="nav_bar_right_thread_topic">
                         {currentThread.title}
+                    </div>
+                    <div
+                        className="nav_bar_right_scroll_to_bottom_button"
+                        onClick={() => scrollToBottom()}
+                    >
+                        <VerticalAlignBottomIcon />
                     </div>
                     <div
                         className="nav_bar_right_reply_button"

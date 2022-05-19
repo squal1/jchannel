@@ -48,13 +48,21 @@
 
 .nav_bar_right{
   display: flex;
+  max-width: 839px;
   width: 100%;
   background-color: #222;
   align-items: center;
 }
 
-.nav_bar_right_go_back_button, .nav_bar_right_reply_button{
+.nav_bar_right_go_back_button{
   padding: 1rem;
+  align-items: center;
+  color: aliceblue;
+  cursor: pointer;
+}
+
+.nav_bar_right_scroll_to_bottom_button, .nav_bar_right_reply_button{
+  padding: 0.7rem;
   align-items: center;
   color: aliceblue;
   cursor: pointer;
@@ -70,7 +78,7 @@
   margin-left: 15px;
 }
 
-.nav_bar_left_menu_button:hover, .nav_bar_left_f5_button:hover, .nav_bar_left_create_thread_button:hover, .nav_bar_right_go_back_button:hover, .nav_bar_right_reply_button:hover{
+.nav_bar_left_menu_button:hover, .nav_bar_left_f5_button:hover, .nav_bar_left_create_thread_button:hover, .nav_bar_right_go_back_button:hover, .nav_bar_right_scroll_to_bottom_button:hover, .nav_bar_right_reply_button:hover{
   background-color: rgb(68, 68, 68);
 }
 
