@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 3rem;
+  min-height: 3.5rem;
 }
 
 .reply_list_refresh_button{
@@ -19,7 +19,7 @@
   align-items: center;
   justify-content: center;
   width: 20%;
-  height: 75%;
+  height: 80%;
   border-radius: 5px;
   border: 2px solid;
   color: rgb(248, 183, 123);

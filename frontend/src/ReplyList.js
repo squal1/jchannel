@@ -1,10 +1,11 @@
 import "./ReplyList.css";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { refreshReplyStart, refreshReplyEnd, setReply } from "./actions";
 import axios from "./axios";
 import ReplyPage from "./ReplyPage";
+import ReplyBlockSkeleton from "./ReplyBlockSkeleton";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 function ReplyList() {
@@ -12,6 +13,7 @@ function ReplyList() {
     const dispatch = useDispatch();
     const { _id } = useParams();
     const [skip, setSkip] = useState(0);
+    const [fullyLoaded, setFullyLoaded] = useState(false);
     const isRefreshing = useSelector((state) => state.refreshReply);
     const currentReplies = useSelector((state) => state.replies.list);
 
@@ -28,6 +30,11 @@ function ReplyList() {
         setSkip(0);
         axios.get(`/thread/reply/${_id}?skip=${0}`).then((response) => {
             setTimeout(() => {
+                if (response.data.reply.length < 25) {
+                    setFullyLoaded(true);
+                } else {
+                    setFullyLoaded(false);
+                }
                 dispatch(setReply([response.data.reply]));
             }, 200);
         });
@@ -59,7 +66,11 @@ function ReplyList() {
         axios.get(`/thread/reply/${_id}?skip=${skip}`).then((response) => {
             // Case when no reply on new page
             if (response.data.reply.length === 0) {
+                setFullyLoaded(true);
                 return;
+            }
+            if (response.data.reply.length < 25) {
+                setFullyLoaded(true);
             }
             // Append new replies to the list
             dispatch(setReply([...currentReplies, [...response.data.reply]]));
@@ -86,22 +97,28 @@ function ReplyList() {
                         return <ReplyPage pageNumber={index} replies={item} />;
                     })}
                     <div className="reply_list_footer">
-                        <div
-                            className="reply_list_refresh_button"
-                            onClick={() => dispatch(refreshReplyStart())}
-                            style={{
-                                pointerEvents: isRefreshing ? "none" : "auto",
-                                borderColor: isRefreshing
-                                    ? "rgb(100, 100, 100)"
-                                    : "rgb(248, 183, 123)",
-                            }}
-                        >
-                            {isRefreshing ? (
-                                <RefreshIcon className="reply_list_refresh_icon" />
-                            ) : (
-                                <div>Refresh</div>
-                            )}
-                        </div>
+                        {fullyLoaded ? (
+                            <div
+                                className="reply_list_refresh_button"
+                                onClick={() => dispatch(refreshReplyStart())}
+                                style={{
+                                    pointerEvents: isRefreshing
+                                        ? "none"
+                                        : "auto",
+                                    borderColor: isRefreshing
+                                        ? "rgb(100, 100, 100)"
+                                        : "rgb(248, 183, 123)",
+                                }}
+                            >
+                                {isRefreshing ? (
+                                    <RefreshIcon className="reply_list_refresh_icon" />
+                                ) : (
+                                    <div>Refresh</div>
+                                )}
+                            </div>
+                        ) : (
+                            <ReplyBlockSkeleton />
+                        )}
                     </div>
                 </div>
             ) : (

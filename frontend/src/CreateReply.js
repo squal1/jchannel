@@ -52,10 +52,7 @@ function CreateReply() {
             setAlertOpen(true);
             return;
         }
-        document.getElementById("reply_scroller").scrollTo({
-            top: 0,
-            left: 0,
-        });
+
         const newReply = {
             author: "625107c17fddad483649749f", // Will change
             content: DOMPurify.sanitize(content),
