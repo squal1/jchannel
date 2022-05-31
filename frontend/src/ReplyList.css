@@ -2,9 +2,11 @@
   background-color: rgb(32, 32, 32);
   display: flex;
   flex-direction: column;
+  position: relative;
   flex-grow: 1;
   overflow-y:scroll;
   scrollbar-color: #3f3f3f #151515;
+  transition: 0.3s;
 }
   
 .reply_list_footer{

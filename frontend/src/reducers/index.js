@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import selectCategoryReducer from "./SelectCategory";
 import selectThreadReducer from "./SelectThread";
+import selectReplyPageReducer from "./SelectReplyPage";
 import togglesideMenuReducer from "./ToggleSideMenu";
 import toggleCreateThreadReducer from "./ToggleCreateThread";
 import loginWindowToggleReducer from "./LoginWindowToggle";
@@ -15,6 +16,7 @@ import replyReducer from "./Reply";
 const allReducers = combineReducers({
     selectCategory: selectCategoryReducer,
     selectThread: selectThreadReducer,
+    selectReplyPage: selectReplyPageReducer,
     toggleCreateReply: toggleCreateReplyReducer,
     toggleCreateThread: toggleCreateThreadReducer,
     toggleSideMenu: togglesideMenuReducer,

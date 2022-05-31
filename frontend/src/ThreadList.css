@@ -9,6 +9,7 @@
   scrollbar-color: #3f3f3f #151515;
   scrollbar-width: 8px;
   border-right: 1px solid #777777;
+  z-index: 20;
 }
 
 .thread_list_reload_block{

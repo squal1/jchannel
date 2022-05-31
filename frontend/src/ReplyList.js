@@ -1,5 +1,5 @@
 import "./ReplyList.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { refreshReplyStart, refreshReplyEnd, setReply } from "./actions";
@@ -16,6 +16,42 @@ function ReplyList() {
     const [fullyLoaded, setFullyLoaded] = useState(false);
     const isRefreshing = useSelector((state) => state.refreshReply);
     const currentReplies = useSelector((state) => state.replies.list);
+    const selectedReplyPage = useSelector((state) => state.selectReplyPage);
+    const [startingPage, setStartingPage] = useState(1);
+
+    function updateReplyList(skip, count, appendList) {
+        axios
+            .get(`/thread/reply/${_id}?skip=${skip}&count=${count}`)
+            .then((response) => {
+                if (response.data.reply.length === 0) {
+                    setFullyLoaded(true);
+                    return;
+                }
+
+                let replies = [];
+                while (response.data.reply.length > 0) {
+                    replies.push(response.data.reply.splice(0, 25));
+                }
+
+                console.log(replies);
+                setTimeout(() => {
+                    if (appendList === true) {
+                        // appendList === true
+
+                        dispatch(setReply([...currentReplies, ...replies])); // Append the list
+                    } else {
+                        // appendList === false
+                        dispatch(setReply(replies)); // Reset the list
+                    }
+                    if (replies[replies.length - 1]?.length < 25) {
+                        setFullyLoaded(true);
+                    } else {
+                        setFullyLoaded(false);
+                    }
+                    dispatch(refreshReplyEnd());
+                }, 200);
+            });
+    }
 
     // Load Reply after selected a thread
     useEffect(() => {
@@ -28,64 +64,53 @@ function ReplyList() {
             left: 0,
         });
         setSkip(0);
-        axios.get(`/thread/reply/${_id}?skip=${0}`).then((response) => {
-            setTimeout(() => {
-                if (response.data.reply.length < 25) {
-                    setFullyLoaded(true);
-                } else {
-                    setFullyLoaded(false);
-                }
-                dispatch(setReply([response.data.reply]));
-            }, 200);
-        });
+        setStartingPage(1);
+        updateReplyList(0, 25, false);
     }, [_id]);
 
-    // Refresh reply list
+    // Jump to certain page
+    useEffect(() => {
+        // Scroll to top
+        document.getElementById("reply_scroller").scrollTo({
+            top: 0,
+            left: 0,
+        });
+        setStartingPage(selectedReplyPage);
+        updateReplyList((selectedReplyPage - 1) * 25, 25, false);
+    }, [selectedReplyPage]);
+
+    // Refresh reply list at the bottom of reply list
     useEffect(() => {
         if (isRefreshing !== true) {
             return;
         }
-        // Get all replies and split to arrays with size of 25
-        // Count = 500 since max reply for a post is 500
-        axios
-            .get(`/thread/reply/${_id}?skip=${0}&count=${500}`)
-            .then((response) => {
-                let replies = [];
-                while (response.data.reply.length > 0) {
-                    replies.push(response.data.reply.splice(0, 25));
-                }
-                setTimeout(() => {
-                    dispatch(setReply(replies));
-                    dispatch(refreshReplyEnd());
-                }, 200);
-            });
+        if (startingPage === 1) {
+            // Get all 500 replies
+            updateReplyList(0, 500, false);
+            return;
+        }
+        if (startingPage !== 1) {
+            // Skip all replies before starting page
+            updateReplyList((startingPage - 1) * 25, 500, false);
+        }
     }, [isRefreshing]);
 
     // Infinite scroll
     useEffect(() => {
-        axios.get(`/thread/reply/${_id}?skip=${skip}`).then((response) => {
-            // Case when no reply on new page
-            if (response.data.reply.length === 0) {
-                setFullyLoaded(true);
-                return;
-            }
-            if (response.data.reply.length < 25) {
-                setFullyLoaded(true);
-            }
-            // Append new replies to the list
-            dispatch(setReply([...currentReplies, [...response.data.reply]]));
-        });
+        // Get more replies
+        updateReplyList(skip, 25, true);
     }, [skip]);
 
     const handleScroll = (e) => {
         const { offsetHeight, scrollTop, scrollHeight } = e.target;
 
-        if (offsetHeight + scrollTop + 50 >= scrollHeight) {
+        if (offsetHeight + scrollTop + 1 >= scrollHeight) {
             // Won't trigger infinite scroll if there is not a full page at the end
             if (currentReplies[currentReplies.length - 1].length < 25) {
                 return;
             }
-            setSkip(currentReplies.length * pageSize);
+
+            setSkip((currentReplies.length + startingPage - 1) * 25);
         }
     };
 
@@ -94,7 +119,12 @@ function ReplyList() {
             {currentReplies ? (
                 <div>
                     {currentReplies.map((item, index) => {
-                        return <ReplyPage pageNumber={index} replies={item} />;
+                        return (
+                            <ReplyPage
+                                pageNumber={startingPage + index}
+                                replies={item}
+                            />
+                        );
                     })}
                     <div className="reply_list_footer">
                         {fullyLoaded ? (

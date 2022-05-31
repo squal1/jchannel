@@ -36,6 +36,13 @@ export const selectCategory = (category) => {
     };
 };
 
+export const selectReplyPage = (page) => {
+    return {
+        type: "SELECT_REPLY_PAGE",
+        payload: page,
+    };
+};
+
 export const toggleCreateThread = () => {
     return {
         type: "TOGGLE_CREATE_THREAD",

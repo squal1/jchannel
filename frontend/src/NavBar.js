@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./NavBar.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,7 +7,9 @@ import {
     toggleCreateThread,
     toggleCreateReply,
     refreshThreadStart,
+    selectReplyPage,
 } from "./actions";
+import Select from "react-select";
 import MenuIcon from "@mui/icons-material/Menu";
 import AddIcon from "@mui/icons-material/Add";
 import ReplyIcon from "@mui/icons-material/Reply";
@@ -17,11 +19,52 @@ import VerticalAlignBottomIcon from "@mui/icons-material/VerticalAlignBottom";
 
 function NavBar() {
     let navigate = useNavigate();
+    const [options, setOptions] = useState([]);
     const dispatch = useDispatch();
     const { category } = useSelector((state) => state.selectCategory);
     const currentThread = useSelector(
         (state) => state.selectThread.currentThread
     );
+
+    // Styling react-select
+    const customSelectStyles = {
+        control: (base, state) => ({
+            ...base,
+            width: 110,
+            color: "white",
+            background: "#222222",
+            borderColor: state.isFocused ? "#f8b77b" : "#505050",
+        }),
+        singleValue: (provided, state) => ({
+            ...provided,
+            color: "white",
+        }),
+        menu: (base) => ({
+            ...base,
+            marginTop: 0,
+            zIndex: 999,
+        }),
+        menuList: (base) => ({
+            ...base,
+            background: "#222222",
+        }),
+        option: (base, state) => ({
+            ...base,
+            color: "white",
+            background: state.isFocused ? "#545454" : "#222222",
+            "&:hover": {
+                background: "#545454",
+            },
+        }),
+    };
+
+    useEffect(() => {
+        let options = [];
+        for (let i = 0; i < Math.ceil(currentThread.reply.length / 25); i++) {
+            options.push({ label: `Page ${i + 1}`, value: i + 1 });
+        }
+        setOptions(options);
+    }, [currentThread]);
 
     const scrollToBottom = () => {
         document.getElementById("reply_scroller").scrollTo({
@@ -70,6 +113,14 @@ function NavBar() {
                     <div className="nav_bar_right_thread_topic">
                         {currentThread.title}
                     </div>
+                    <Select
+                        styles={customSelectStyles}
+                        options={options}
+                        placeholder={`Page`}
+                        onChange={(option) =>
+                            dispatch(selectReplyPage(option.value))
+                        }
+                    />
                     <div
                         className="nav_bar_right_scroll_to_bottom_button"
                         onClick={() => scrollToBottom()}

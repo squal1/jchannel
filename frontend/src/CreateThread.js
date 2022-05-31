@@ -38,7 +38,7 @@ function CreateThread() {
     });
 
     // Styling react-select
-    const customStyles = {
+    const customSelectStyles = {
         control: (base, state) => ({
             ...base,
             width: 200,
@@ -46,7 +46,6 @@ function CreateThread() {
             background: "#222222",
             borderRadius: "5px",
             borderColor: state.isFocused ? "#f8b77b" : "#505050",
-            boxShadow: state.isFocused ? null : null,
         }),
         singleValue: (provided, state) => ({
             ...provided,
@@ -186,7 +185,7 @@ function CreateThread() {
                         <div>
                             <p>Creating new thread in: </p>
                             <Select
-                                styles={customStyles}
+                                styles={customSelectStyles}
                                 options={options}
                                 value={category}
                                 onChange={(option) => setCategory(option)}
