@@ -2,9 +2,9 @@ import React from "react";
 import "./ReplyPage.css";
 import ReplyBlock from "./ReplyBlock";
 
-function ReplyPage({ innerref, pageNumber, replies }) {
+function ReplyPage({ pageNumber, replies }) {
     return (
-        <div ref={innerref}>
+        <div>
             <div className="reply_page_header">Page {pageNumber}</div>
             {replies.map((item, index) => {
                 return (
@@ -17,6 +17,8 @@ function ReplyPage({ innerref, pageNumber, replies }) {
                         content={item.content}
                         upvote={item.upvote}
                         downvote={item.downvote}
+                        upvotedBy={item.upvotedBy}
+                        downvotedBy={item.downvotedBy}
                     />
                 );
             })}

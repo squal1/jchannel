@@ -50,6 +50,18 @@ const replySchema = mongoose.Schema({
         type: Number,
         default: 0,
     },
+    upvotedBy: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+        },
+    ],
+    downvotedBy: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+        },
+    ],
 });
 
 var Reply = mongoose.model("Reply", replySchema);

@@ -1,15 +1,42 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ReplyBlock.css";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import axios from "./axios";
 import moment from "moment";
 
-function ReplyBlock({ id, floor, author, time, content, upvote, downvote }) {
+function ReplyBlock({
+    id,
+    floor,
+    author,
+    time,
+    content,
+    upvote,
+    downvote,
+    upvotedBy,
+    downvotedBy,
+}) {
+    const userId = "625107c17fddad483649749f"; // Will Change
+    const [upvoted, setUpvoted] = useState(false);
+    const [downvoted, setDownvoted] = useState(false);
+    const [upvoteNumber, setUpvoteNumber] = useState(upvote);
+    const [downvoteNumber, setDownvoteNumber] = useState(downvote);
+
+    useEffect(() => {
+        if (upvotedBy?.includes(userId)) {
+            setUpvoted(true);
+        }
+        if (downvotedBy?.includes(userId)) {
+            setDownvoted(true);
+        }
+    }, []);
+
     // Todo: prevent multiple upvote/downvote
     const handleUpvote = () => {
+        setUpvoteNumber(upvoteNumber + 1);
+        setUpvoted(true);
         axios
-            .post(`/upvote/${id}`)
+            .post(`/upvote/${id}?userId=${userId}`)
             .then((res) => {
                 console.log(res);
             })
@@ -19,8 +46,10 @@ function ReplyBlock({ id, floor, author, time, content, upvote, downvote }) {
     };
 
     const handleDownvote = () => {
+        setDownvoteNumber(downvoteNumber + 1);
+        setDownvoted(true);
         axios
-            .post(`/downvote/${id}`)
+            .post(`/downvote/${id}?userId=${userId}`)
             .then((res) => {
                 console.log(res);
             })
@@ -47,15 +76,51 @@ function ReplyBlock({ id, floor, author, time, content, upvote, downvote }) {
                 <div className="reply_base_level">
                     <div className="vote">
                         <ThumbUpAltIcon
+                            style={{
+                                cursor:
+                                    upvoted || downvoted ? "auto" : "pointer",
+                                pointerEvents:
+                                    upvoted || downvoted ? "none" : "all",
+                                color: upvoted
+                                    ? "rgb(231, 91, 91)"
+                                    : "rgb(240, 248, 255)",
+                            }}
                             className="upvote_button"
                             onClick={() => handleUpvote()}
                         />
-                        <div className="upvote_score">{upvote}</div>
+                        <div
+                            className="upvote_score"
+                            style={{
+                                color: upvoted
+                                    ? "rgb(248, 183, 123)"
+                                    : "rgb(240, 248, 255)",
+                            }}
+                        >
+                            {upvoteNumber}
+                        </div>
                         <ThumbDownAltIcon
+                            style={{
+                                cursor:
+                                    upvoted || downvoted ? "auto" : "pointer",
+                                pointerEvents:
+                                    upvoted || downvoted ? "none" : "all",
+                                color: downvoted
+                                    ? "rgb(91, 154, 231)"
+                                    : "rgb(240, 248, 255)",
+                            }}
                             className="downvote_button"
                             onClick={() => handleDownvote()}
                         />
-                        <div className="downvote_score">{downvote}</div>
+                        <div
+                            className="downvote_score"
+                            style={{
+                                color: downvoted
+                                    ? "rgb(248, 183, 123)"
+                                    : "rgb(240, 248, 255)",
+                            }}
+                        >
+                            {downvoteNumber}
+                        </div>
                     </div>
                 </div>
             </div>

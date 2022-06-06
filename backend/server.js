@@ -152,15 +152,23 @@ app.post("/reply/:_id", (req, res) => {
 
 // Upvote a reply
 // Param id => id of the thread or reply
+// Param userId => user id
 app.post("/upvote/:_id", (req, res) => {
+    const userId = req.query.userId;
+
     Reply.updateOne(
         { _id: req.params._id },
-        { $inc: { upvote: 1 } },
+        {
+            $inc: { upvote: 1 },
+            $push: {
+                upvotedBy: userId,
+            },
+        },
         (err, data) => {
             if (err) {
-                res.status(500).send(err);
+                console.log(err);
             } else {
-                res.status(200).send(data);
+                console.log(data);
             }
         }
     );
@@ -168,10 +176,18 @@ app.post("/upvote/:_id", (req, res) => {
 
 // Downvote a reply
 // Param id => id of the thread or reply
+// Param userId => user id
 app.post("/downvote/:_id", (req, res) => {
+    const userId = req.query.userId;
+
     Reply.updateOne(
         { _id: req.params._id },
-        { $inc: { downvote: 1 } },
+        {
+            $inc: { downvote: 1 },
+            $push: {
+                downvotedBy: userId,
+            },
+        },
         (err, data) => {
             if (err) {
                 res.status(500).send(err);
