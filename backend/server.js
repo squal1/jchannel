@@ -1,18 +1,21 @@
 import express from "express";
 import mongoose from "mongoose";
-import { Thread, Reply, User } from "./dbMessages.js";
-import { createRequire } from "module";
 import cors from "cors";
+import jwt_decode from "jwt-decode";
+import { createRequire } from "module";
+import { Thread, Reply, User } from "./dbMessages.js";
 
 const app = express();
 const port = process.env.PORT || 8000;
 
 const require = createRequire(import.meta.url);
 const jsonData = require("./keys.json");
+const cookieParser = require("cookie-parser");
 
 // middleWare
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cookieParser());
 
 // DB
 const CONNECTION_URL = jsonData.CONNECTION_URL;
@@ -108,15 +111,14 @@ app.post("/thread", (req, res) => {
 app.post("/reply/:_id", (req, res) => {
     const dbMessage = req.body;
 
-    // Check reply number (>=500)
     Thread.findOne({ _id: req.params._id })
         .select("reply")
         .exec((err, data) => {
             if (err) {
                 res.status(500).send(err);
             } else {
+                // If reply > 500, stop the process
                 if (data.reply.length >= 500) {
-                    // Maximum reply reached
                     return res.status(500).json({
                         message:
                             "Maximum reply number reached. Replying to this thread is not allowed",
@@ -198,6 +200,41 @@ app.post("/downvote/:_id", (req, res) => {
     );
 });
 
+app.post("/login", (req, res) => {
+    const jwtToken = JSON.stringify(req.body);
+    const decodedJwtToken = jwt_decode(jwtToken);
+    const user = { email: decodedJwtToken.email, name: decodedJwtToken.name };
+    // Store jwt token to cookies
+    res.cookie("loginToken", jwtToken, {
+        httpOnly: true,
+    });
+
+    // Find and return the user object
+    User.findOneAndUpdate(
+        { email: decodedJwtToken.email },
+        user,
+        { new: true, upsert: true },
+        (err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        }
+    );
+});
+
+app.get("/logout", (req, res) => {
+    res.clearCookie("loginToken");
+    console.log("Login token cleared");
+    res.status(200).send(res.data);
+});
+
+app.get("/user", (req, res) => {
+    console.log(req.cookies.loginToken);
+    res.status(200).send(req.cookies.loginToken);
+});
+
 // Get all threads under user *needs to be tested*
 //app.get("/thread/user/:_id", (req, res) => {
 //    console.log(req.params._id);
@@ -206,19 +243,6 @@ app.post("/downvote/:_id", (req, res) => {
 //            res.status(500).send(err);
 //        } else {
 //            res.status(200).send(data);
-//        }
-//    });
-//});
-
-// Create new user
-//app.post("/user/new", (req, res) => {
-//    const dbMessage = req.body;
-//
-//    User.create(dbMessage, (err, data) => {
-//        if (err) {
-//            res.status(500).send(err);
-//        } else {
-//            res.status(201).send(data);
 //        }
 //    });
 //});

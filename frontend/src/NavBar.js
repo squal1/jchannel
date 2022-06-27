@@ -8,6 +8,7 @@ import {
     toggleCreateReply,
     refreshThreadStart,
     selectReplyPage,
+    loginMenuOpen,
 } from "./actions";
 import Select from "react-select";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -19,8 +20,9 @@ import VerticalAlignBottomIcon from "@mui/icons-material/VerticalAlignBottom";
 
 function NavBar() {
     let navigate = useNavigate();
-    const [options, setOptions] = useState([]);
     const dispatch = useDispatch();
+    const [options, setOptions] = useState([]);
+    const user = useSelector((state) => state.user);
     const { category } = useSelector((state) => state.selectCategory);
     const currentThread = useSelector(
         (state) => state.selectThread.currentThread
@@ -66,6 +68,25 @@ function NavBar() {
         setOptions(options);
     }, [currentThread]);
 
+    const handleCreateThreadButtonOnClick = () => {
+        // Not yet logged in
+        if (user === null) {
+            dispatch(loginMenuOpen());
+            return;
+        }
+        dispatch(toggleCreateThread());
+    };
+
+    const handleCreateReplyButtonOnClick = () => {
+        // Not yet logged in
+        if (user === null) {
+            dispatch(loginMenuOpen());
+            return;
+        }
+        dispatch(toggleCreateReply());
+    };
+
+    // Scroll to the bottom of reply list
     const scrollToBottom = () => {
         document.getElementById("reply_scroller").scrollTo({
             top:
@@ -96,7 +117,7 @@ function NavBar() {
                 </div>
                 <div
                     className="nav_bar_left_create_thread_button"
-                    onClick={() => dispatch(toggleCreateThread())}
+                    onClick={() => handleCreateThreadButtonOnClick()}
                 >
                     <AddIcon />
                 </div>
@@ -133,7 +154,7 @@ function NavBar() {
                             if (currentThread.reply.length >= 500) {
                                 return;
                             }
-                            dispatch(toggleCreateReply());
+                            handleCreateReplyButtonOnClick();
                         }}
                         style={{
                             cursor:

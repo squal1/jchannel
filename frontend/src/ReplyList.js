@@ -36,12 +36,12 @@ function ReplyList() {
                 console.log(replies);
                 setTimeout(() => {
                     if (appendList === true) {
-                        // appendList === true
-
-                        dispatch(setReply([...currentReplies, ...replies])); // Append the list
+                        // Append the list
+                        dispatch(setReply([...currentReplies, ...replies]));
                     } else {
                         // appendList === false
-                        dispatch(setReply(replies)); // Reset the list
+                        // Reset the list
+                        dispatch(setReply(replies));
                     }
                     if (replies[replies.length - 1]?.length < 25) {
                         setFullyLoaded(true);
@@ -58,7 +58,7 @@ function ReplyList() {
         if (typeof _id === "undefined") {
             return;
         }
-        // Scroll to top when refresh
+        // Scroll to top when a new thread is selected
         document.getElementById("reply_scroller").scrollTo({
             top: 0,
             left: 0,
@@ -121,6 +121,7 @@ function ReplyList() {
                     {currentReplies.map((item, index) => {
                         return (
                             <ReplyPage
+                                key={index}
                                 pageNumber={startingPage + index}
                                 replies={item}
                             />

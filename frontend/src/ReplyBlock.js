@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ReplyBlock.css";
+import { useSelector, useDispatch } from "react-redux";
+import { loginMenuOpen } from "./actions";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import axios from "./axios";
 import moment from "moment";
 
 function ReplyBlock({
-    id,
+    key,
     floor,
     author,
     time,
@@ -16,27 +18,31 @@ function ReplyBlock({
     upvotedBy,
     downvotedBy,
 }) {
-    const userId = "625107c17fddad483649749f"; // Will Change
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
     const [upvoted, setUpvoted] = useState(false);
     const [downvoted, setDownvoted] = useState(false);
     const [upvoteNumber, setUpvoteNumber] = useState(upvote);
     const [downvoteNumber, setDownvoteNumber] = useState(downvote);
 
     useEffect(() => {
-        if (upvotedBy?.includes(userId)) {
+        if (upvotedBy?.includes(user?._id)) {
             setUpvoted(true);
         }
-        if (downvotedBy?.includes(userId)) {
+        if (downvotedBy?.includes(user?._id)) {
             setDownvoted(true);
         }
     }, []);
 
-    // Todo: prevent multiple upvote/downvote
     const handleUpvote = () => {
+        if (user === null) {
+            dispatch(loginMenuOpen());
+            return;
+        }
         setUpvoteNumber(upvoteNumber + 1);
         setUpvoted(true);
         axios
-            .post(`/upvote/${id}?userId=${userId}`)
+            .post(`/upvote/${key}?userId=${user._id}`)
             .then((res) => {
                 console.log(res);
             })
@@ -46,10 +52,14 @@ function ReplyBlock({
     };
 
     const handleDownvote = () => {
+        if (user === null) {
+            dispatch(loginMenuOpen());
+            return;
+        }
         setDownvoteNumber(downvoteNumber + 1);
         setDownvoted(true);
         axios
-            .post(`/downvote/${id}?userId=${userId}`)
+            .post(`/downvote/${key}?userId=${user._id}`)
             .then((res) => {
                 console.log(res);
             })

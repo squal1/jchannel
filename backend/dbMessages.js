@@ -67,21 +67,17 @@ const replySchema = mongoose.Schema({
 var Reply = mongoose.model("Reply", replySchema);
 
 const userSchema = mongoose.Schema({
-    userID: {
-        type: Number,
-        required: true,
-    },
     email: {
         type: String,
         required: true,
     },
-    password: {
+    name: {
         type: String,
         required: true,
     },
-    username: {
+    displayName: {
         type: String,
-        required: true,
+        default: "jessupper",
     },
 });
 

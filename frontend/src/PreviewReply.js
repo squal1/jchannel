@@ -1,12 +1,12 @@
 import React from "react";
 import "./PreviewReply.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import ReplyBlock from "./ReplyBlock";
 
 function PreviewReply({ content }) {
     // For toggling
     const style = useSelector((state) => state.togglePreviewReply);
-    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
 
     return (
         <div
@@ -19,8 +19,8 @@ function PreviewReply({ content }) {
                 <ReplyBlock
                     id={0}
                     floor={`##`}
-                    author={"username"}
-                    time={"time"}
+                    author={user?.displayName}
+                    time={new Date()}
                     content={content}
                     upvote={0}
                     downvote={0}

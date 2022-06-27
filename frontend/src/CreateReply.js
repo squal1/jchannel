@@ -18,6 +18,7 @@ import PreviewReply from "./PreviewReply";
 function CreateReply() {
     const dispatch = useDispatch();
     const [sumbitted, setSubmitted] = useState(false);
+    const user = useSelector((state) => state.user);
     const selectThread = useSelector((state) => state.selectThread);
     const style = useSelector((state) => state.toggleCreateReply);
     const previewState = useSelector(
@@ -54,7 +55,7 @@ function CreateReply() {
         }
 
         const newReply = {
-            author: "625107c17fddad483649749f", // Will change
+            author: user._id,
             content: DOMPurify.sanitize(content),
         };
         // Create new reply here

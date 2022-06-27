@@ -12,6 +12,7 @@ import refreshThreadReducer from "./RefreshThread";
 import refreshReplyReducer from "./RefreshReply";
 import threadReducer from "./Thread";
 import replyReducer from "./Reply";
+import userReducer from "./User";
 
 const allReducers = combineReducers({
     selectCategory: selectCategoryReducer,
@@ -27,6 +28,7 @@ const allReducers = combineReducers({
     refreshReply: refreshReplyReducer,
     threads: threadReducer,
     replies: replyReducer,
+    user: userReducer,
 });
 
 export default allReducers;

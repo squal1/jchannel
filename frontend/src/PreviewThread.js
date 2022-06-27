@@ -9,6 +9,7 @@ import { togglePreviewThread } from "./actions";
 function PreviewThread({ title, content }) {
     // For toggling
     const style = useSelector((state) => state.togglePreviewThread);
+    const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     return (
@@ -40,9 +41,9 @@ function PreviewThread({ title, content }) {
                 </div>
                 <ReplyBlock
                     id={0}
-                    floor={`##`}
-                    author={"username"}
-                    time={"time"}
+                    floor={`#1`}
+                    author={user?.displayName}
+                    time={new Date()}
                     content={content}
                     upvote={0}
                     downvote={0}

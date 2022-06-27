@@ -1,13 +1,21 @@
 import React from "react";
 import "./LoginMenu.css";
 import { useSelector, useDispatch } from "react-redux";
-import { loginMenuClose } from "./actions";
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import { loginMenuClose, setUser } from "./actions";
+import axios from "./axios";
 
 function LoginMenu() {
-    /* Redux */
-    const style = useSelector((state) => state.loginWindowToggle);
     const dispatch = useDispatch();
+    const style = useSelector((state) => state.loginWindowToggle);
+    const user = useSelector((state) => state.user);
+
+    const handleLogOut = (e) => {
+        axios.get("/logout").then((response) => {
+            console.log(response);
+        });
+        dispatch(setUser(null));
+        document.getElementById("google_sign_in").hidden = false;
+    };
 
     return (
         <div
@@ -21,9 +29,18 @@ function LoginMenu() {
                 onClick={() => dispatch(loginMenuClose())}
             ></div>
             <div className="login_window">
-                <div className="login_window_header">
-                    <p>Login</p>
-                </div>
+                <div id="google_sign_in"></div>
+
+                {user && (
+                    <div>
+                        <p>{user.email}</p>
+                        <p>{user.name}</p>
+                        <p>{user.displayName}</p>
+                        <button onClick={(e) => handleLogOut(e)}>
+                            Log Out
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );

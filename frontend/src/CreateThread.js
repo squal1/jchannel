@@ -22,10 +22,10 @@ import { useNavigate } from "react-router";
 
 function CreateThread() {
     let navigate = useNavigate();
-    const style = useSelector((state) => state.toggleCreateThread);
     const dispatch = useDispatch();
     const [sumbitted, setSubmitted] = useState(false);
-
+    const style = useSelector((state) => state.toggleCreateThread);
+    const user = useSelector((state) => state.user);
     const currentCategory = useSelector(
         (state) => state.selectCategory.category
     );
@@ -97,13 +97,13 @@ function CreateThread() {
         }
 
         const newThread = {
-            author: "625107c17fddad483649749f", // Will change
+            author: user._id,
             category: category.value,
             title: title,
         };
 
         const newReply = {
-            author: "625107c17fddad483649749f", // Will change
+            author: user._id,
             content: DOMPurify.sanitize(content),
         };
 

@@ -104,3 +104,10 @@ export const setReply = (replies) => {
         payload: replies,
     };
 };
+
+export const setUser = (userObject) => {
+    return {
+        type: "SET_USER",
+        payload: userObject,
+    };
+};

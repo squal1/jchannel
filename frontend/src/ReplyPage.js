@@ -10,9 +10,8 @@ function ReplyPage({ pageNumber, replies }) {
                 return (
                     <ReplyBlock
                         key={item._id}
-                        id={item._id}
                         floor={`#${(pageNumber - 1) * 25 + index + 1}`}
-                        author={item.author.username}
+                        author={item.author.displayName}
                         time={item.time}
                         content={item.content}
                         upvote={item.upvote}

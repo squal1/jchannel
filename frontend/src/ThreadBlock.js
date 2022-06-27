@@ -24,7 +24,7 @@ function ThreadBlock({ thread }) {
                 <div className="thread_block_upper_level">
                     <div className="thread_block_upper_level_left">
                         <div className="thread_block_username">
-                            {thread.author.username}
+                            {thread.author.displayName}
                         </div>
                         <div className="fire_icon">
                             <LocalFireDepartmentIcon />
