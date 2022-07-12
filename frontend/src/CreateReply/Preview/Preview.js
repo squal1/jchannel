@@ -1,7 +1,7 @@
 import React from "react";
-import "./PreviewReply.css";
+import "./Preview.css";
 import { useSelector } from "react-redux";
-import ReplyBlock from "./ReplyBlock";
+import PageItem from "../../ReplyList/ReplyListPage/PageItem";
 
 function PreviewReply({ content }) {
     // For toggling
@@ -16,7 +16,7 @@ function PreviewReply({ content }) {
             }}
         >
             <div className="preview_reply_window">
-                <ReplyBlock
+                <PageItem
                     id={0}
                     floor={`##`}
                     author={user?.displayName}

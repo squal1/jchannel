@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./ReplyBlock.css";
+import React, { useState, useEffect } from "react";
+import "./PageItem.css";
 import { useSelector, useDispatch } from "react-redux";
-import { loginMenuOpen } from "./actions";
+import { loginMenuOpen } from "../../../actions";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-import axios from "./axios";
+import axios from "../../../axios";
 import moment from "moment";
 
-function ReplyBlock({
+function PageItem({
     key,
     floor,
     author,
@@ -138,4 +138,4 @@ function ReplyBlock({
     );
 }
 
-export default ReplyBlock;
+export default PageItem;

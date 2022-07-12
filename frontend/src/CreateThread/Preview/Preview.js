@@ -1,10 +1,10 @@
 import React from "react";
-import "./PreviewThread.css";
+import "./Preview.css";
 import { useSelector, useDispatch } from "react-redux";
-import ReplyBlock from "./ReplyBlock";
+import PageItem from "../../ReplyList/ReplyListPage/PageItem";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { togglePreviewThread } from "./actions";
+import { togglePreviewThread } from "../../actions";
 
 function PreviewThread({ title, content }) {
     // For toggling
@@ -39,7 +39,7 @@ function PreviewThread({ title, content }) {
                         <ReplyIcon id="reply_icon" />
                     </div>
                 </div>
-                <ReplyBlock
+                <PageItem
                     id={0}
                     floor={`#1`}
                     author={user?.displayName}

@@ -5,15 +5,15 @@ import {
     refreshReplyStart,
     toggleCreateReply,
     togglePreviewReply,
-} from "./actions";
+} from "../actions";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { Editor } from "@tinymce/tinymce-react";
 import "tinymce/skins/ui/1.0/skin.css";
 import "tinymce/skins/ui/1.0/content.inline.css";
 import DOMPurify from "dompurify";
-import axios from "./axios";
+import axios from "../axios";
 import { Snackbar, Alert } from "@mui/material";
-import PreviewReply from "./PreviewReply";
+import PreviewReply from "./Preview";
 
 function CreateReply() {
     const dispatch = useDispatch();

@@ -1,18 +1,17 @@
 import "./App.css";
 import { useEffect } from "react";
-import NavBar from "./NavBar";
-import SideMenu from "./SideMenu";
-import BottomBar from "./BottomBar";
-import ThreadList from "./ThreadList";
-import CreateThread from "./CreateThread";
-import CreateReply from "./CreateReply";
-import LoginMenu from "./LoginMenu";
-import ReplyList from "./ReplyList";
+import NavBar from "../NavBar/NavBar";
+import SideMenu from "../SideMenu";
+import ThreadList from "../ThreadList";
+import CreateThread from "../CreateThread";
+import CreateReply from "../CreateReply";
+import AccountMenu from "../AccountMenu";
+import ReplyList from "../ReplyList";
 import jwt_decode from "jwt-decode";
-import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "./actions";
+import { useDispatch } from "react-redux";
+import { setUser } from "../actions";
 import { Routes, Route, Navigate } from "react-router-dom";
-import axios from "./axios";
+import axios from "../axios";
 
 function App() {
     const dispatch = useDispatch();
@@ -71,7 +70,7 @@ function App() {
         <div className="app">
             <div className="app_body">
                 <NavBar />
-                <LoginMenu /> {/* Hidden. Appear when toggled */}
+                <AccountMenu /> {/* Hidden. Appear when toggled */}
                 <SideMenu /> {/* Hidden. Appear when toggled */}
                 <CreateThread /> {/* Hidden. Appear when toggled */}
                 <CreateReply /> {/* Hidden. Appear when toggled */}
@@ -100,7 +99,6 @@ function App() {
                         }
                     />
                 </Routes>
-                <BottomBar />
             </div>
         </div>
     );

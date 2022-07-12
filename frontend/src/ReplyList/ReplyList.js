@@ -2,10 +2,10 @@ import "./ReplyList.css";
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { refreshReplyStart, refreshReplyEnd, setReply } from "./actions";
-import axios from "./axios";
-import ReplyPage from "./ReplyPage";
-import ReplyBlockSkeleton from "./ReplyBlockSkeleton";
+import { refreshReplyStart, refreshReplyEnd, setReply } from "../actions";
+import axios from "../axios";
+import ReplyListPage from "./ReplyListPage";
+import ReplyBlockSkeleton from "./ReplyListPage/Skeleton/Skeleton";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 function ReplyList() {
@@ -120,7 +120,7 @@ function ReplyList() {
                 <div>
                     {currentReplies.map((item, index) => {
                         return (
-                            <ReplyPage
+                            <ReplyListPage
                                 key={index}
                                 pageNumber={startingPage + index}
                                 replies={item}

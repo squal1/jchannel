@@ -29,22 +29,22 @@
   z-index: 111;
   pointer-events: auto;
   background-color: #222;
-  max-height: 450px;
+  max-height: 400px;
   height: 100%;
   max-width: 320px;
   width: 100%;
+  overflow-y: hidden;
 }
 
 .login_window_header{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 3rem;
-}
-
-.login_window_header > p{
-    font-size: 25px;
+    margin-top: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: aliceblue;
 }

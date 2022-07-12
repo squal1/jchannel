@@ -1,10 +1,10 @@
 import React from "react";
-import "./LoginMenu.css";
+import "./AccountMenu.css";
 import { useSelector, useDispatch } from "react-redux";
-import { loginMenuClose, setUser } from "./actions";
-import axios from "./axios";
+import { loginMenuClose, setUser } from "../actions";
+import axios from "../axios";
 
-function LoginMenu() {
+function AccountMenu() {
     const dispatch = useDispatch();
     const style = useSelector((state) => state.loginWindowToggle);
     const user = useSelector((state) => state.user);
@@ -29,21 +29,34 @@ function LoginMenu() {
                 onClick={() => dispatch(loginMenuClose())}
             ></div>
             <div className="login_window">
-                <div id="google_sign_in"></div>
-
-                {user && (
+                {user ? (
                     <div>
-                        <p>{user.email}</p>
-                        <p>{user.name}</p>
-                        <p>{user.displayName}</p>
+                        <div className="user_profile">
+                            <p>{user.email}</p>
+                            <p>{user.name}</p>
+                            <p>{user.displayName}</p>
+                        </div>
                         <button onClick={(e) => handleLogOut(e)}>
                             Log Out
                         </button>
                     </div>
+                ) : (
+                    <div className="login_window_header">
+                        <p>Login with your Jessup email</p>
+                    </div>
                 )}
+                <div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
+                >
+                    <div id="google_sign_in"></div>
+                </div>
             </div>
         </div>
     );
 }
 
-export default LoginMenu;
+export default AccountMenu;

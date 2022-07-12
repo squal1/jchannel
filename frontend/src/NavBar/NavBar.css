@@ -81,10 +81,3 @@
 .nav_bar_left_menu_button:hover, .nav_bar_left_f5_button:hover, .nav_bar_left_create_thread_button:hover, .nav_bar_right_go_back_button:hover, .nav_bar_right_scroll_to_bottom_button:hover, .nav_bar_right_reply_button:hover{
   background-color: rgb(68, 68, 68);
 }
-
-/* When screen width is smaller than 750px */
-@media (max-width: 750px){
-    .nav_bar_left{
-      display: none;
-    }
-}

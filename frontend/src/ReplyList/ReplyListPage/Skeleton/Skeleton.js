@@ -1,7 +1,7 @@
 import React from "react";
-import "./ReplyBlockSkeleton.css";
+import "./Skeleton.css";
 
-function ReplyBlockSkeleton() {
+function Skeleton() {
     return (
         <div className="thread_reply_placeholder">
             <div class="reply_placeholder_item">
@@ -23,4 +23,4 @@ function ReplyBlockSkeleton() {
     );
 }
 
-export default ReplyBlockSkeleton;
+export default Skeleton;

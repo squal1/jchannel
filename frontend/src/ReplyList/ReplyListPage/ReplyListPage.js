@@ -1,14 +1,14 @@
 import React from "react";
-import "./ReplyPage.css";
-import ReplyBlock from "./ReplyBlock";
+import "./ReplyListPage.css";
+import PageItem from "./PageItem";
 
-function ReplyPage({ pageNumber, replies }) {
+function ReplyListPage({ pageNumber, replies }) {
     return (
         <div>
             <div className="reply_page_header">Page {pageNumber}</div>
             {replies.map((item, index) => {
                 return (
-                    <ReplyBlock
+                    <PageItem
                         key={item._id}
                         floor={`#${(pageNumber - 1) * 25 + index + 1}`}
                         author={item.author.displayName}
@@ -25,4 +25,4 @@ function ReplyPage({ pageNumber, replies }) {
     );
 }
 
-export default ReplyPage;
+export default ReplyListPage;

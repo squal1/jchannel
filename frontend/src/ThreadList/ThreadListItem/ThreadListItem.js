@@ -1,13 +1,13 @@
-import "./ThreadBlock.css";
+import "./ThreadListItem.css";
 import moment from "moment";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { selectThread } from "./actions";
+import { selectThread } from "../../actions";
 import { useNavigate } from "react-router";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 
-function ThreadBlock({ thread }) {
+function ThreadListItem({ thread }) {
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const [selected, setSelected] = useState(false);
@@ -56,4 +56,4 @@ function ThreadBlock({ thread }) {
     );
 }
 
-export default ThreadBlock;
+export default ThreadListItem;

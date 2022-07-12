@@ -9,7 +9,7 @@ import {
     refreshThreadStart,
     selectReplyPage,
     loginMenuOpen,
-} from "./actions";
+} from "../actions";
 import Select from "react-select";
 import MenuIcon from "@mui/icons-material/Menu";
 import AddIcon from "@mui/icons-material/Add";

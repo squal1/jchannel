@@ -1,9 +1,9 @@
 import "./ThreadList.css";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "./axios";
-import ThreadBlock from "./ThreadBlock";
-import { refreshThreadStart, refreshThreadEnd, setThread } from "./actions";
+import axios from "../axios";
+import ThreadListItem from "./ThreadListItem";
+import { refreshThreadStart, refreshThreadEnd, setThread } from "../actions";
 import { useParams } from "react-router-dom";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
@@ -87,7 +87,7 @@ function ThreadList() {
                 <RefreshIcon className="thread_list_refresh_icon" />
             </div>
             {currentThreads.map((item, index) => {
-                return <ThreadBlock thread={item} key={item._id} />;
+                return <ThreadListItem thread={item} key={item._id} />;
             })}
         </div>
     );

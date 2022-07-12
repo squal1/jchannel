@@ -2,7 +2,7 @@ import React from "react";
 import "./SideMenu.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { sideMenuClose, loginMenuOpen, selectCategory } from "./actions";
+import { sideMenuClose, loginMenuOpen, selectCategory } from "../actions";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { useNavigate } from "react-router";
