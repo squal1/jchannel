@@ -6,10 +6,12 @@ function ReplyListPage({ pageNumber, replies }) {
     return (
         <div>
             <div className="reply_page_header">Page {pageNumber}</div>
+
             {replies.map((item, index) => {
                 return (
                     <PageItem
                         key={item._id}
+                        id={item._id}
                         floor={`#${(pageNumber - 1) * 25 + index + 1}`}
                         author={item.author.displayName}
                         time={item.time}

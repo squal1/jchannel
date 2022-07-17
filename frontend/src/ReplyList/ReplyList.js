@@ -33,7 +33,6 @@ function ReplyList() {
                     replies.push(response.data.reply.splice(0, 25));
                 }
 
-                console.log(replies);
                 setTimeout(() => {
                     if (appendList === true) {
                         // Append the list
@@ -113,7 +112,6 @@ function ReplyList() {
             setSkip((currentReplies.length + startingPage - 1) * 25);
         }
     };
-
     return (
         <div className="reply_list" id="reply_scroller" onScroll={handleScroll}>
             {currentReplies ? (

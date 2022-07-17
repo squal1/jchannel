@@ -8,7 +8,7 @@ import axios from "../../../axios";
 import moment from "moment";
 
 function PageItem({
-    key,
+    id,
     floor,
     author,
     time,
@@ -42,7 +42,7 @@ function PageItem({
         setUpvoteNumber(upvoteNumber + 1);
         setUpvoted(true);
         axios
-            .post(`/upvote/${key}?userId=${user._id}`)
+            .post(`/upvote/${id}?userId=${user._id}`)
             .then((res) => {
                 console.log(res);
             })
@@ -59,7 +59,7 @@ function PageItem({
         setDownvoteNumber(downvoteNumber + 1);
         setDownvoted(true);
         axios
-            .post(`/downvote/${key}?userId=${user._id}`)
+            .post(`/downvote/${id}?userId=${user._id}`)
             .then((res) => {
                 console.log(res);
             })

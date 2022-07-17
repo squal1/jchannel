@@ -41,7 +41,7 @@
 
 .fire_icon, .reply_count_icon{
     margin-top: 3px;
-    margin-left: 10px;
+    margin-left: 6px;
     transform: scale(0.7);
 }
 .thread_block_vote_score,.thread_block_reply_count{

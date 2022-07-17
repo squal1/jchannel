@@ -32,13 +32,21 @@ function AccountMenu() {
                 {user ? (
                     <div>
                         <div className="user_profile">
-                            <p>{user.email}</p>
-                            <p>{user.name}</p>
-                            <p>{user.displayName}</p>
+                            <div className="user_profile_header">Your Info</div>
+                            <div className="user_profile_body">
+                                <p>Email: {user.email}</p>
+                                <p>Display name: {user.displayName}</p>
+                            </div>
                         </div>
-                        <button onClick={(e) => handleLogOut(e)}>
+                        <div className="change_displayname_button">
+                            Change display name
+                        </div>
+                        <div
+                            className="logout_button"
+                            onClick={(e) => handleLogOut(e)}
+                        >
                             Log Out
-                        </button>
+                        </div>
                     </div>
                 ) : (
                     <div className="login_window_header">

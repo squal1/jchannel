@@ -157,7 +157,8 @@ app.post("/reply/:_id", (req, res) => {
 // Param userId => user id
 app.post("/upvote/:_id", (req, res) => {
     const userId = req.query.userId;
-
+    console.log(req.query.userId);
+    console.log(req.params._id);
     Reply.updateOne(
         { _id: req.params._id },
         {
@@ -200,19 +201,28 @@ app.post("/downvote/:_id", (req, res) => {
     );
 });
 
+//User login
 app.post("/login", (req, res) => {
     const jwtToken = JSON.stringify(req.body);
     const decodedJwtToken = jwt_decode(jwtToken);
-    const user = { email: decodedJwtToken.email, name: decodedJwtToken.name };
+    const user = {
+        email: decodedJwtToken.email,
+        name: decodedJwtToken.name,
+    };
     // Store jwt token to cookies
     res.cookie("loginToken", jwtToken, {
         httpOnly: true,
     });
 
-    // Find and return the user object
+    // Find and return the user object, create one if failed to find
     User.findOneAndUpdate(
         { email: decodedJwtToken.email },
-        user,
+        {
+            user,
+            $setOnInsert: {
+                displayName: "User_" + Math.random().toString(36).slice(2, 10),
+            },
+        },
         { new: true, upsert: true },
         (err, data) => {
             if (err) {
@@ -224,12 +234,14 @@ app.post("/login", (req, res) => {
     );
 });
 
+// User logout
 app.get("/logout", (req, res) => {
     res.clearCookie("loginToken");
     console.log("Login token cleared");
     res.status(200).send(res.data);
 });
 
+// See if user is already logged in
 app.get("/user", (req, res) => {
     console.log(req.cookies.loginToken);
     res.status(200).send(req.cookies.loginToken);
