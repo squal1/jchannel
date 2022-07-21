@@ -60,9 +60,9 @@ function SideMenu() {
                     className="your_account_button"
                     onClick={() => dispatch(loginMenuOpen())}
                 >
-                    Your account
+                    My account
                 </div>
-                <div className="your_posts_button">Your posts</div>
+                <div className="your_posts_button">My posts</div>
                 <hr />
                 <div className="category_select">
                     <p>Categories</p>

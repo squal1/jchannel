@@ -60,7 +60,9 @@ function CreateReply() {
         };
         // Create new reply here
         axios
-            .post(`/reply/${selectThread.currentThread._id}`, newReply)
+            .post(`/reply/${selectThread.currentThread._id}`, newReply, {
+                withCredentials: true,
+            })
             .then((response) => {
                 // Success message
                 setSnackbarInfo({

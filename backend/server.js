@@ -11,6 +11,22 @@ const port = process.env.PORT || 8000;
 const require = createRequire(import.meta.url);
 const jsonData = require("./keys.json");
 const cookieParser = require("cookie-parser");
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client(
+    "1094115480814-5vcn06vn4ifb3iafhnbhitpeci9emkm2.apps.googleusercontent.com"
+);
+
+async function verify(token) {
+    const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience:
+            "1094115480814-5vcn06vn4ifb3iafhnbhitpeci9emkm2.apps.googleusercontent.com",
+    });
+    const payload = ticket.getPayload();
+    const userid = payload["sub"];
+    // If request specified a G Suite domain:
+    // const domain = payload['hd'];
+}
 
 // middleWare
 app.use(express.json());
@@ -97,6 +113,9 @@ app.get("/thread/reply/:_id", (req, res) => {
 app.post("/thread", (req, res) => {
     const dbMessage = req.body;
 
+    // Verify token
+    verify(JSON.parse(req.cookies.loginToken).jwtToken).catch(console.error);
+
     Thread.create(dbMessage, (err, data) => {
         if (err) {
             res.status(500).send(err);
@@ -110,6 +129,9 @@ app.post("/thread", (req, res) => {
 // Param _id --> id of the thread to be replied
 app.post("/reply/:_id", (req, res) => {
     const dbMessage = req.body;
+
+    // Verify token
+    verify(JSON.parse(req.cookies.loginToken).jwtToken).catch(console.error);
 
     Thread.findOne({ _id: req.params._id })
         .select("reply")
@@ -157,8 +179,10 @@ app.post("/reply/:_id", (req, res) => {
 // Param userId => user id
 app.post("/upvote/:_id", (req, res) => {
     const userId = req.query.userId;
-    console.log(req.query.userId);
-    console.log(req.params._id);
+
+    // Verify token
+    verify(JSON.parse(req.cookies.loginToken).jwtToken).catch(console.error);
+
     Reply.updateOne(
         { _id: req.params._id },
         {
@@ -182,6 +206,9 @@ app.post("/upvote/:_id", (req, res) => {
 // Param userId => user id
 app.post("/downvote/:_id", (req, res) => {
     const userId = req.query.userId;
+
+    // Verify token
+    verify(JSON.parse(req.cookies.loginToken).jwtToken).catch(console.error);
 
     Reply.updateOne(
         { _id: req.params._id },
@@ -209,6 +236,9 @@ app.post("/login", (req, res) => {
         email: decodedJwtToken.email,
         name: decodedJwtToken.name,
     };
+    // Verify token
+    verify(req.body.jwtToken).catch(console.error);
+
     // Store jwt token to cookies
     res.cookie("loginToken", jwtToken, {
         httpOnly: true,

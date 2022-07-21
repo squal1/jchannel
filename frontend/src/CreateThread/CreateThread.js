@@ -108,11 +108,13 @@ function CreateThread() {
         };
 
         axios // Create new thread here
-            .post("/thread", newThread)
+            .post("/thread", newThread, { withCredentials: true })
             .then((res) => {
                 // Insert reply after creating a new thread object
                 axios
-                    .post(`/reply/${res.data._id}`, newReply)
+                    .post(`/reply/${res.data._id}`, newReply, {
+                        withCredentials: true,
+                    })
                     .then((res) => {
                         // Success message
                         setSnackbarInfo({
