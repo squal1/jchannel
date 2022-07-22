@@ -50,6 +50,29 @@ app.get("/", (req, res) => {
     res.redirect("/category");
 });
 
+// Get a single thread using _id
+// Param _id --> Object id of the thread
+app.get("/thread", (req, res) => {
+    const _id = req.query.id;
+
+    Thread.findOne({ _id: _id })
+        .sort({ lastReplied: -1 })
+        .populate("author")
+        .populate({
+            path: "reply",
+            populate: {
+                path: "author",
+            },
+        })
+        .exec((err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        });
+});
+
 // Get threads of a category
 // Param category --> "trending"/"general"/"gossip"/"course"/"job"
 // Param skip --> skipping first n elements (0,10,20,30...)
@@ -187,7 +210,7 @@ app.post("/upvote/:_id", (req, res) => {
         { _id: req.params._id },
         {
             $inc: { upvote: 1 },
-            $push: {
+            $addToSet: {
                 upvotedBy: userId,
             },
         },
@@ -214,7 +237,7 @@ app.post("/downvote/:_id", (req, res) => {
         { _id: req.params._id },
         {
             $inc: { downvote: 1 },
-            $push: {
+            $addToSet: {
                 downvotedBy: userId,
             },
         },

@@ -2,7 +2,12 @@ import "./ReplyList.css";
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { refreshReplyStart, refreshReplyEnd, setReply } from "../actions";
+import {
+    refreshReplyStart,
+    refreshReplyEnd,
+    setReply,
+    selectThread,
+} from "../actions";
 import axios from "../axios";
 import ReplyListPage from "./ReplyListPage";
 import ReplyBlockSkeleton from "./ReplyListPage/Skeleton/Skeleton";
@@ -15,6 +20,9 @@ function ReplyList() {
     const [skip, setSkip] = useState(0);
     const [fullyLoaded, setFullyLoaded] = useState(false);
     const isRefreshing = useSelector((state) => state.refreshReply);
+    const currentThread = useSelector(
+        (state) => state.selectThread.currentThread
+    );
     const currentReplies = useSelector((state) => state.replies.list);
     const selectedReplyPage = useSelector((state) => state.selectReplyPage);
     const [startingPage, setStartingPage] = useState(1);
@@ -57,6 +65,15 @@ function ReplyList() {
         if (typeof _id === "undefined") {
             return;
         }
+
+        //Case when directly access the thread from url
+        if (currentThread.categoty === undefined) {
+            console.log(_id);
+            axios.get(`/thread/?id=${_id}`).then((response) => {
+                dispatch(selectThread(response.data));
+            });
+        }
+
         // Scroll to top when a new thread is selected
         document.getElementById("reply_scroller").scrollTo({
             top: 0,
