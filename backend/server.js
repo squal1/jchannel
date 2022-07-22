@@ -250,7 +250,7 @@ app.post("/login", (req, res) => {
         {
             user,
             $setOnInsert: {
-                displayName: "User_" + Math.random().toString(36).slice(2, 10),
+                displayName: "User#" + Math.random().toString(36).slice(2, 10),
             },
         },
         { new: true, upsert: true },
@@ -273,8 +273,30 @@ app.get("/logout", (req, res) => {
 
 // See if user is already logged in
 app.get("/user", (req, res) => {
-    console.log(req.cookies.loginToken);
     res.status(200).send(req.cookies.loginToken);
+});
+
+// Set displayname
+app.post("/user/displayname", (req, res) => {
+    const newName = req.query.newName;
+    const email = req.query.email;
+
+    // Verify token
+    verify(req.body.jwtToken).catch(console.error);
+
+    User.updateOne(
+        { email: email },
+        {
+            $set: { nameChanged: true, displayName: newName },
+        },
+        (err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        }
+    );
 });
 
 // Get all threads under user *needs to be tested*

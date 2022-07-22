@@ -68,14 +68,20 @@
   cursor: pointer;
 }
 
-.nav_bar_right_thread_topic{
+.nav_bar_right_thread_topic_container{
+  display: table;
+  table-layout: fixed;
   width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.nav_bar_right_thread_topic{
   color:rgb(248, 183, 123);
   font-size: 1.2rem;
   margin-left: 15px;
+  display: table-cell;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .nav_bar_left_menu_button:hover, .nav_bar_left_f5_button:hover, .nav_bar_left_create_thread_button:hover, .nav_bar_right_go_back_button:hover, .nav_bar_right_scroll_to_bottom_button:hover, .nav_bar_right_reply_button:hover{

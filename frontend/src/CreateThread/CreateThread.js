@@ -96,6 +96,15 @@ function CreateThread() {
             return;
         }
 
+        if (title.length > 200) {
+            setSnackbarInfo({
+                severity: "error",
+                content: "Title is too long. Please try again.",
+            });
+            setAlertOpen(true);
+            return;
+        }
+
         const newThread = {
             author: user._id,
             category: category.value,
@@ -204,7 +213,7 @@ function CreateThread() {
                     <div className="create_thread_window_title">
                         <input
                             className="title"
-                            placeholder="Title of the thread"
+                            placeholder="Title of the thread (Not longer than 200 characters)"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                         ></input>

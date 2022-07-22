@@ -131,8 +131,10 @@ function NavBar() {
                     >
                         <ArrowBackIcon id="go_back_icon" />
                     </div>
-                    <div className="nav_bar_right_thread_topic">
-                        {currentThread.title}
+                    <div className="nav_bar_right_thread_topic_container">
+                        <div className="nav_bar_right_thread_topic">
+                            {currentThread.title}
+                        </div>
                     </div>
                     <Select
                         styles={customSelectStyles}

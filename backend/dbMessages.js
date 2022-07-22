@@ -70,6 +70,7 @@ const userSchema = mongoose.Schema({
     email: {
         type: String,
         required: true,
+        unique: true,
     },
     name: {
         type: String,
@@ -77,7 +78,11 @@ const userSchema = mongoose.Schema({
     },
     displayName: {
         type: String,
-        default: "jessupper",
+        unique: true,
+    },
+    nameChanged: {
+        type: Boolean,
+        default: false,
     },
 });
 

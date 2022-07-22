@@ -30,7 +30,8 @@ function ThreadListItem({ thread }) {
                             <LocalFireDepartmentIcon />
                         </div>
                         <div className="thread_block_vote_score">
-                            {thread.reply[0].upvote - thread.reply[0].downvote}
+                            {thread.reply[0]?.upvote -
+                                thread.reply[0]?.downvote}
                         </div>
                         <div className="reply_count_icon">
                             <ForumRoundedIcon />
