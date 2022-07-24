@@ -1,18 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SideMenu.css";
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { sideMenuClose, loginMenuOpen, selectCategory } from "../actions";
+import {
+    refreshThreadStart,
+    refreshThreadEnd,
+    sideMenuClose,
+    loginMenuOpen,
+    selectCategory,
+    setThread,
+} from "../actions";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { useNavigate } from "react-router";
-import { useParams } from "react-router-dom";
+import axios from "../axios";
 
 function SideMenu() {
     let navigate = useNavigate();
+    const dispatch = useDispatch();
     const style = useSelector((state) => state.toggleSideMenu);
     const user = useSelector((state) => state.user);
-    const dispatch = useDispatch();
+    const [query, setQuery] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("sumbitted string:" + query);
+        // Search for threads
+        dispatch(refreshThreadStart());
+        axios.get(`/thread/title/?query=${query}`).then((response) => {
+            setTimeout(() => {
+                dispatch(setThread(response.data));
+                dispatch(refreshThreadEnd());
+            }, 500);
+        });
+        setQuery("");
+        dispatch(sideMenuClose());
+    };
+
+    const handleSearchInputChange = (e) => {
+        setQuery(e.target.value);
+    };
 
     const handleCategorySelect = (category) => {
         // URL navigate
@@ -54,11 +80,13 @@ function SideMenu() {
                 }}
             >
                 <div className="search_container">
-                    <form className="search_bar">
+                    <form className="search_bar" onSubmit={handleSubmit}>
                         <SearchRoundedIcon id="search_icon" />
                         <input
                             className="search_text_field"
                             placeholder="Search"
+                            onChange={handleSearchInputChange}
+                            value={query}
                         ></input>
                         <ClearRoundedIcon id="search_bar_clear" />
                     </form>

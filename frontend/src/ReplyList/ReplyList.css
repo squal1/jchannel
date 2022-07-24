@@ -28,6 +28,7 @@
   cursor: pointer;
   transition: 0.2s;
   font-weight: 600;
+  min-width: fit-content
 }
 
 .reply_list_refresh_button:hover{

@@ -76,7 +76,7 @@ app.get("/thread", (req, res) => {
 // Get threads of a category
 // Param category --> "trending"/"general"/"gossip"/"course"/"job"
 // Param skip --> skipping first n elements (0,10,20,30...)
-app.get("/thread/:category", (req, res) => {
+app.get("/thread/category/:category", (req, res) => {
     const skip =
         req.query.skip && /^\d+$/.test(req.query.skip)
             ? Number(req.query.skip)
@@ -101,11 +101,32 @@ app.get("/thread/:category", (req, res) => {
         });
 });
 
+// Search threads with string as a part of title
+app.get("/thread/title", (req, res) => {
+    const string = req.query.query;
+    Thread.find({ title: { $regex: string, $options: "i" } })
+        .sort({ lastReplied: -1 })
+        .populate("author")
+        .populate({
+            path: "reply",
+            populate: {
+                path: "author",
+            },
+        })
+        .exec((err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        });
+});
+
 // Get replies of a thread
 // Param _id --> id of the thread
 // Param skip --> skipping first n elements (0,25,50,75...)
 // Param count --> number of replies returning (default:25)
-app.get("/thread/reply/:_id", (req, res) => {
+app.get("/reply/:_id", (req, res) => {
     const skip =
         req.query.skip && /^\d+$/.test(req.query.skip)
             ? Number(req.query.skip)

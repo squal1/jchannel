@@ -11,7 +11,11 @@ import { BrowserRouter } from "react-router-dom";
 //Redux Store
 const store = createStore(
     allReducers,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__({
+            trace: true,
+            traceLimit: 25,
+        })
 );
 
 const container = document.getElementById("root");

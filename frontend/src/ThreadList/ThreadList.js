@@ -23,7 +23,7 @@ function ThreadList() {
             return;
         }
         dispatch(refreshThreadStart());
-        axios.get(`/thread/${category}?skip=${0}`).then((response) => {
+        axios.get(`/thread/category/${category}?skip=${0}`).then((response) => {
             setTimeout(() => {
                 dispatch(setThread(response.data));
                 dispatch(refreshThreadEnd());
@@ -31,6 +31,7 @@ function ThreadList() {
         });
     }, [category]);
 
+    // Find threads of a user
     useEffect(() => {
         if (typeof userId === "undefined") {
             return;
@@ -47,7 +48,7 @@ function ThreadList() {
     // Infinite scroll
     useEffect(() => {
         axios
-            .get(`/thread/${currentCategory}?skip=${skip}`)
+            .get(`/thread/category/${currentCategory}?skip=${skip}`)
             .then((response) => {
                 // Append the new threads to the threads list
                 dispatch(setThread([...currentThreads, ...response.data]));
@@ -71,12 +72,14 @@ function ThreadList() {
             behavior: "smooth",
         });
         // Reset thread list
-        axios.get(`/thread/${currentCategory}?skip=${0}`).then((response) => {
-            setTimeout(() => {
-                dispatch(setThread(response.data));
-                dispatch(refreshThreadEnd());
-            }, 500);
-        });
+        axios
+            .get(`/thread/category/${currentCategory}?skip=${0}`)
+            .then((response) => {
+                setTimeout(() => {
+                    dispatch(setThread(response.data));
+                    dispatch(refreshThreadEnd());
+                }, 500);
+            });
     }, [isRefreshing]);
 
     const handleScroll = (e) => {
@@ -85,6 +88,9 @@ function ThreadList() {
             `offsetHeight: ${offsetHeight} scrollTop: ${scrollTop} scrollHeight: ${scrollHeight}`
         );
         if (offsetHeight + scrollTop + 1 >= scrollHeight) {
+            if (typeof category === "undefined") {
+                return;
+            }
             setSkip(currentThreads.length);
         }
     };
@@ -98,11 +104,17 @@ function ThreadList() {
             <div
                 className="thread_list_reload_block"
                 style={{
-                    height: isRefreshing ? 50 : 0,
+                    height: isRefreshing ? 60 : 0,
                     transition: "0.1s",
                 }}
             >
-                <RefreshIcon className="thread_list_refresh_icon" />
+                <RefreshIcon
+                    className="thread_list_refresh_icon"
+                    style={{
+                        height: isRefreshing ? "100%" : 0,
+                        transition: "0.1s",
+                    }}
+                />
             </div>
             {currentThreads.map((item, index) => {
                 return <ThreadListItem thread={item} key={item._id} />;

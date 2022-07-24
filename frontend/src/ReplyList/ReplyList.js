@@ -28,8 +28,11 @@ function ReplyList() {
     const [startingPage, setStartingPage] = useState(1);
 
     function updateReplyList(skip, count, appendList) {
+        if (typeof _id === "undefined") {
+            return;
+        }
         axios
-            .get(`/thread/reply/${_id}?skip=${skip}&count=${count}`)
+            .get(`/reply/${_id}?skip=${skip}&count=${count}`)
             .then((response) => {
                 if (response.data.reply.length === 0) {
                     setFullyLoaded(true);
