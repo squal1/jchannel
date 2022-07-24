@@ -23,9 +23,9 @@ function SideMenu() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("sumbitted string:" + query);
-        // Search for threads
         dispatch(refreshThreadStart());
+        dispatch(selectCategory("Search Result"));
+        // Search for threads
         axios.get(`/thread/title/?query=${query}`).then((response) => {
             setTimeout(() => {
                 dispatch(setThread(response.data));
