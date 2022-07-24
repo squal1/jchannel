@@ -11,18 +11,26 @@ import { useParams } from "react-router-dom";
 function SideMenu() {
     let navigate = useNavigate();
     const style = useSelector((state) => state.toggleSideMenu);
+    const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
-    const { category } = useParams();
-
-    // Close SideMenu after selected new category
-    useEffect(() => {
-        dispatch(sideMenuClose());
-    }, [category]);
 
     const handleCategorySelect = (category) => {
         // URL navigate
         navigate(`category/${category}`);
         dispatch(selectCategory(category));
+        // Close side menu afterwards
+        dispatch(sideMenuClose());
+    };
+
+    const handleMyPostsButtonOnClick = () => {
+        if (user === null) {
+            dispatch(loginMenuOpen());
+            return;
+        }
+        // URL navigate
+        navigate(`profile/${user._id}`);
+        dispatch(selectCategory(user.displayName));
+        // Close side menu afterwards
         dispatch(sideMenuClose());
     };
 
@@ -57,21 +65,20 @@ function SideMenu() {
                 </div>
 
                 <div
-                    className="your_account_button"
+                    className="my_account_button"
                     onClick={() => dispatch(loginMenuOpen())}
                 >
                     My account
                 </div>
-                <div className="your_posts_button">My posts</div>
+                <div
+                    className="my_posts_button"
+                    onClick={() => handleMyPostsButtonOnClick()}
+                >
+                    My posts
+                </div>
                 <hr />
                 <div className="category_select">
                     <p>Categories</p>
-                    <div
-                        className="category_trending"
-                        onClick={() => handleCategorySelect("trending")}
-                    >
-                        Trending
-                    </div>
                     <div
                         className="category_general"
                         onClick={() => handleCategorySelect("general")}

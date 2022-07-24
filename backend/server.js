@@ -322,17 +322,27 @@ app.post("/user/displayname", (req, res) => {
     );
 });
 
-// Get all threads under user *needs to be tested*
-//app.get("/thread/user/:_id", (req, res) => {
-//    console.log(req.params._id);
-//    Thread.find({ author: req.params._id }, (err, data) => {
-//        if (err) {
-//            res.status(500).send(err);
-//        } else {
-//            res.status(200).send(data);
-//        }
-//    });
-//});
+// Get all threads created by a user
+app.get("/user/profile", (req, res) => {
+    const userId = req.query.userId;
+
+    Thread.find({ author: userId })
+        .sort({ lastReplied: -1 })
+        .populate("author")
+        .populate({
+            path: "reply",
+            populate: {
+                path: "author",
+            },
+        })
+        .exec((err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        });
+});
 
 // Delete test record
 app.delete("/thread", (req, res) => {

@@ -98,6 +98,15 @@ function App() {
                             </div>
                         }
                     />
+                    <Route
+                        path="/profile/:userId"
+                        element={
+                            <div className="main_panel">
+                                <ThreadList />
+                                <ReplyList />
+                            </div>
+                        }
+                    />
                 </Routes>
             </div>
         </div>

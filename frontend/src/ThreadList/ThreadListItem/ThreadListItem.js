@@ -23,8 +23,10 @@ function ThreadListItem({ thread }) {
             <div className="thread_block_container">
                 <div className="thread_block_upper_level">
                     <div className="thread_block_upper_level_left">
-                        <div className="thread_block_username">
-                            {thread.author.displayName}
+                        <div className="thread_block_username_container">
+                            <div className="thread_block_username">
+                                {thread.author.displayName}
+                            </div>
                         </div>
                         <div className="fire_icon">
                             <LocalFireDepartmentIcon />

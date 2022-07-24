@@ -19,6 +19,7 @@
 .nav_bar_left_menu_button{
   padding: 1rem;
   cursor: pointer;
+  margin-right: 5px;
 }
 
 
@@ -31,6 +32,9 @@
   margin-left: auto;
   color:rgb(248, 183, 123);
   font-size: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-weight: 600;
   margin-bottom: 4px;
 }

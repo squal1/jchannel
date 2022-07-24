@@ -68,7 +68,6 @@ function ReplyList() {
 
         //Case when directly access the thread from url
         if (currentThread.categoty === undefined) {
-            console.log(_id);
             axios.get(`/thread/?id=${_id}`).then((response) => {
                 dispatch(selectThread(response.data));
             });
@@ -131,7 +130,7 @@ function ReplyList() {
     };
     return (
         <div className="reply_list" id="reply_scroller" onScroll={handleScroll}>
-            {currentReplies ? (
+            {currentReplies.length > 0 ? (
                 <div>
                     {currentReplies.map((item, index) => {
                         return (

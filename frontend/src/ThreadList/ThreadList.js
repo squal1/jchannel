@@ -9,7 +9,7 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 
 function ThreadList() {
     const dispatch = useDispatch();
-    const { category } = useParams();
+    const { category, userId } = useParams();
     const [skip, setSkip] = useState(0);
     const currentThreads = useSelector((state) => state.threads.list);
     const isRefreshing = useSelector((state) => state.refreshThread);
@@ -31,6 +31,19 @@ function ThreadList() {
         });
     }, [category]);
 
+    useEffect(() => {
+        if (typeof userId === "undefined") {
+            return;
+        }
+        dispatch(refreshThreadStart());
+        axios.get(`/user/profile/?userId=${userId}`).then((response) => {
+            setTimeout(() => {
+                dispatch(setThread(response.data));
+                dispatch(refreshThreadEnd());
+            }, 500);
+        });
+    }, [userId]);
+
     // Infinite scroll
     useEffect(() => {
         axios
@@ -43,9 +56,14 @@ function ThreadList() {
 
     // Refresh thread list
     useEffect(() => {
-        if (isRefreshing !== true) {
+        if (isRefreshing === false) {
             return;
         }
+
+        if (typeof category === "undefined") {
+            return;
+        }
+
         // Scroll to top when refresh
         document.getElementById("thread_scroller").scrollTo({
             top: 0,
