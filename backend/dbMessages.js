@@ -84,6 +84,14 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    verified: {
+        type: Boolean,
+        default: false,
+    },
+    banned: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 var User = mongoose.model("User", userSchema);

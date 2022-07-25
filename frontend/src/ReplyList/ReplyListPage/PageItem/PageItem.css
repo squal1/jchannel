@@ -17,7 +17,7 @@
 
 .reply_upper_level{
     display: flex;
-    align-items: baseline;
+    align-items: center;
 }
 
 .reply_floor{
@@ -26,12 +26,25 @@
 }
 
 .reply_author{
-    margin-left: 15px;
+    margin-left: 10px;
     font-size: 16px;
 }
 
+.reply_verified_icon{
+    margin-left:2px;
+    scale: 0.8;
+    color:rgb(248, 183, 123);
+}
+
+.reply_OP{
+    margin-left: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    color:rgb(123, 248, 190);
+}
+
 .reply_time{
-    margin-left: 15px;
+    margin-left: 8px;
     color: #888888;
     font-size: 12px;
     font-weight: 400;

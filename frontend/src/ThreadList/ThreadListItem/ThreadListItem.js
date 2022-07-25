@@ -24,7 +24,14 @@ function ThreadListItem({ thread }) {
                 <div className="thread_block_upper_level">
                     <div className="thread_block_upper_level_left">
                         <div className="thread_block_username_container">
-                            <div className="thread_block_username">
+                            <div
+                                className="thread_block_username"
+                                style={{
+                                    color: thread.author.verified
+                                        ? "rgb(248, 183, 123)"
+                                        : "white",
+                                }}
+                            >
                                 {thread.author.displayName}
                             </div>
                         </div>

@@ -61,17 +61,26 @@ function ThreadList() {
             return;
         }
 
-        if (typeof category === "undefined") {
-            return;
-        }
-
         // Scroll to top when refresh
         document.getElementById("thread_scroller").scrollTo({
             top: 0,
             left: 0,
             behavior: "smooth",
         });
-        // Reset thread list
+
+        // If userId from useParams exists, instead load posts for the user again
+        if (typeof userId !== "undefined") {
+            dispatch(refreshThreadStart());
+            axios.get(`/user/profile/?userId=${userId}`).then((response) => {
+                setTimeout(() => {
+                    dispatch(setThread(response.data));
+                    dispatch(refreshThreadEnd());
+                }, 500);
+            });
+            return;
+        }
+
+        // Load threads of the corresponding category again
         axios
             .get(`/thread/category/${currentCategory}?skip=${0}`)
             .then((response) => {

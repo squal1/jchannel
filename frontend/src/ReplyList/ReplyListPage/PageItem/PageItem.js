@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginMenuOpen } from "../../../actions";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
+import VerifiedIcon from "@mui/icons-material/Verified";
 import axios from "../../../axios";
 import moment from "moment";
 
@@ -11,6 +12,7 @@ function PageItem({
     id,
     floor,
     author,
+    verified,
     time,
     content,
     upvote,
@@ -20,6 +22,9 @@ function PageItem({
 }) {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
+    const currentThread = useSelector(
+        (state) => state.selectThread.currentThread
+    );
     const [upvoted, setUpvoted] = useState(false);
     const [downvoted, setDownvoted] = useState(false);
     const [upvoteNumber, setUpvoteNumber] = useState(upvote);
@@ -77,7 +82,20 @@ function PageItem({
             <div className="thread_reply_container">
                 <div className="reply_upper_level">
                     <div className="reply_floor">{floor}</div>
-                    <div className="reply_author">{author}</div>
+                    <div
+                        className="reply_author"
+                        style={{
+                            color: verified ? "rgb(248, 183, 123)" : "white",
+                        }}
+                    >
+                        {author}
+                    </div>
+                    {verified && (
+                        <VerifiedIcon className="reply_verified_icon" />
+                    )}
+                    {author === currentThread.author.displayName && (
+                        <div className="reply_OP">OP</div>
+                    )}
                     <div className="reply_time">
                         {moment(time).format("L h:mma")}
                     </div>
