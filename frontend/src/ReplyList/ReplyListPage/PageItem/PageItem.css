@@ -103,4 +103,9 @@
 
 .quote_icon{
     margin-left: auto;
+    cursor: pointer;
+}
+
+.quote_icon:hover{
+    color:rgb(248, 183, 123);
 }

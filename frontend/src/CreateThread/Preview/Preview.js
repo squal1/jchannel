@@ -5,6 +5,7 @@ import PageItem from "../../ReplyList/ReplyListPage/PageItem";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { togglePreviewThread } from "../../actions";
+import VerticalAlignBottomIcon from "@mui/icons-material/VerticalAlignBottom";
 
 function PreviewThread({ title, content }) {
     // For toggling
@@ -34,7 +35,14 @@ function PreviewThread({ title, content }) {
                     >
                         <ArrowBackIcon id="go_back_icon" />
                     </div>
-                    <div className="nav_bar_right_thread_topic">{title}</div>
+                    <div className="nav_bar_right_thread_topic_container">
+                        <div className="nav_bar_right_thread_topic">
+                            {title}
+                        </div>
+                    </div>
+                    <div className="nav_bar_right_scroll_to_bottom_button">
+                        <VerticalAlignBottomIcon />
+                    </div>
                     <div className="nav_bar_right_reply_button">
                         <ReplyIcon id="reply_icon" />
                     </div>
@@ -47,6 +55,7 @@ function PreviewThread({ title, content }) {
                     content={content}
                     upvote={0}
                     downvote={0}
+                    preview={true}
                 />
             </div>
         </div>

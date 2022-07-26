@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./PageItem.css";
 import { useSelector, useDispatch } from "react-redux";
-import { loginMenuOpen } from "../../../actions";
+import { loginMenuOpen, toggleCreateReply } from "../../../actions";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import axios from "../../../axios";
 import moment from "moment";
+import { Tooltip } from "@mui/material";
 
 function PageItem({
     id,
@@ -20,6 +21,7 @@ function PageItem({
     downvote,
     upvotedBy,
     downvotedBy,
+    preview = false,
 }) {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
@@ -41,6 +43,10 @@ function PageItem({
     }, []);
 
     const handleUpvote = () => {
+        if (preview === true) {
+            return;
+        }
+
         if (user === null) {
             dispatch(loginMenuOpen());
             return;
@@ -60,6 +66,10 @@ function PageItem({
     };
 
     const handleDownvote = () => {
+        if (preview === true) {
+            return;
+        }
+
         if (user === null) {
             dispatch(loginMenuOpen());
             return;
@@ -76,6 +86,13 @@ function PageItem({
             .catch((err) => {
                 console.log(err.response);
             });
+    };
+
+    const handleQuoteReply = () => {
+        if (preview === true) {
+            return;
+        }
+        dispatch(toggleCreateReply());
     };
 
     return (
@@ -155,7 +172,12 @@ function PageItem({
                             {downvoteNumber}
                         </div>
                     </div>
-                    <ReplyIcon className="quote_icon" />
+                    <Tooltip title="Quote this reply" arrow disableInteractive>
+                        <ReplyIcon
+                            className="quote_icon"
+                            onClick={() => handleQuoteReply()}
+                        />
+                    </Tooltip>
                 </div>
             </div>
         </div>
