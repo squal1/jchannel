@@ -8,12 +8,14 @@ import CreateReply from "../CreateReply";
 import AccountMenu from "../AccountMenu";
 import ReplyList from "../ReplyList";
 import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setUser } from "../actions";
 import { Routes, Route, Navigate } from "react-router-dom";
 import axios from "../axios";
 
 function App() {
+    let navigate = useNavigate();
     const dispatch = useDispatch();
 
     // Callback after login
@@ -26,12 +28,15 @@ function App() {
                 { withCredentials: true }
             )
             .then((response) => {
-                console.log(response);
                 dispatch(setUser(response.data));
+                document.getElementById("google_sign_in").hidden = true;
+            })
+            .catch((error) => {
+                console.log(error.response.data.message);
+                alert(error.response.data.message);
             });
         var userObject = jwt_decode(response.credential);
         console.log(userObject);
-        document.getElementById("google_sign_in").hidden = true;
     };
 
     useEffect(() => {
@@ -58,10 +63,21 @@ function App() {
                         { withCredentials: true }
                     )
                     .then((response) => {
-                        console.log(response);
                         dispatch(setUser(response.data));
+                        document.getElementById("google_sign_in").hidden = true;
+                    })
+                    .catch((error) => {
+                        // Logout if user is banned
+                        axios.get("/logout").then((response) => {
+                            dispatch(setUser(null));
+                            document.getElementById(
+                                "google_sign_in"
+                            ).hidden = false;
+                            // Refresh to homepage
+                            navigate(``);
+                            window.location.reload(true);
+                        });
                     });
-                document.getElementById("google_sign_in").hidden = true;
             }
         });
     }, []);

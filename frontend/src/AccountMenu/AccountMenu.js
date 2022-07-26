@@ -33,18 +33,13 @@ function AccountMenu() {
     };
 
     const handleLogOut = (e) => {
-        axios
-            .get("/logout")
-            .then((response) => {
-                console.log(response);
-            })
-            .then((response) => {
-                dispatch(setUser(null));
-                document.getElementById("google_sign_in").hidden = false;
-                // Refresh to homepage
-                navigate(``);
-                window.location.reload(true);
-            });
+        axios.get("/logout").then((response) => {
+            dispatch(setUser(null));
+            document.getElementById("google_sign_in").hidden = false;
+            // Refresh to homepage
+            navigate(``);
+            window.location.reload(true);
+        });
     };
 
     const handleChangeDisplayname = (e) => {

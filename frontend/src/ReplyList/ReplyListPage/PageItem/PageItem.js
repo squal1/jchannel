@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./PageItem.css";
 import { useSelector, useDispatch } from "react-redux";
 import { loginMenuOpen } from "../../../actions";
+import ReplyIcon from "@mui/icons-material/Reply";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import VerifiedIcon from "@mui/icons-material/Verified";
@@ -154,6 +155,7 @@ function PageItem({
                             {downvoteNumber}
                         </div>
                     </div>
+                    <ReplyIcon className="quote_icon" />
                 </div>
             </div>
         </div>

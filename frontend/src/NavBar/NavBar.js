@@ -11,6 +11,7 @@ import {
     loginMenuOpen,
 } from "../actions";
 import Select from "react-select";
+import { Tooltip } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AddIcon from "@mui/icons-material/Add";
 import ReplyIcon from "@mui/icons-material/Reply";
@@ -36,6 +37,7 @@ function NavBar() {
             color: "white",
             background: "#222222",
             borderColor: state.isFocused ? "#f8b77b" : "#505050",
+            marginRight: "5px",
         }),
         singleValue: (provided, state) => ({
             ...provided,
@@ -108,19 +110,22 @@ function NavBar() {
                 </div>
 
                 <div className="category_name">{category.toUpperCase()}</div>
-
-                <div
-                    className="nav_bar_left_f5_button"
-                    onClick={() => dispatch(refreshThreadStart())}
-                >
-                    <CachedRoundedIcon />
-                </div>
-                <div
-                    className="nav_bar_left_create_thread_button"
-                    onClick={() => handleCreateThreadButtonOnClick()}
-                >
-                    <AddIcon />
-                </div>
+                <Tooltip title="Refresh" arrow disableInteractive>
+                    <div
+                        className="nav_bar_left_f5_button"
+                        onClick={() => dispatch(refreshThreadStart())}
+                    >
+                        <CachedRoundedIcon />
+                    </div>
+                </Tooltip>
+                <Tooltip title="Post a new thread" arrow disableInteractive>
+                    <div
+                        className="nav_bar_left_create_thread_button"
+                        onClick={() => handleCreateThreadButtonOnClick()}
+                    >
+                        <AddIcon />
+                    </div>
+                </Tooltip>
             </div>
             {currentThread._id ? (
                 /* When thread is selected */
@@ -144,29 +149,33 @@ function NavBar() {
                             dispatch(selectReplyPage(option.value))
                         }
                     />
-                    <div
-                        className="nav_bar_right_scroll_to_bottom_button"
-                        onClick={() => scrollToBottom()}
-                    >
-                        <VerticalAlignBottomIcon />
-                    </div>
-                    <div
-                        className="nav_bar_right_reply_button"
-                        onClick={() => {
-                            if (currentThread.reply.length >= 500) {
-                                return;
-                            }
-                            handleCreateReplyButtonOnClick();
-                        }}
-                        style={{
-                            cursor:
-                                currentThread.reply.length >= 500
-                                    ? "not-allowed"
-                                    : "pointer",
-                        }}
-                    >
-                        <ReplyIcon id="reply_icon" />
-                    </div>
+                    <Tooltip title="Scroll to bottom" arrow disableInteractive>
+                        <div
+                            className="nav_bar_right_scroll_to_bottom_button"
+                            onClick={() => scrollToBottom()}
+                        >
+                            <VerticalAlignBottomIcon />
+                        </div>
+                    </Tooltip>
+                    <Tooltip title="Reply" arrow disableInteractive>
+                        <div
+                            className="nav_bar_right_reply_button"
+                            onClick={() => {
+                                if (currentThread.reply.length >= 500) {
+                                    return;
+                                }
+                                handleCreateReplyButtonOnClick();
+                            }}
+                            style={{
+                                cursor:
+                                    currentThread.reply.length >= 500
+                                        ? "not-allowed"
+                                        : "pointer",
+                            }}
+                        >
+                            <ReplyIcon id="reply_icon" />
+                        </div>
+                    </Tooltip>
                 </div>
             ) : (
                 /* When thread is NOT selected */

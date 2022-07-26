@@ -62,6 +62,11 @@ const replySchema = mongoose.Schema({
             ref: "User",
         },
     ],
+    quote: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Reply",
+        default: null,
+    },
 });
 
 var Reply = mongoose.model("Reply", replySchema);

@@ -131,6 +131,7 @@ function ReplyList() {
             setSkip((currentReplies.length + startingPage - 1) * 25);
         }
     };
+
     return (
         <div className="reply_list" id="reply_scroller" onScroll={handleScroll}>
             {currentReplies.length > 0 ? (

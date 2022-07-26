@@ -283,11 +283,6 @@ app.post("/login", (req, res) => {
     // Verify token
     verify(req.body.jwtToken).catch(console.error);
 
-    // Store jwt token to cookies
-    res.cookie("loginToken", jwtToken, {
-        httpOnly: true,
-    });
-
     // Find and return the user object, create one if failed to find
     User.findOneAndUpdate(
         { email: decodedJwtToken.email },
@@ -302,10 +297,22 @@ app.post("/login", (req, res) => {
             if (err) {
                 res.status(500).send(err);
             } else {
+                if (data.banned === true) {
+                    return res.status(403).json({
+                        message:
+                            "This account is banned. Logging in with this account is not allowed.",
+                    });
+                }
                 res.status(200).send(data);
+                console.log(data);
             }
         }
     );
+
+    // Store jwt token to cookies
+    res.cookie("loginToken", jwtToken, {
+        httpOnly: true,
+    });
 });
 
 // User logout
