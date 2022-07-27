@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./PageItem.css";
 import { useSelector, useDispatch } from "react-redux";
-import { loginMenuOpen, toggleCreateReply } from "../../../actions";
+import { addQuote, loginMenuOpen, toggleCreateReply } from "../../../actions";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
@@ -21,6 +21,7 @@ function PageItem({
     downvote,
     upvotedBy,
     downvotedBy,
+    quote,
     preview = false,
 }) {
     const dispatch = useDispatch();
@@ -92,6 +93,7 @@ function PageItem({
         if (preview === true) {
             return;
         }
+        dispatch(addQuote({ id, floor, author }));
         dispatch(toggleCreateReply());
     };
 
@@ -119,6 +121,13 @@ function PageItem({
                     </div>
                 </div>
                 <div className="reply_mid_level">
+                    <div className="reply_quote">
+                        <div className="vl" />
+                        <div
+                            className="reply_quote_content"
+                            dangerouslySetInnerHTML={{ __html: quote?.content }}
+                        />
+                    </div>
                     <div className="reply_content">
                         <div dangerouslySetInnerHTML={{ __html: content }} />
                     </div>

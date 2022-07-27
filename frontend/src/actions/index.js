@@ -111,3 +111,16 @@ export const setUser = (userObject) => {
         payload: userObject,
     };
 };
+
+export const addQuote = (replyObject) => {
+    return {
+        type: "ADD_QUOTE",
+        payload: replyObject,
+    };
+};
+
+export const clearQuote = (userObject) => {
+    return {
+        type: "CLEAR_QUOTE",
+    };
+};

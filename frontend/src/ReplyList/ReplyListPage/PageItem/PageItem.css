@@ -55,6 +55,21 @@
     margin-bottom: 10px;
 }
 
+.reply_quote{
+    display: flex;
+    color: #acabab;
+    font-size: 13px;    
+}
+
+.vl{
+    border-left: 4px solid #747474;
+    height: auto;
+}
+
+.reply_quote_content{
+    margin-left: 20px;
+}
+
 .reply_content{
     overflow: hidden;
 }

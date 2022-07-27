@@ -15,21 +15,29 @@
 }
 
 .create_reply_header{
-    height: 3rem;
+    min-height: 3rem;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
 }
 
-.create_reply_header > p {
+.create_reply_header_upper{
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.create_reply_header_upper > p , .create_reply_header_lower > p{
     font-size: 16px;
     margin-left: 10px;
     color: aliceblue;
     white-space: nowrap;
 }
 
-.create_reply_header > input {
+.create_reply_header_upper > input{
     padding: 5px;
     font-size: 16px;
     font-weight: 300;
@@ -53,6 +61,15 @@
     justify-content: center;
     align-items:center ;
 }
+
+.create_reply_header_lower{
+    height: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
 
 .create_reply_exit_button:hover{
     background-color: rgb(68, 68, 68);

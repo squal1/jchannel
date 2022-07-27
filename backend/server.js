@@ -61,7 +61,7 @@ app.get("/thread", (req, res) => {
         .populate({
             path: "reply",
             populate: {
-                path: "author",
+                path: "author quote",
             },
         })
         .exec((err, data) => {
@@ -89,7 +89,7 @@ app.get("/thread/category/:category", (req, res) => {
         .populate({
             path: "reply",
             populate: {
-                path: "author",
+                path: "author quote",
             },
         })
         .exec((err, data) => {
@@ -110,7 +110,7 @@ app.get("/thread/title", (req, res) => {
         .populate({
             path: "reply",
             populate: {
-                path: "author",
+                path: "author quote",
             },
         })
         .exec((err, data) => {
@@ -140,7 +140,7 @@ app.get("/reply/:_id", (req, res) => {
         .populate({
             path: "reply",
             populate: {
-                path: "author",
+                path: "author quote",
             },
         })
         .slice("reply", [skip, count])

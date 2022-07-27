@@ -21,6 +21,7 @@ function ReplyListPage({ pageNumber, replies }) {
                         downvote={item.downvote}
                         upvotedBy={item.upvotedBy}
                         downvotedBy={item.downvotedBy}
+                        quote={item.quote}
                     />
                 );
             })}

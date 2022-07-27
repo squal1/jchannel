@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./CreateReply.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
+    clearQuote,
     refreshReplyStart,
     toggleCreateReply,
     togglePreviewReply,
@@ -19,6 +20,7 @@ function CreateReply() {
     const dispatch = useDispatch();
     const [sumbitted, setSubmitted] = useState(false);
     const user = useSelector((state) => state.user);
+    const quote = useSelector((state) => state.quoteReply);
     const selectThread = useSelector((state) => state.selectThread);
     const style = useSelector((state) => state.toggleCreateReply);
     const previewState = useSelector(
@@ -57,6 +59,7 @@ function CreateReply() {
         const newReply = {
             author: user._id,
             content: DOMPurify.sanitize(content),
+            quote: quote?.id,
         };
         // Create new reply here
         axios
@@ -72,8 +75,10 @@ function CreateReply() {
                 setAlertOpen(true);
 
                 // Reset variables
+
                 setContent("");
                 setSubmitted(true);
+                dispatch(clearQuote());
                 if (previewState === "flex") {
                     dispatch(togglePreviewReply());
                 }
@@ -107,14 +112,27 @@ function CreateReply() {
                 }}
             >
                 <div className="create_reply_header">
-                    <p>Replying:</p>
-                    <input value={selectThread.currentThread.title} disabled />
-                    <div
-                        className="create_reply_exit_button"
-                        onClick={() => dispatch(toggleCreateReply())}
-                    >
-                        <ClearRoundedIcon />
+                    <div className="create_reply_header_upper">
+                        <p>Replying:</p>
+                        <input
+                            value={selectThread.currentThread.title}
+                            disabled
+                        />
+                        <div
+                            className="create_reply_exit_button"
+                            onClick={() => {
+                                dispatch(clearQuote());
+                                dispatch(toggleCreateReply());
+                            }}
+                        >
+                            <ClearRoundedIcon />
+                        </div>
                     </div>
+                    {quote && (
+                        <div className="create_reply_header_lower">
+                            <p>Quoting: {quote.floor}</p>
+                        </div>
+                    )}
                 </div>
                 <div className="create_reply_body">
                     {/* Hidden. Appear when toggled */}

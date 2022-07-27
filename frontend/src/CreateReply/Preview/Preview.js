@@ -7,12 +7,14 @@ function PreviewReply({ content }) {
     // For toggling
     const style = useSelector((state) => state.togglePreviewReply);
     const user = useSelector((state) => state.user);
+    const quote = useSelector((state) => state.quoteReply);
 
     return (
         <div
             className="preview_reply"
             style={{
                 display: style.display,
+                height: quote ? "70%" : "79%",
             }}
         >
             <div className="preview_reply_window">
