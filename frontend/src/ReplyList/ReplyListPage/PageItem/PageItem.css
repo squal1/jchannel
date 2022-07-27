@@ -58,7 +58,6 @@
 .reply_quote{
     display: flex;
     color: #acabab;
-    font-size: 13px;    
 }
 
 .vl{
@@ -66,8 +65,11 @@
     height: auto;
 }
 
-.reply_quote_content{
-    margin-left: 20px;
+.reply_quote_content, .reply_quote_content span, .reply_quote_content p{
+    margin-left: 10px;
+    color: #acabab !important;
+    background-color: rgb(48, 48, 48) !important;
+    font-size: 13px !important;   
 }
 
 .reply_content{

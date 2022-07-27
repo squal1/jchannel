@@ -93,7 +93,7 @@ function PageItem({
         if (preview === true) {
             return;
         }
-        dispatch(addQuote({ id, floor, author }));
+        dispatch(addQuote({ id, floor, author, content }));
         dispatch(toggleCreateReply());
     };
 

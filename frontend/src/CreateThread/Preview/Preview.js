@@ -55,6 +55,7 @@ function PreviewThread({ title, content }) {
                     content={content}
                     upvote={0}
                     downvote={0}
+                    verified={user?.verified}
                     preview={true}
                 />
             </div>

@@ -26,6 +26,8 @@ function PreviewReply({ content }) {
                     content={content}
                     upvote={0}
                     downvote={0}
+                    verified={user?.verified}
+                    quote={quote}
                     preview={true}
                 />
             </div>
