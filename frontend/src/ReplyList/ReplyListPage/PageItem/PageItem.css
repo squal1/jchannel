@@ -72,6 +72,13 @@
     font-size: 13px !important;   
 }
 
+.reply_quote_content img{
+    height: auto; 
+    width: auto; 
+    max-width: 300px; 
+    max-height: 300px;
+}
+
 .reply_content{
     overflow: hidden;
 }

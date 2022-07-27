@@ -241,7 +241,7 @@ function CreateThread() {
                                         "insertdatetime media table paste wordcount",
                                     ],
                                     toolbar:
-                                        "formatselect | fontsizeselect | forecolor backcolor | bold italic underline strikethrough| alignleft aligncenter alignright | bullist numlist | outdent indent | help",
+                                        " fontsizeselect | forecolor backcolor | bold italic underline strikethrough| alignleft aligncenter alignright | bullist numlist | image link | help",
                                 }}
                                 onEditorChange={(context, editor) =>
                                     setContent(context)

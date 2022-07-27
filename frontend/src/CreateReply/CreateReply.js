@@ -157,8 +157,10 @@ function CreateReply() {
                                     "insertdatetime media table paste wordcount",
                                 ],
 
-                                toolbar:
-                                    "formatselect | fontsizeselect | forecolor backcolor | bold italic underline strikethrough| alignleft aligncenter alignright | bullist numlist outdent indent | help",
+                                toolbar: [
+                                    " fontsizeselect | forecolor backcolor | bold italic underline strikethrough | alignleft aligncenter alignright ",
+                                    " bullist numlist | image link | help ",
+                                ],
                             }}
                             onEditorChange={(context, editor) =>
                                 setContent(context)

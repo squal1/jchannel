@@ -50,7 +50,7 @@ function ThreadListItem({ thread }) {
                         </div>
                     </div>
                     <div className="thread_block_last_reply_time">
-                        {moment(thread.lastReplied).fromNow()}
+                        {moment(thread.lastReplied).fromNow(true)}
                     </div>
                 </div>
                 <div className="thread_block_lower_half">
