@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // DB
-const CONNECTION_URL = jsonData.CONNECTION_URL;
+// const CONNECTION_URL = jsonData.CONNECTION_URL;
 
 mongoose.connect(
     process.env.MONGODB_URI ||
