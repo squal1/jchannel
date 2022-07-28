@@ -13,7 +13,7 @@ const port = process.env.PORT || 8000;
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const jsonData = require("./keys.json");
+//const jsonData = require("./keys.json");
 const cookieParser = require("cookie-parser");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(
@@ -44,7 +44,10 @@ if (process.env.NODE_ENV === "production") {
 // DB
 const CONNECTION_URL = jsonData.CONNECTION_URL;
 
-mongoose.connect(process.env.MONGODB_URI || CONNECTION_URL);
+mongoose.connect(
+    process.env.MONGODB_URI ||
+        "mongodb+srv://admin:admin@cluster0.du5dk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+);
 
 const db = mongoose.connection;
 
