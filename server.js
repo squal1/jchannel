@@ -34,7 +34,16 @@ async function verify(token) {
 
 // middleWare
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(
+    cors({
+        origin: [
+            "http://localhost:3000",
+            "http://localhost:8000",
+            "https://jchannel.herokuapp.com",
+        ],
+        credentials: true,
+    })
+);
 app.use(cookieParser());
 //app.use(express.static(path.join(__dirname + "/client/build")));
 if (process.env.NODE_ENV === "production") {
