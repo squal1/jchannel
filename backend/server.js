@@ -4,11 +4,15 @@ import cors from "cors";
 import jwt_decode from "jwt-decode";
 import { createRequire } from "module";
 import { Thread, Reply, User } from "./dbMessages.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 const port = process.env.PORT || 8000;
 
 const require = createRequire(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const jsonData = require("./keys.json");
 const cookieParser = require("cookie-parser");
 const { OAuth2Client } = require("google-auth-library");
@@ -32,6 +36,7 @@ async function verify(token) {
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname + "/public")));
 
 // DB
 const CONNECTION_URL = jsonData.CONNECTION_URL;

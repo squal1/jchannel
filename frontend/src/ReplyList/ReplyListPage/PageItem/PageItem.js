@@ -90,6 +90,11 @@ function PageItem({
     };
 
     const handleQuoteReply = () => {
+        if (user === null) {
+            dispatch(loginMenuOpen());
+            return;
+        }
+
         if (preview === true) {
             return;
         }

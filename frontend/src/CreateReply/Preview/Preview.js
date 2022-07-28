@@ -14,7 +14,7 @@ function PreviewReply({ content }) {
             className="preview_reply"
             style={{
                 display: style.display,
-                height: quote ? "70%" : "79%",
+                height: quote ? "73%" : "80%",
             }}
         >
             <div className="preview_reply_window">
