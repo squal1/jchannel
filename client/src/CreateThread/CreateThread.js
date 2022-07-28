@@ -12,8 +12,10 @@ import {
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { Editor } from "@tinymce/tinymce-react";
 import Select from "react-select";
-import "tinymce/skins/ui/1.0/skin.css";
-import "tinymce/skins/ui/1.0/content.inline.css";
+//import "tinymce/skins/ui/1.0/skin.css";
+import "../skin.css";
+//import "tinymce/skins/ui/1.0/content.inline.css";
+import "../content.inline.css";
 import axios from "../axios";
 import DOMPurify from "dompurify";
 import PreviewThread from "./Preview";

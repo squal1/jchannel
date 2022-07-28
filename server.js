@@ -36,12 +36,15 @@ async function verify(token) {
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname + "/public")));
+//app.use(express.static(path.join(__dirname + "/client/build")));
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname + "/client/build")));
+}
 
 // DB
 const CONNECTION_URL = jsonData.CONNECTION_URL;
 
-mongoose.connect(CONNECTION_URL);
+mongoose.connect(process.env.MONGODB_URI || CONNECTION_URL);
 
 const db = mongoose.connection;
 
