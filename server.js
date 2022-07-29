@@ -46,7 +46,8 @@ app.use(
     })
 );
 app.use(function (req, res, next) {
-    res.header("Access-Control-ALlow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
 });
 
 //app.use(express.static(path.join(__dirname + "/client/build")));
