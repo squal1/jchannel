@@ -34,6 +34,7 @@ async function verify(token) {
 
 // middleWare
 app.use(express.json());
+app.use(cookieParser());
 app.use(
     cors({
         origin: [
@@ -44,7 +45,10 @@ app.use(
         credentials: true,
     })
 );
-app.use(cookieParser());
+app.use(function (req, res, next) {
+    res.header("Access-Control-ALlow-Origin", "*");
+});
+
 //app.use(express.static(path.join(__dirname + "/client/build")));
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname + "/client/build")));
