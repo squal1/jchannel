@@ -40,6 +40,8 @@ app.use(
         origin: [
             "http://localhost:3000",
             "http://localhost:8000",
+            "http://jchannel.herokuapp.com",
+            "https://jchannel.herokuapp.com",
             "https://jchannel.herokuapp.com" + ":" + port,
         ],
         credentials: true,
