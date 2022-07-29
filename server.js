@@ -6,7 +6,6 @@ import { createRequire } from "module";
 import { Thread, Reply, User } from "./dbMessages.js";
 import path from "path";
 import { fileURLToPath } from "url";
-import sslRedirect from "heroku-ssl-redirect";
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -15,6 +14,7 @@ const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 //const jsonData = require("./keys.json");
+const sslRedirect = require("heroku-ssl-redirect").default;
 const cookieParser = require("cookie-parser");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(
