@@ -75,6 +75,17 @@ app.get("/", (req, res) => {
     res.redirect("/category");
 });
 
+app.get("/*", function (req, res) {
+    res.sendFile(
+        path.join(__dirname, "client/build/index.html"),
+        function (err) {
+            if (err) {
+                res.status(500).send(err);
+            }
+        }
+    );
+});
+
 // Get a single thread using _id
 // Param _id --> Object id of the thread
 app.get("/thread", (req, res) => {
