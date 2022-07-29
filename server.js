@@ -50,7 +50,7 @@ app.use(
     })
 );
 
-//app.use(express.static(path.join(__dirname + "/client/build")));
+app.use(express.static(path.join(__dirname + "/client/build")));
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname + "/client/build")));
 }
@@ -70,21 +70,6 @@ db.once("open", () => {
 });
 
 // End points
-app.get("/", (req, res) => {
-    // REDIRECT goes here
-    res.redirect("/category");
-});
-
-app.get("/*", function (req, res) {
-    res.sendFile(
-        path.join(__dirname, "client/build/index.html"),
-        function (err) {
-            if (err) {
-                res.status(500).send(err);
-            }
-        }
-    );
-});
 
 // Get a single thread using _id
 // Param _id --> Object id of the thread
@@ -412,6 +397,17 @@ app.get("/user/profile", (req, res) => {
 app.delete("/thread", (req, res) => {
     res.send("Got a DELETE request at /user");
     Thread.find({ __v: 0 }).deleteMany().exec();
+});
+
+app.get("/*", function (req, res) {
+    res.sendFile(
+        path.join(__dirname, "client/build/index.html"),
+        function (err) {
+            if (err) {
+                res.status(500).send(err);
+            }
+        }
+    );
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}`));
