@@ -6,6 +6,7 @@ import { createRequire } from "module";
 import { Thread, Reply, User } from "./dbMessages.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import sslRedirect from "heroku-ssl-redirect";
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -35,6 +36,7 @@ async function verify(token) {
 // middleWare
 app.use(express.json());
 app.use(cookieParser());
+app.use(sslRedirect());
 app.use(
     cors({
         origin: [
