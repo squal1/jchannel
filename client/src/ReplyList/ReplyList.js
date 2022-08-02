@@ -121,7 +121,9 @@ function ReplyList() {
 
     const handleScroll = (e) => {
         const { offsetHeight, scrollTop, scrollHeight } = e.target;
-
+        console.log(
+            `offsetHeight: ${offsetHeight} scrollTop: ${scrollTop} scrollHeight: ${scrollHeight}`
+        );
         if (offsetHeight + scrollTop + 1 >= scrollHeight) {
             // Won't trigger infinite scroll if there is not a full page at the end
             if (currentReplies[currentReplies.length - 1].length < 25) {
@@ -133,9 +135,13 @@ function ReplyList() {
     };
 
     return (
-        <div className="reply_list" id="reply_scroller" onScroll={handleScroll}>
+        <div
+            className="reply_list_container"
+            id="reply_scroller"
+            onScroll={handleScroll}
+        >
             {currentReplies.length > 0 ? (
-                <div>
+                <div className="reply_list">
                     {currentReplies.map((item, index) => {
                         return (
                             <ReplyListPage

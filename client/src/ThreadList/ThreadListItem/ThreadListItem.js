@@ -16,6 +16,8 @@ function ThreadListItem({ thread }) {
         setSelected(true);
         navigate(`/thread/${thread._id}`);
         dispatch(selectThread(thread));
+        document.getElementById("reply_scroller").style.zIndex = "30";
+        document.getElementById("nav_bar_right").style.zIndex = "30";
     };
 
     return (
