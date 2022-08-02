@@ -6,7 +6,7 @@
   right: 0;
   bottom: 0;
   height: 100vh;
-  z-index: 30;
+  z-index: 80;
   max-width: 1200px;
   width: 100%;
 }
