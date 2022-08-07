@@ -97,7 +97,7 @@ function ThreadList() {
             `offsetHeight: ${offsetHeight} scrollTop: ${scrollTop} scrollHeight: ${scrollHeight}`
         );
         if (offsetHeight + scrollTop + 1 >= scrollHeight) {
-            if (typeof category === "undefined") {
+            if (typeof userId !== "undefined") {
                 return;
             }
             setSkip(currentThreads.length);
