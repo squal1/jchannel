@@ -14,6 +14,7 @@ import threadReducer from "./Thread";
 import replyReducer from "./Reply";
 import userReducer from "./User";
 import QuoteReplyReducer from "./QuoteReply";
+import changeThreadReducer from "./ChangeThread";
 
 const allReducers = combineReducers({
     selectCategory: selectCategoryReducer,
@@ -31,6 +32,7 @@ const allReducers = combineReducers({
     replies: replyReducer,
     user: userReducer,
     quoteReply: QuoteReplyReducer,
+    changeThread: changeThreadReducer,
 });
 
 export default allReducers;

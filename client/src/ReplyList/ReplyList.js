@@ -7,6 +7,7 @@ import {
     refreshReplyEnd,
     setReply,
     selectThread,
+    changeThreadEnd,
 } from "../actions";
 import axios from "../axios";
 import ReplyListPage from "./ReplyListPage";
@@ -20,6 +21,7 @@ function ReplyList() {
     const [skip, setSkip] = useState(0);
     const [fullyLoaded, setFullyLoaded] = useState(false);
     const isRefreshing = useSelector((state) => state.refreshReply);
+    const isChangingThread = useSelector((state) => state.changeThread);
     const currentThread = useSelector(
         (state) => state.selectThread.currentThread
     );
@@ -58,6 +60,7 @@ function ReplyList() {
                     } else {
                         setFullyLoaded(false);
                     }
+                    dispatch(changeThreadEnd());
                     dispatch(refreshReplyEnd());
                 }, 200);
             });
@@ -121,9 +124,6 @@ function ReplyList() {
 
     const handleScroll = (e) => {
         const { offsetHeight, scrollTop, scrollHeight } = e.target;
-        console.log(
-            `offsetHeight: ${offsetHeight} scrollTop: ${scrollTop} scrollHeight: ${scrollHeight}`
-        );
         if (offsetHeight + scrollTop + 1 >= scrollHeight) {
             // Won't trigger infinite scroll if there is not a full page at the end
             if (currentReplies[currentReplies.length - 1].length < 25) {
@@ -133,6 +133,21 @@ function ReplyList() {
             setSkip((currentReplies.length + startingPage - 1) * 25);
         }
     };
+
+    if (isChangingThread === true) {
+        return (
+            <div
+                className="reply_list_container"
+                id="reply_scroller"
+                onScroll={handleScroll}
+            >
+                <ReplyBlockSkeleton />
+                <ReplyBlockSkeleton />
+                <ReplyBlockSkeleton />
+                <ReplyBlockSkeleton />
+            </div>
+        );
+    }
 
     return (
         <div

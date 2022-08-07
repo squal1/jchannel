@@ -40,5 +40,7 @@
   .thread_list{
     max-width: none;
     min-width: 100%;
+    position: fixed;
+    height: 93%;
   }
 }

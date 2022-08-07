@@ -124,3 +124,15 @@ export const clearQuote = (userObject) => {
         type: "CLEAR_QUOTE",
     };
 };
+
+export const changeThreadStart = () => {
+    return {
+        type: "CHANGE_THREAD_START",
+    };
+};
+
+export const changeThreadEnd = () => {
+    return {
+        type: "CHANGE_THREAD_END",
+    };
+};

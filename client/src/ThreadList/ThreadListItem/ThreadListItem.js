@@ -2,7 +2,7 @@ import "./ThreadListItem.css";
 import moment from "moment";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { selectThread } from "../../actions";
+import { changeThreadStart, selectThread } from "../../actions";
 import { useNavigate } from "react-router";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
@@ -16,6 +16,8 @@ function ThreadListItem({ thread }) {
         setSelected(true);
         navigate(`/thread/${thread._id}`);
         dispatch(selectThread(thread));
+        dispatch(changeThreadStart());
+        // For mobile
         document.getElementById("reply_scroller").style.zIndex = "30";
         document.getElementById("nav_bar_right").style.zIndex = "30";
     };
