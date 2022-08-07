@@ -72,6 +72,10 @@ function ReplyList() {
             return;
         }
 
+        if (isChangingThread === false) {
+            return;
+        }
+
         //Case when directly access the thread from url
         if (currentThread.categoty === undefined) {
             axios.get(`/thread/?id=${_id}`).then((response) => {
@@ -87,7 +91,7 @@ function ReplyList() {
         setSkip(0);
         setStartingPage(1);
         updateReplyList(0, 25, false);
-    }, [_id]);
+    }, [_id, isChangingThread]);
 
     // Jump to certain page
     useEffect(() => {
