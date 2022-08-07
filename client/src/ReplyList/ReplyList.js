@@ -15,7 +15,6 @@ import ReplyBlockSkeleton from "./ReplyListPage/Skeleton/Skeleton";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 function ReplyList() {
-    const pageSize = 25;
     const dispatch = useDispatch();
     const { _id } = useParams();
     const [skip, setSkip] = useState(0);
@@ -33,6 +32,15 @@ function ReplyList() {
         if (typeof _id === "undefined") {
             return;
         }
+
+        //Case when directly access the thread from url
+        if (currentThread.category === "") {
+            axios.get(`/thread/?id=${_id}`).then((response) => {
+                console.log(response.data);
+                dispatch(selectThread(response.data));
+            });
+        }
+
         axios
             .get(`/reply/${_id}?skip=${skip}&count=${count}`)
             .then((response) => {
@@ -76,19 +84,12 @@ function ReplyList() {
             return;
         }
 
-        //Case when directly access the thread from url
-        if (currentThread.categoty === undefined) {
-            axios.get(`/thread/?id=${_id}`).then((response) => {
-                dispatch(selectThread(response.data));
-            });
-        }
-
         // Scroll to top when a new thread is selected
         document.getElementById("reply_scroller").scrollTo({
             top: 0,
             left: 0,
         });
-        setSkip(0);
+        //setSkip(0);
         setStartingPage(1);
         updateReplyList(0, 25, false);
     }, [_id, isChangingThread]);
@@ -122,6 +123,7 @@ function ReplyList() {
 
     // Infinite scroll
     useEffect(() => {
+        console.log(skip);
         // Get more replies
         updateReplyList(skip, 25, true);
     }, [skip]);
@@ -129,6 +131,11 @@ function ReplyList() {
     const handleScroll = (e) => {
         const { offsetHeight, scrollTop, scrollHeight } = e.target;
         if (offsetHeight + scrollTop + 1 >= scrollHeight) {
+            // Return if the component is just loaded (scrollTop = 0)
+            if (scrollTop === 0) {
+                return;
+            }
+
             // Won't trigger infinite scroll if there is not a full page at the end
             if (currentReplies[currentReplies.length - 1].length < 25) {
                 return;
