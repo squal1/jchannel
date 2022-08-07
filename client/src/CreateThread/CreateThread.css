@@ -189,9 +189,18 @@
 }
 
 @media screen and (max-width: 767px) {
+  .create_thread{
+    position: fixed;
+  }
+
+  .create_thread_overlay{
+    position: fixed;
+  }
+
   .create_thread_window{
     scale: 0.95;
     position: fixed;
+    height: 80%;
   }
 
   .create_thread_window_header > div > p{
