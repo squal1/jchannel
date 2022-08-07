@@ -151,7 +151,7 @@ function CreateReply() {
                                 menubar: false,
                                 resize: false,
                                 height: "99%",
-                                width: "98%",
+                                width: "97%",
                                 plugins: [
                                     "advlist autolink lists link image",
                                     "charmap print preview anchor help",

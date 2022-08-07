@@ -49,4 +49,5 @@
     font-size: large;
     cursor: pointer;
     transition: 0.2s;
+    z-index: 50;
 }

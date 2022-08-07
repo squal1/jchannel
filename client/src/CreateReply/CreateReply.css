@@ -136,9 +136,11 @@
     color:rgb(27, 27, 27)
 }
 
-/* When screen width is smaller than 750px */
-@media (max-width: 750px){  
-    .create_reply{
+@media screen and (max-width: 767px) {
+  .create_reply{
       bottom: 3rem;
-    }
+      max-width: 100%;
+      width: 98%;
+      position: absolute;
   }
+}

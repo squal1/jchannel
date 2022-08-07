@@ -187,3 +187,17 @@
   background-color: rgb(248, 183, 123);
   color: #222;
 }
+
+@media screen and (max-width: 767px) {
+  .create_thread_window{
+    scale: 0.95;
+  }
+
+  .create_thread_window_header > div > p{
+    font-size: 16px;
+  }
+
+  .title{
+    width: 95%;
+  }
+}
