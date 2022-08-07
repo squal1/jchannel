@@ -138,7 +138,7 @@ function CreateThread() {
                         if (currentCategory === category.value) {
                             dispatch(refreshThreadStart());
                             axios
-                                .get(`/thread/${currentCategory}`)
+                                .get(`/thread/category/${currentCategory}`)
                                 .then((response) => {
                                     setTimeout(() => {
                                         dispatch(setThread(response.data));
