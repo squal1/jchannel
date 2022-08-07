@@ -118,7 +118,7 @@
   }
 
   .nav_bar_right{
-    position: absolute;
+    position: fixed;
   }
 
   .nav_bar_right_close_button{
