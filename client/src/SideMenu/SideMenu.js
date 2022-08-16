@@ -132,6 +132,11 @@ function SideMenu() {
                         Job connections
                     </div>
                 </div>
+                <div className="side_menu_footer">
+                    <a href="/terms.html">Terms of service</a>
+                    <a href="/cookies.html">Cookie policy</a>
+                    <a href="/privacy.html">Privacy policy</a>
+                </div>
             </div>
         </div>
     );

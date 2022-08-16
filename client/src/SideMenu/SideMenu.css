@@ -116,7 +116,6 @@
   color:rgb(248, 183, 123);
 }
 
-
 .category_select > div{
   margin-top: 0.8rem;
   padding: 10px;
@@ -132,3 +131,23 @@
   color:rgb(248, 183, 123);
   font-weight: 650;
 }
+
+.side_menu_footer{
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  width: 80%;
+  margin-bottom: 8px;
+}
+
+.side_menu_footer > a{
+  font-size: 11px;
+  text-decoration: none;
+  color:rgb(248, 183, 123);
+}
+
+.side_menu_footer > a:link{
+  text-decoration: none;
+  color:rgb(248, 183, 123);
+}
+

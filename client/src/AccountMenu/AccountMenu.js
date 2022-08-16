@@ -5,6 +5,7 @@ import { loginMenuClose, setUser } from "../actions";
 import axios from "../axios";
 import { Snackbar, Alert } from "@mui/material";
 import { useNavigate } from "react-router";
+import DOMPurify from "dompurify";
 
 function AccountMenu() {
     let navigate = useNavigate();
@@ -61,9 +62,14 @@ function AccountMenu() {
         }
 
         axios
-            .post(`/user/displayname/?email=${user.email}&newName=${newName}`, {
-                withCredentials: true,
-            })
+            .post(
+                `/user/displayname/?email=${
+                    user.email
+                }&newName=${DOMPurify.sanitize(newName)}`,
+                {
+                    withCredentials: true,
+                }
+            )
             .then((response) => {
                 // Success message
                 setSnackbarInfo({
