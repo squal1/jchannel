@@ -93,9 +93,9 @@ function ThreadList() {
 
     const handleScroll = (e) => {
         const { offsetHeight, scrollTop, scrollHeight } = e.target;
-        console.log(
-            `offsetHeight: ${offsetHeight} scrollTop: ${scrollTop} scrollHeight: ${scrollHeight}`
-        );
+        //console.log(
+        //    `offsetHeight: ${offsetHeight} scrollTop: ${scrollTop} scrollHeight: ${scrollHeight}`
+        //);
         if (offsetHeight + scrollTop + 1 >= scrollHeight) {
             if (typeof userId !== "undefined") {
                 return;

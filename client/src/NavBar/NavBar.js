@@ -111,7 +111,6 @@ function NavBar() {
                 <div
                     className="nav_bar_left_menu_button"
                     onClick={() => {
-                        console.log(navigator.userAgent);
                         dispatch(sideMenuOpen());
                     }}
                 >

@@ -20,7 +20,7 @@ function App() {
 
     // Callback after login
     const handleCallbackResponse = (response) => {
-        console.log(response.credential);
+        //console.log(response.credential);
         axios
             .post(
                 "/login",

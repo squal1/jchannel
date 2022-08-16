@@ -123,7 +123,6 @@ function ReplyList() {
 
     // Infinite scroll
     useEffect(() => {
-        console.log(skip);
         // Get more replies
         updateReplyList(skip, 25, true);
     }, [skip]);
@@ -138,6 +137,13 @@ function ReplyList() {
 
             // Won't trigger infinite scroll if there is not a full page at the end
             if (currentReplies[currentReplies.length - 1].length < 25) {
+                return;
+            }
+
+            // When the new value of skip equals to the old one,
+            // useEffect won't trigger, thus need to update here
+            if ((currentReplies.length + startingPage - 1) * 25 === skip) {
+                updateReplyList(skip, 25, true);
                 return;
             }
 
