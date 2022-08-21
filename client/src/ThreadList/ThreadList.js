@@ -47,6 +47,9 @@ function ThreadList() {
 
     // Infinite scroll
     useEffect(() => {
+        if (skip === 0) {
+            return;
+        }
         axios
             .get(`/thread/category/${currentCategory}?skip=${skip}`)
             .then((response) => {
@@ -81,6 +84,7 @@ function ThreadList() {
         }
 
         // Load threads of the corresponding category again
+        setSkip(0);
         axios
             .get(`/thread/category/${currentCategory}?skip=${0}`)
             .then((response) => {
@@ -101,6 +105,7 @@ function ThreadList() {
                 return;
             }
             setSkip(currentThreads.length);
+            console.log(skip);
         }
     };
 

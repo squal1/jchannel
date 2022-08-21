@@ -29,10 +29,6 @@ function ReplyList() {
     const [startingPage, setStartingPage] = useState(1);
 
     function updateReplyList(skip, count, appendList) {
-        if (typeof _id === "undefined") {
-            return;
-        }
-
         //Case when directly access the thread from url
         if (currentThread.category === "") {
             axios.get(`/thread/?id=${_id}`).then((response) => {
@@ -42,7 +38,9 @@ function ReplyList() {
         }
 
         axios
-            .get(`/reply/${_id}?skip=${skip}&count=${count}`)
+            .get(
+                `/reply/${_id || currentThread._id}?skip=${skip}&count=${count}`
+            )
             .then((response) => {
                 if (response.data.reply.length === 0) {
                     setFullyLoaded(true);
@@ -107,7 +105,7 @@ function ReplyList() {
 
     // Refresh reply list at the bottom of reply list
     useEffect(() => {
-        if (isRefreshing !== true) {
+        if (isRefreshing === false) {
             return;
         }
         if (startingPage === 1) {
