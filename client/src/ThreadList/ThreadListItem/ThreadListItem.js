@@ -70,7 +70,7 @@ function ThreadListItem({ thread }) {
                     </div>
                     {(currentCategory === "general" ||
                         currentCategory === "Search Result" ||
-                        currentCategory === user.displayName) && (
+                        currentCategory === user?.displayName) && (
                         <div className="thread_category">{thread.category}</div>
                     )}
                 </div>
