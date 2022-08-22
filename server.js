@@ -94,6 +94,32 @@ app.get("/thread", (req, res) => {
         });
 });
 
+// Get all threads
+app.get("/threads", (req, res) => {
+    const skip =
+        req.query.skip && /^\d+$/.test(req.query.skip)
+            ? Number(req.query.skip)
+            : 0;
+    Thread.find({})
+        .sort({ lastReplied: -1 })
+        .skip(skip)
+        .limit(10)
+        .populate("author")
+        .populate({
+            path: "reply",
+            populate: {
+                path: "author quote",
+            },
+        })
+        .exec((err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        });
+});
+
 // Get threads of a category
 // Param category --> "trending"/"general"/"gossip"/"course"/"job"
 // Param skip --> skipping first n elements (0,10,20,30...)

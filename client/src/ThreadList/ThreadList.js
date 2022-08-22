@@ -16,13 +16,28 @@ function ThreadList() {
     const currentCategory = useSelector(
         (state) => state.selectCategory.category
     );
+    const user = useSelector((state) => state.user);
 
     // Load threads after selected a category
     useEffect(() => {
         if (typeof category === "undefined") {
             return;
         }
+
         dispatch(refreshThreadStart());
+
+        // If category = general, load ALL threads
+        if (currentCategory === "general") {
+            axios.get(`/threads?skip=${0}`).then((response) => {
+                setTimeout(() => {
+                    dispatch(setThread(response.data));
+                    dispatch(refreshThreadEnd());
+                }, 500);
+            });
+            return;
+        }
+
+        // Get the corresponding category
         axios.get(`/thread/category/${category}?skip=${0}`).then((response) => {
             setTimeout(() => {
                 dispatch(setThread(response.data));
@@ -50,6 +65,14 @@ function ThreadList() {
         if (skip === 0) {
             return;
         }
+
+        if (category === "general") {
+            axios.get(`/threads?skip=${skip}`).then((response) => {
+                dispatch(setThread([...currentThreads, ...response.data]));
+            });
+            return;
+        }
+
         axios
             .get(`/thread/category/${currentCategory}?skip=${skip}`)
             .then((response) => {
@@ -71,10 +94,32 @@ function ThreadList() {
             behavior: "smooth",
         });
 
-        // If userId from useParams exists, instead load posts for the user again
-        if (typeof userId !== "undefined") {
+        // Refresh of search result is done in side menu
+        if (currentCategory === "Search Result") {
+            //Do something...
+            setTimeout(() => {
+                dispatch(refreshThreadEnd());
+            }, 500);
+
+            return;
+        }
+
+        // If it is showing user's threads, load threads for the user again
+        if (currentCategory === user?.displayName) {
             dispatch(refreshThreadStart());
-            axios.get(`/user/profile/?userId=${userId}`).then((response) => {
+            axios.get(`/user/profile/?userId=${user?._id}`).then((response) => {
+                setTimeout(() => {
+                    dispatch(setThread(response.data));
+                    dispatch(refreshThreadEnd());
+                }, 500);
+            });
+            return;
+        }
+
+        setSkip(0);
+        // If category = general, load ALL threads
+        if (currentCategory === "general") {
+            axios.get(`/threads?skip=${0}`).then((response) => {
                 setTimeout(() => {
                     dispatch(setThread(response.data));
                     dispatch(refreshThreadEnd());
@@ -84,7 +129,6 @@ function ThreadList() {
         }
 
         // Load threads of the corresponding category again
-        setSkip(0);
         axios
             .get(`/thread/category/${currentCategory}?skip=${0}`)
             .then((response) => {

@@ -70,8 +70,21 @@
     align-items: center;
     height: calc(100% - 2rem);
     overflow: hidden;
+    display: flex;
 }
 
 .thread_topic{
     overflow-wrap: break-word; 
+}
+
+.thread_category{
+    margin-top: auto;
+    margin-left: auto;
+    margin-bottom: 7px;
+    font-size: 10px;
+    font-weight: 400;
+    color: #a1a1a1;
+    border-radius: 9px;
+    padding: 4px;
+    background-color:rgb(59, 59, 59);
 }

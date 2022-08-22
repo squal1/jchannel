@@ -1,7 +1,7 @@
 import "./ThreadListItem.css";
 import moment from "moment";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeThreadStart, selectThread } from "../../actions";
 import { useNavigate } from "react-router";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
@@ -11,6 +11,10 @@ function ThreadListItem({ thread }) {
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const [selected, setSelected] = useState(false);
+    const currentCategory = useSelector(
+        (state) => state.selectCategory.category
+    );
+    const user = useSelector((state) => state.user);
 
     const handleSelectThread = () => {
         setSelected(true);
@@ -64,6 +68,11 @@ function ThreadListItem({ thread }) {
                     >
                         {thread.title}
                     </div>
+                    {(currentCategory === "general" ||
+                        currentCategory === "Search Result" ||
+                        currentCategory === user.displayName) && (
+                        <div className="thread_category">{thread.category}</div>
+                    )}
                 </div>
             </div>
         </div>
