@@ -105,31 +105,112 @@ function SideMenu() {
                     My posts
                 </div>
                 <hr />
+                <p>Channels</p>
                 <div className="category_select">
-                    <p>Categories</p>
-                    <div
-                        className="category_general"
-                        onClick={() => handleCategorySelect("general")}
-                    >
-                        General
+                    <div className="category_group">
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("general")}
+                        >
+                            General
+                        </div>
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("joke")}
+                        >
+                            Joke &amp; meme
+                        </div>
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("course")}
+                        >
+                            Course &amp; Prof
+                        </div>
+
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("career")}
+                        >
+                            Career
+                        </div>
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("job")}
+                        >
+                            Job connection
+                        </div>
                     </div>
-                    <div
-                        className="category_gossip"
-                        onClick={() => handleCategorySelect("gossip")}
-                    >
-                        Gossip
+                    <p>Discuss</p>
+                    <div className="category_group">
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("politic")}
+                        >
+                            Politic
+                        </div>
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("advice")}
+                        >
+                            Advice
+                        </div>
+                        <div
+                            className="category"
+                            onClick={() =>
+                                handleCategorySelect("international")
+                            }
+                        >
+                            International
+                        </div>
                     </div>
-                    <div
-                        className="category_courses_profs"
-                        onClick={() => handleCategorySelect("course")}
-                    >
-                        Courses&amp;Profs
+                    <p>Interests</p>
+                    <div className="category_group">
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("tech")}
+                        >
+                            Technology
+                        </div>
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("sport")}
+                        >
+                            Sport
+                        </div>
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("music")}
+                        >
+                            Music
+                        </div>
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("car")}
+                        >
+                            Car
+                        </div>
+
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("gaming")}
+                        >
+                            Video game
+                        </div>
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("anime")}
+                        >
+                            Anime &amp; Manga
+                        </div>
                     </div>
-                    <div
-                        className="category_job_connections"
-                        onClick={() => handleCategorySelect("job")}
-                    >
-                        Job connections
+                    <p>Misc.</p>
+                    <div className="category_group">
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("admin")}
+                        >
+                            Administration
+                        </div>
                     </div>
                 </div>
                 <div className="side_menu_footer">

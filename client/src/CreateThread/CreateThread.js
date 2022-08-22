@@ -75,9 +75,20 @@ function CreateThread() {
     // Values of category selection
     const options = [
         { value: "general", label: "General" },
-        { value: "gossip", label: "Gossip" },
-        { value: "course", label: "Courses&Profs" },
-        { value: "job", label: "Job Connections" },
+        { value: "joke", label: "Joke & meme" },
+        { value: "course", label: "Course & Prof" },
+        { value: "career", label: "Career" },
+        { value: "job", label: "Job Connection" },
+        { value: "politic", label: "Politic" },
+        { value: "advice", label: "Advice" },
+        { value: "international", label: "International" },
+        { value: "tech", label: "Technology" },
+        { value: "sport", label: "Sport" },
+        { value: "music", label: "Music" },
+        { value: "anime", label: "Anime & Manga" },
+        { value: "gaming", label: "Video game" },
+        { value: "car", label: "Car" },
+        { value: "admin", label: "Administration" },
     ];
 
     // Category of the new thread
