@@ -35,7 +35,6 @@
   transition: 0.4s;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto;
 }
 
 .search_container{
@@ -169,3 +168,12 @@
   color:rgb(248, 183, 123);
 }
 
+@media screen and (max-width: 767px) {
+  .side_menu{
+    position: fixed;
+    height: 100%;
+  }
+  .side_menu_window{
+    position: fixed;
+  }
+}
