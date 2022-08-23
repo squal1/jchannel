@@ -122,6 +122,12 @@ function SideMenu() {
                         </div>
                         <div
                             className="category"
+                            onClick={() => handleCategorySelect("event")}
+                        >
+                            Event
+                        </div>
+                        <div
+                            className="category"
                             onClick={() => handleCategorySelect("course")}
                         >
                             Course &amp; Prof
@@ -189,6 +195,18 @@ function SideMenu() {
                         >
                             Car
                         </div>
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("movie")}
+                        >
+                            Movie &amp; show
+                        </div>
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("fashion")}
+                        >
+                            Fashion
+                        </div>
 
                         <div
                             className="category"
@@ -209,7 +227,7 @@ function SideMenu() {
                             className="category"
                             onClick={() => handleCategorySelect("admin")}
                         >
-                            Administration
+                            Admin
                         </div>
                     </div>
                 </div>

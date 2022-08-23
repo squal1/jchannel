@@ -142,6 +142,12 @@ function AccountMenu() {
                 >
                     <div id="google_sign_in"></div>
                 </div>
+                <div className="account_menu_footer">
+                    <p>
+                        Loggin in means that you agree with our terms and
+                        policies.
+                    </p>
+                </div>
             </div>
             <Snackbar
                 open={alertOpen}

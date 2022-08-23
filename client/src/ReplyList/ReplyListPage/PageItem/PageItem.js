@@ -9,6 +9,9 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import axios from "../../../axios";
 import moment from "moment";
 import { Tooltip } from "@mui/material";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 function PageItem({
     id,
@@ -34,6 +37,15 @@ function PageItem({
     const [upvoteNumber, setUpvoteNumber] = useState(upvote);
     const [downvoteNumber, setDownvoteNumber] = useState(downvote);
 
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     useEffect(() => {
         if (upvotedBy?.includes(user?._id)) {
             setUpvoted(true);
@@ -42,6 +54,11 @@ function PageItem({
             setDownvoted(true);
         }
     }, []);
+
+    const handleCopyReplyID = () => {
+        navigator.clipboard.writeText(id);
+        handleClose();
+    };
 
     const handleUpvote = () => {
         if (preview === true) {
@@ -124,6 +141,23 @@ function PageItem({
                     <div className="reply_time">
                         {moment(time).format("L h:mma")}
                     </div>
+                    <MoreHorizIcon
+                        style={{ marginLeft: "auto", cursor: "pointer" }}
+                        onClick={handleClick}
+                    />
+                    <Menu
+                        id="page_item_menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        MenuListProps={{
+                            "aria-labelledby": "basic-button",
+                        }}
+                    >
+                        <MenuItem onClick={handleCopyReplyID}>
+                            Copy reply ID
+                        </MenuItem>
+                    </Menu>
                 </div>
                 <div className="reply_mid_level">
                     <div className="reply_quote">

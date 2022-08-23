@@ -76,6 +76,7 @@ function CreateThread() {
     const options = [
         { value: "general", label: "General" },
         { value: "joke", label: "Joke & meme" },
+        { value: "event", label: "Event" },
         { value: "course", label: "Course & Prof" },
         { value: "career", label: "Career" },
         { value: "job", label: "Job Connection" },
@@ -85,10 +86,12 @@ function CreateThread() {
         { value: "tech", label: "Technology" },
         { value: "sport", label: "Sport" },
         { value: "music", label: "Music" },
+        { value: "car", label: "Car" },
+        { value: "movie", label: "Movie" },
+        { value: "fashion", label: "Fashion" },
         { value: "anime", label: "Anime & Manga" },
         { value: "gaming", label: "Video game" },
-        { value: "car", label: "Car" },
-        { value: "admin", label: "Administration" },
+        { value: "admin", label: "Admin" },
     ];
 
     // Category of the new thread
