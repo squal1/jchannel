@@ -74,11 +74,7 @@ function ReplyList() {
 
     // Load Reply after selected a thread
     useEffect(() => {
-        if (typeof _id === "undefined") {
-            return;
-        }
-
-        if (isChangingThread === false) {
+        if (typeof _id === "undefined" && isChangingThread === false) {
             return;
         }
 
