@@ -22,11 +22,12 @@
 
 .reply_floor{
     font-weight: 300;
-    font-size: 15px;
+    font-size: 13px;
+    color: #888888;
 }
 
 .reply_author{
-    margin-left: 10px;
+    margin-left: 8px;
     font-size: 16px;
 }
 

@@ -16,7 +16,7 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 
 function ReplyList() {
     const dispatch = useDispatch();
-    const { _id } = useParams();
+    const { _id, category } = useParams();
     const [skip, setSkip] = useState(0);
     const [fullyLoaded, setFullyLoaded] = useState(false);
     const isRefreshing = useSelector((state) => state.refreshReply);
@@ -29,12 +29,8 @@ function ReplyList() {
     const [startingPage, setStartingPage] = useState(1);
 
     function updateReplyList(skip, count, appendList) {
-        //Case when directly access the thread from url
-        if (currentThread.category === "") {
-            axios.get(`/thread/?id=${_id}`).then((response) => {
-                console.log(response.data);
-                dispatch(selectThread(response.data));
-            });
+        if (typeof _id === "undefined") {
+            return;
         }
 
         axios
@@ -72,11 +68,25 @@ function ReplyList() {
             });
     }
 
+    //Case when directly access the thread from url
+    useEffect(() => {
+        if (typeof category === "undefined") {
+            axios.get(`/thread/?id=${_id}`).then((response) => {
+                dispatch(selectThread(response.data));
+            });
+            document.getElementById("reply_scroller").style.zIndex = "30";
+            document.getElementById("nav_bar_right").style.zIndex = "30";
+        }
+    }, []);
+
     // Load Reply after selected a thread
     useEffect(() => {
         if (typeof _id === "undefined" && isChangingThread === false) {
             return;
         }
+        axios.get(`/thread/?id=${_id}`).then((response) => {
+            dispatch(selectThread(response.data));
+        });
 
         // Scroll to top when a new thread is selected
         document.getElementById("reply_scroller").scrollTo({
@@ -86,7 +96,7 @@ function ReplyList() {
         //setSkip(0);
         setStartingPage(1);
         updateReplyList(0, 25, false);
-    }, [_id, isChangingThread]);
+    }, [_id]);
 
     // Jump to certain page
     useEffect(() => {
@@ -130,7 +140,7 @@ function ReplyList() {
             }
 
             // Won't trigger infinite scroll if there is not a full page at the end
-            if (currentReplies[currentReplies.length - 1].length < 25) {
+            if (currentReplies[currentReplies.length - 1]?.length < 25) {
                 return;
             }
 
@@ -140,7 +150,6 @@ function ReplyList() {
                 updateReplyList(skip, 25, true);
                 return;
             }
-
             setSkip((currentReplies.length + startingPage - 1) * 25);
         }
     };

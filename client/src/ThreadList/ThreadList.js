@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "../axios";
 import ThreadListItem from "./ThreadListItem";
-import { refreshThreadStart, refreshThreadEnd, setThread } from "../actions";
+import {
+    refreshThreadStart,
+    refreshThreadEnd,
+    setThread,
+    selectCategory,
+} from "../actions";
 import { useParams } from "react-router-dom";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
@@ -18,6 +23,20 @@ function ThreadList() {
     );
     const user = useSelector((state) => state.user);
 
+    useEffect(() => {
+        dispatch(refreshThreadStart());
+        if (typeof category === "undefined") {
+            axios.get(`/threads?skip=${0}`).then((response) => {
+                setTimeout(() => {
+                    dispatch(setThread(response.data));
+                    dispatch(refreshThreadEnd());
+                }, 400);
+            });
+        } else {
+            dispatch(selectCategory(category));
+        }
+    }, []);
+
     // Load threads after selected a category
     useEffect(() => {
         if (typeof category === "undefined") {
@@ -25,14 +44,13 @@ function ThreadList() {
         }
 
         dispatch(refreshThreadStart());
-
         // If category = general, load ALL threads
         if (currentCategory === "general") {
             axios.get(`/threads?skip=${0}`).then((response) => {
                 setTimeout(() => {
                     dispatch(setThread(response.data));
                     dispatch(refreshThreadEnd());
-                }, 500);
+                }, 400);
             });
             return;
         }
@@ -42,7 +60,7 @@ function ThreadList() {
             setTimeout(() => {
                 dispatch(setThread(response.data));
                 dispatch(refreshThreadEnd());
-            }, 500);
+            }, 400);
         });
     }, [category]);
 
@@ -56,7 +74,7 @@ function ThreadList() {
             setTimeout(() => {
                 dispatch(setThread(response.data));
                 dispatch(refreshThreadEnd());
-            }, 500);
+            }, 400);
         });
     }, [userId]);
 
@@ -99,7 +117,7 @@ function ThreadList() {
             //Do something...
             setTimeout(() => {
                 dispatch(refreshThreadEnd());
-            }, 500);
+            }, 400);
 
             return;
         }
