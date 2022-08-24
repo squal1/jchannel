@@ -144,8 +144,8 @@ function AccountMenu() {
                 </div>
                 <div className="account_menu_footer">
                     <p>
-                        Loggin in means that you agree with our terms and
-                        policies.
+                        By logging in you agree with our terms, policies and
+                        rules.
                     </p>
                 </div>
             </div>

@@ -58,6 +58,16 @@
   }
 }
 
+.intro{
+  color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  border:2px solid rgb(248, 183, 123);
+  border-radius: 10px;
+  margin: 40px;
+}
+
 @media screen and (max-width: 767px) {
   .reply_list_container{
     position: fixed;

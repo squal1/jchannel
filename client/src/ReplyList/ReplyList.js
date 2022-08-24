@@ -203,7 +203,26 @@ function ReplyList() {
                     </div>
                 </div>
             ) : (
-                <></>
+                <div className="intro">
+                    <h1>Welcome</h1>
+                    <h3>What is jchannel?</h3>
+                    <p>
+                        Jchannel is an online forum where Jessup students and
+                        staff can communicate, post comments and share images on
+                        a variety of topics. The site was developed purely by a
+                        student and is currently on a test run. Jchannel is not
+                        affiliated with any party, but simply serves as an
+                        independent communication platform. Users can log in
+                        with your school email to enjoy all the features of the
+                        site and become part of the community.
+                    </p>
+                    <p>
+                        Make sure to familiarize yourself with the
+                        <a href="/FAQ/index.html"> Rules and FAQ </a>before
+                        posting and replying. Email jchannel2023@gmail.com for
+                        any further questions.
+                    </p>
+                </div>
             )}
         </div>
     );
