@@ -13,6 +13,8 @@
 
 .reply_list_footer{
   display: flex;
+  flex-direction: column;
+  margin-top: 5px;
   align-items: center;
   justify-content: center;
   min-height: 3.5rem;

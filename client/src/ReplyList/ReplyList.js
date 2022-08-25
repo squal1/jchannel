@@ -14,6 +14,7 @@ import axios from "../axios";
 import ReplyListPage from "./ReplyListPage";
 import ReplyBlockSkeleton from "./ReplyListPage/Skeleton/Skeleton";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import { color } from "@mui/system";
 
 function ReplyList() {
     const dispatch = useDispatch();
@@ -67,7 +68,11 @@ function ReplyList() {
                         // Reset the list
                         dispatch(setReply(replies));
                     }
-                    if (replies[replies.length - 1]?.length < 25) {
+                    console.log(startingPage + currentReplies.length);
+                    if (
+                        replies[replies.length - 1]?.length < 25 ||
+                        startingPage + currentReplies.length > 20
+                    ) {
                         setFullyLoaded(true);
                     } else {
                         setFullyLoaded(false);
@@ -195,8 +200,9 @@ function ReplyList() {
                             />
                         );
                     })}
-                    <div className="reply_list_footer">
-                        {fullyLoaded ? (
+
+                    {fullyLoaded ? (
+                        <div className="reply_list_footer">
                             <div
                                 className="reply_list_refresh_button"
                                 onClick={() => dispatch(refreshReplyStart())}
@@ -215,10 +221,20 @@ function ReplyList() {
                                     <div>Refresh</div>
                                 )}
                             </div>
-                        ) : (
-                            <ReplyBlockSkeleton />
-                        )}
-                    </div>
+                            {startingPage + currentReplies.length > 20 && (
+                                <div
+                                    style={{
+                                        marginTop: "5px",
+                                        color: "rgb(248, 183, 123)",
+                                    }}
+                                >
+                                    Reply limit has reached
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <ReplyBlockSkeleton />
+                    )}
                 </div>
             ) : (
                 <div className="intro">
