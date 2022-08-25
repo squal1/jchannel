@@ -8,6 +8,7 @@ import {
     setReply,
     selectThread,
     changeThreadEnd,
+    loadSameThreadEnd,
 } from "../actions";
 import axios from "../axios";
 import ReplyListPage from "./ReplyListPage";
@@ -26,7 +27,16 @@ function ReplyList() {
     );
     const currentReplies = useSelector((state) => state.replies.list);
     const selectedReplyPage = useSelector((state) => state.selectReplyPage);
+    const loadSameThread = useSelector((state) => state.loadSameThread);
     const [startingPage, setStartingPage] = useState(1);
+
+    // Scroll to the top of reply list
+    const scrollToTop = () => {
+        document.getElementById("reply_scroller").scrollTo({
+            top: 0,
+            left: 0,
+        });
+    };
 
     function updateReplyList(skip, count, appendList) {
         if (typeof _id === "undefined") {
@@ -88,23 +98,29 @@ function ReplyList() {
             dispatch(selectThread(response.data));
         });
 
-        // Scroll to top when a new thread is selected
-        document.getElementById("reply_scroller").scrollTo({
-            top: 0,
-            left: 0,
-        });
-        //setSkip(0);
+        scrollToTop();
         setStartingPage(1);
         updateReplyList(0, 25, false);
     }, [_id]);
 
+    // Load the same thread
+    useEffect(() => {
+        if (loadSameThreadEnd === false) {
+            return;
+        }
+        axios.get(`/thread/?id=${_id}`).then((response) => {
+            dispatch(selectThread(response.data));
+        });
+
+        scrollToTop();
+        setStartingPage(1);
+        updateReplyList(0, 25, false);
+        dispatch(loadSameThreadEnd());
+    }, [loadSameThread]);
+
     // Jump to certain page
     useEffect(() => {
-        // Scroll to top
-        document.getElementById("reply_scroller").scrollTo({
-            top: 0,
-            left: 0,
-        });
+        scrollToTop();
         setStartingPage(selectedReplyPage);
         updateReplyList((selectedReplyPage - 1) * 25, 25, false);
     }, [selectedReplyPage]);
@@ -114,15 +130,8 @@ function ReplyList() {
         if (isRefreshing === false) {
             return;
         }
-        if (startingPage === 1) {
-            // Get all 500 replies
-            updateReplyList(0, 500, false);
-            return;
-        }
-        if (startingPage !== 1) {
-            // Skip all replies before starting page
-            updateReplyList((startingPage - 1) * 25, 500, false);
-        }
+        // Skip all replies before starting page
+        updateReplyList((startingPage - 1) * 25, 500, false);
     }, [isRefreshing]);
 
     // Infinite scroll

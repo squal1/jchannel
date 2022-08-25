@@ -136,3 +136,15 @@ export const changeThreadEnd = () => {
         type: "CHANGE_THREAD_END",
     };
 };
+
+export const loadSameThreadStart = () => {
+    return {
+        type: "LOAD_SAME_THREAD_START",
+    };
+};
+
+export const loadSameThreadEnd = () => {
+    return {
+        type: "LOAD_SAME_THREAD_END",
+    };
+};

@@ -2,7 +2,12 @@ import "./ThreadListItem.css";
 import moment from "moment";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeThreadStart, selectThread } from "../../actions";
+import {
+    changeThreadEnd,
+    changeThreadStart,
+    selectThread,
+    loadSameThreadStart,
+} from "../../actions";
 import { useNavigate } from "react-router";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
@@ -14,6 +19,9 @@ function ThreadListItem({ thread }) {
     const currentCategory = useSelector(
         (state) => state.selectCategory.category
     );
+    const currentThread = useSelector(
+        (state) => state.selectThread.currentThread
+    );
     const user = useSelector((state) => state.user);
 
     const handleSelectThread = () => {
@@ -21,6 +29,11 @@ function ThreadListItem({ thread }) {
         navigate(`/thread/${thread._id}`);
         dispatch(selectThread(thread));
         dispatch(changeThreadStart());
+        // Select the same thread
+        if (thread._id === currentThread._id) {
+            dispatch(loadSameThreadStart());
+        }
+
         // For mobile
         document.getElementById("reply_scroller").style.zIndex = "30";
         document.getElementById("nav_bar_right").style.zIndex = "30";
