@@ -72,9 +72,12 @@ function PageItem({
         setUpvoteNumber(upvoteNumber + 1);
         setUpvoted(true);
         axios
-            .post(`/upvote/${id}?userId=${user._id}`, {
-                withCredentials: true,
-            })
+            .post(
+                `/upvote/${id}?threadId=${currentThread._id}&userId=${user._id}`,
+                {
+                    withCredentials: true,
+                }
+            )
             .then((res) => {
                 console.log(res);
             })
@@ -95,9 +98,12 @@ function PageItem({
         setDownvoteNumber(downvoteNumber + 1);
         setDownvoted(true);
         axios
-            .post(`/downvote/${id}?userId=${user._id}`, {
-                withCredentials: true,
-            })
+            .post(
+                `/downvote/${id}?threadId=${currentThread._id}&userId=${user._id}`,
+                {
+                    withCredentials: true,
+                }
+            )
             .then((res) => {
                 console.log(res);
             })

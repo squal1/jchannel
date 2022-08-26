@@ -116,9 +116,15 @@ function SideMenu() {
                         </div>
                         <div
                             className="category"
-                            onClick={() => handleCategorySelect("joke")}
+                            onClick={() => handleCategorySelect("trending")}
                         >
-                            Joke &amp; meme
+                            Trending
+                        </div>
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("funny")}
+                        >
+                            Funny
                         </div>
                         <div
                             className="category"

@@ -75,7 +75,7 @@ function CreateThread() {
     // Values of category selection
     const options = [
         { value: "general", label: "General" },
-        { value: "joke", label: "Joke & meme" },
+        { value: "funny", label: "Funny" },
         { value: "event", label: "Event" },
         { value: "course", label: "Course & Prof" },
         { value: "career", label: "Career" },

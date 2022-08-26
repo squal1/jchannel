@@ -68,7 +68,6 @@ function ReplyList() {
                         // Reset the list
                         dispatch(setReply(replies));
                     }
-                    console.log(startingPage + currentReplies.length);
                     if (
                         replies[replies.length - 1]?.length < 25 ||
                         startingPage + currentReplies.length > 20

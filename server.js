@@ -169,6 +169,119 @@ app.get("/thread/title", (req, res) => {
         });
 });
 
+// Get threads and sort by popularity
+// Formula: popularity = 1.5*upvote + downvote + 2*reply - date^1.2
+app.get("/thread/trending", (req, res) => {
+    //const category = req.query.query;
+    //query = { category: { category } };
+    Thread.aggregate([
+        // Match query (different category)
+        // { $match: query },
+        {
+            $addFields: {
+                dateDiff: {
+                    $dateDiff: {
+                        startDate: "$datePosted",
+                        endDate: new Date(),
+                        unit: "hour",
+                    },
+                },
+            },
+        },
+        {
+            $addFields: {
+                dateScore: {
+                    $multiply: ["$dateDiff", 1],
+                },
+                replyScore: {
+                    $multiply: [{ $size: "$reply" }, 2],
+                },
+                upvoteScore: {
+                    $multiply: ["$upvote", 1.5],
+                },
+                downvoteScore: {
+                    $multiply: ["$downvote", 1],
+                },
+            },
+        },
+        {
+            $addFields: {
+                // Calculate total score
+                score: {
+                    $subtract: [
+                        {
+                            $add: [
+                                "$replyScore",
+                                "$upvoteScore",
+                                "$downvoteScore",
+                            ],
+                        },
+                        { $pow: ["$dateScore", 1.3] },
+                    ],
+                },
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "author",
+                foreignField: "_id",
+                as: "author",
+            },
+        },
+        {
+            $lookup: {
+                from: "replies",
+                localField: "reply",
+                foreignField: "_id",
+                as: "reply",
+            },
+        },
+        { $unwind: "$reply" },
+        {
+            $lookup: {
+                from: "users",
+                localField: "reply.author",
+                foreignField: "_id",
+                as: "reply.author",
+            },
+        },
+        {
+            $lookup: {
+                from: "replies",
+                localField: "reply.quote",
+                foreignField: "_id",
+                as: "reply.quote",
+            },
+        },
+        {
+            $group: {
+                _id: "$_id",
+                author: { $first: "$author" },
+                title: { $first: "$title" },
+                category: { $first: "$category" },
+                reply: { $push: "$reply" },
+                lastReplied: { $first: "$lastReplied" },
+                dateScore: { $first: "$dateScore" },
+                replyScore: { $first: "$replyScore" },
+                upvoteScore: { $first: "$upvoteScore" },
+                downvoteScore: { $first: "$downvoteScore" },
+                score: { $first: "$score" },
+            },
+        },
+        { $unwind: "$author" },
+        //sort by the score.
+        { $sort: { score: -1 } },
+        { $limit: 20 },
+    ]).exec((err, data) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(data);
+        }
+    });
+});
+
 // Get replies of a thread
 // Param _id --> id of the thread
 // Param skip --> skipping first n elements (0,25,50,75...)
@@ -270,10 +383,24 @@ app.post("/reply/:_id", (req, res) => {
 // Param userId => user id
 app.post("/upvote/:_id", (req, res) => {
     const userId = req.query.userId;
+    const threadId = req.query.threadId;
 
     // Verify token
     verify(JSON.parse(req.cookies.loginToken).jwtToken).catch(console.error);
 
+    Thread.updateOne(
+        { _id: threadId },
+        {
+            $inc: { upvote: 1 },
+        },
+        (err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(data);
+            }
+        }
+    );
     Reply.updateOne(
         { _id: req.params._id },
         {
@@ -284,9 +411,9 @@ app.post("/upvote/:_id", (req, res) => {
         },
         (err, data) => {
             if (err) {
-                console.log(err);
+                res.status(500).send(err);
             } else {
-                console.log(data);
+                res.status(200).send(data);
             }
         }
     );
@@ -297,9 +424,24 @@ app.post("/upvote/:_id", (req, res) => {
 // Param userId => user id
 app.post("/downvote/:_id", (req, res) => {
     const userId = req.query.userId;
+    const threadId = req.query.threadId;
 
     // Verify token
     verify(JSON.parse(req.cookies.loginToken).jwtToken).catch(console.error);
+
+    Thread.updateOne(
+        { _id: threadId },
+        {
+            $inc: { downvote: 1 },
+        },
+        (err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(data);
+            }
+        }
+    );
 
     Reply.updateOne(
         { _id: req.params._id },

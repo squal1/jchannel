@@ -24,9 +24,21 @@ const threadSchema = mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    datePosted: {
+        type: Date,
+        default: Date.now,
+    },
     pinned: {
         type: Boolean,
         default: false,
+    },
+    upvote: {
+        type: Number,
+        default: 0,
+    },
+    downvote: {
+        type: Number,
+        default: 0,
     },
 });
 

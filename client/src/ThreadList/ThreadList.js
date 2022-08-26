@@ -44,9 +44,21 @@ function ThreadList() {
         }
 
         dispatch(refreshThreadStart());
+
         // If category = general, load ALL threads
         if (currentCategory === "general") {
             axios.get(`/threads?skip=${0}`).then((response) => {
+                setTimeout(() => {
+                    dispatch(setThread(response.data));
+                    dispatch(refreshThreadEnd());
+                }, 400);
+            });
+            return;
+        }
+
+        // Get trending list
+        if (currentCategory === "trending") {
+            axios.get(`/thread/trending`).then((response) => {
                 setTimeout(() => {
                     dispatch(setThread(response.data));
                     dispatch(refreshThreadEnd());
@@ -130,6 +142,17 @@ function ThreadList() {
                     dispatch(setThread(response.data));
                     dispatch(refreshThreadEnd());
                 }, 500);
+            });
+            return;
+        }
+
+        // Get trending list
+        if (currentCategory === "trending") {
+            axios.get(`/thread/trending`).then((response) => {
+                setTimeout(() => {
+                    dispatch(setThread(response.data));
+                    dispatch(refreshThreadEnd());
+                }, 400);
             });
             return;
         }
