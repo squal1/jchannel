@@ -134,6 +134,8 @@ function PageItem({
     };
 
     const handleViewProfile = () => {
+        document.getElementById("reply_scroller").style.zIndex = "0";
+        document.getElementById("nav_bar_right").style.zIndex = "0";
         dispatch(selectCategory(author));
         navigate(`/profile/${authorId}`);
     };
