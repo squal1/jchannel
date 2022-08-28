@@ -82,12 +82,6 @@ function ThreadList() {
             return;
         }
         dispatch(refreshThreadStart());
-        axios.get(`/user/profile/?userId=${userId}`).then((response) => {
-            setTimeout(() => {
-                dispatch(setThread(response.data));
-                dispatch(refreshThreadEnd());
-            }, 400);
-        });
     }, [userId]);
 
     // Infinite scroll
@@ -126,7 +120,6 @@ function ThreadList() {
 
         // Refresh of search result is done in side menu
         if (currentCategory === "Search Result") {
-            //Do something...
             setTimeout(() => {
                 dispatch(refreshThreadEnd());
             }, 400);
@@ -135,9 +128,12 @@ function ThreadList() {
         }
 
         // If it is showing user's threads, load threads for the user again
-        if (currentCategory === user?.displayName) {
+        if (
+            currentCategory === user?.displayName ||
+            (typeof userId !== "undefined" && typeof category === "undefined")
+        ) {
             dispatch(refreshThreadStart());
-            axios.get(`/user/profile/?userId=${user?._id}`).then((response) => {
+            axios.get(`/user/profile/?userId=${userId}`).then((response) => {
                 setTimeout(() => {
                     dispatch(setThread(response.data));
                     dispatch(refreshThreadEnd());

@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./PageItem.css";
 import { useSelector, useDispatch } from "react-redux";
-import { addQuote, loginMenuOpen, toggleCreateReply } from "../../../actions";
+import {
+    addQuote,
+    loginMenuOpen,
+    selectCategory,
+    toggleCreateReply,
+} from "../../../actions";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
@@ -12,11 +17,13 @@ import { Tooltip } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { useNavigate } from "react-router";
 
 function PageItem({
     id,
     floor,
     author,
+    authorId,
     verified,
     time,
     content,
@@ -27,6 +34,7 @@ function PageItem({
     quote,
     preview = false,
 }) {
+    let navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     const currentThread = useSelector(
@@ -125,6 +133,11 @@ function PageItem({
         dispatch(toggleCreateReply());
     };
 
+    const handleViewProfile = () => {
+        dispatch(selectCategory(author));
+        navigate(`/profile/${authorId}`);
+    };
+
     return (
         <div className="thread_reply">
             <div className="thread_reply_container">
@@ -135,6 +148,7 @@ function PageItem({
                         style={{
                             color: verified ? "rgb(248, 183, 123)" : "white",
                         }}
+                        onClick={handleViewProfile}
                     >
                         {author}
                     </div>

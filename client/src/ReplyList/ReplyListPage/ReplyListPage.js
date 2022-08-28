@@ -14,6 +14,7 @@ function ReplyListPage({ pageNumber, replies }) {
                         id={item._id}
                         floor={`#${(pageNumber - 1) * 25 + index + 1}`}
                         author={item.author.displayName}
+                        authorId={item.author._id}
                         verified={item.author.verified}
                         time={item.time}
                         content={item.content}
