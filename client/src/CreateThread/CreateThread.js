@@ -91,8 +91,8 @@ function CreateThread() {
         { value: "fashion", label: "Fashion" },
         { value: "anime", label: "Anime & Manga" },
         { value: "gaming", label: "Video game" },
-        { value: "admin", label: "Admin" },
-    ];
+        user?.admin && { value: "admin", label: "Admin" },
+    ].filter(Boolean);
 
     // Category of the new thread
     const [category, setCategory] = useState("");
