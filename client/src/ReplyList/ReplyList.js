@@ -242,7 +242,7 @@ function ReplyList() {
                     <p>
                         Jchannel is an online forum where Jessup students and
                         staff can communicate, post comments and share images on
-                        a variety of topics. The site was developed purely by a
+                        a variety of topics. The site was developed by a Jessup
                         student and is currently on a test run. Jchannel is not
                         affiliated with any party, but simply serves as an
                         independent communication platform. Users can log in
@@ -251,9 +251,18 @@ function ReplyList() {
                     </p>
                     <p>
                         Make sure to familiarize yourself with the
-                        <a href="/FAQ/index.html"> Rules and FAQ </a>before
-                        posting and replying. Email jchannel2023@gmail.com for
-                        any further questions.
+                        <a
+                            style={{
+                                color: "rgb(248, 183, 123)",
+                                textDecoration: "none",
+                            }}
+                            href="/FAQ/index.html"
+                        >
+                            {" "}
+                            Rules and FAQ{" "}
+                        </a>
+                        before posting and replying. Email
+                        jchannel2023@gmail.com for any further questions.
                     </p>
                 </div>
             )}
