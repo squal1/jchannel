@@ -145,12 +145,6 @@ function SideMenu() {
                         >
                             Career
                         </div>
-                        <div
-                            className="category"
-                            onClick={() => handleCategorySelect("job")}
-                        >
-                            Job connection
-                        </div>
                     </div>
                     <p>Discuss</p>
                     <div className="category_group">
@@ -182,6 +176,12 @@ function SideMenu() {
                             onClick={() => handleCategorySelect("tech")}
                         >
                             Technology
+                        </div>
+                        <div
+                            className="category"
+                            onClick={() => handleCategorySelect("finance")}
+                        >
+                            Finance
                         </div>
                         <div
                             className="category"
