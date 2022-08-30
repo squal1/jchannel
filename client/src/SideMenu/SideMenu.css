@@ -81,7 +81,7 @@
 }
 
 .my_account_button, .my_posts_button{
-  margin-top: 8px;
+  margin-top: 5px;
   padding: 6px;
   width: 75%;
   font-weight: 600;
@@ -89,7 +89,7 @@
   user-select: none;
   font-size: 17px;
   cursor: pointer;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .my_account_button:hover, .my_posts_button:hover{

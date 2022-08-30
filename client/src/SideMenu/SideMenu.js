@@ -18,6 +18,9 @@ function SideMenu() {
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const style = useSelector((state) => state.toggleSideMenu);
+    const currentCategory = useSelector(
+        (state) => state.selectCategory.category
+    );
     const user = useSelector((state) => state.user);
     const [query, setQuery] = useState("");
 
@@ -96,7 +99,7 @@ function SideMenu() {
                     className="my_account_button"
                     onClick={() => dispatch(loginMenuOpen())}
                 >
-                    My account
+                    My profile
                 </div>
                 <div
                     className="my_posts_button"
@@ -110,30 +113,60 @@ function SideMenu() {
                     <div className="category_group">
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "general"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("general")}
                         >
                             General
                         </div>
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "trending"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("trending")}
                         >
                             Trending
                         </div>
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "funny"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("funny")}
                         >
                             Funny
                         </div>
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "event"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("event")}
                         >
                             Event
                         </div>
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "course"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("course")}
                         >
                             Course &amp; Prof
@@ -141,6 +174,12 @@ function SideMenu() {
 
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "career"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("career")}
                         >
                             Career
@@ -150,18 +189,36 @@ function SideMenu() {
                     <div className="category_group">
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "politic"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("politic")}
                         >
                             Politic
                         </div>
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "advice"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("advice")}
                         >
                             Advice
                         </div>
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "international"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() =>
                                 handleCategorySelect("international")
                             }
@@ -173,42 +230,84 @@ function SideMenu() {
                     <div className="category_group">
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "tech"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("tech")}
                         >
                             Technology
                         </div>
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "finance"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("finance")}
                         >
                             Finance
                         </div>
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "sport"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("sport")}
                         >
                             Sport
                         </div>
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "music"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("music")}
                         >
                             Music
                         </div>
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "car"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("car")}
                         >
                             Car
                         </div>
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "movie"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("movie")}
                         >
                             Movie &amp; show
                         </div>
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "fashion"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("fashion")}
                         >
                             Fashion
@@ -216,12 +315,24 @@ function SideMenu() {
 
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "gaming"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("gaming")}
                         >
                             Video game
                         </div>
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "anime"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("anime")}
                         >
                             Anime &amp; Manga
@@ -231,6 +342,12 @@ function SideMenu() {
                     <div className="category_group">
                         <div
                             className="category"
+                            style={{
+                                color:
+                                    currentCategory === "admin"
+                                        ? "rgb(248, 183, 123)"
+                                        : "aliceblue",
+                            }}
                             onClick={() => handleCategorySelect("admin")}
                         >
                             Admin
