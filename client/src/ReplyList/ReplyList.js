@@ -240,9 +240,9 @@ function ReplyList() {
                     <h1>Welcome</h1>
                     <h3>What is jchannel?</h3>
                     <p>
-                        Jchannel is an online forum where Jessup students and
-                        staff can communicate, post comments and share images on
-                        a variety of topics. The site was developed by a Jessup
+                        Jchannel is an online forum where WJU students and staff
+                        can communicate, post comments and share images on a
+                        variety of topics. The site was developed by a WJU
                         student and is currently on a test run. Jchannel is not
                         affiliated with any party, but simply serves as an
                         independent communication platform. Users can log in
