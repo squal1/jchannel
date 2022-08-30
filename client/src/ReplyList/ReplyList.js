@@ -40,7 +40,7 @@ function ReplyList() {
     };
 
     function updateReplyList(skip, count, appendList) {
-        if (typeof _id === "undefined") {
+        if (typeof _id === "undefined" && currentThread._id === "") {
             return;
         }
 

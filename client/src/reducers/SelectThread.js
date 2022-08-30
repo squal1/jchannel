@@ -1,5 +1,6 @@
 const initialState = {
     currentThread: {
+        _id: "",
         author: "",
         category: "",
         title: "",
