@@ -159,7 +159,7 @@ function PageItem({
                         <VerifiedIcon
                             style={{
                                 color: admin ? "rgb(248, 183, 123)" : "white",
-                                scale: 0.8,
+                                scale: "0.8",
                                 marginLeft: "2px",
                             }}
                             className="reply_verified_icon"
