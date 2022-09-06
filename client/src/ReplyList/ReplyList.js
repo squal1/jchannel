@@ -14,7 +14,6 @@ import axios from "../axios";
 import ReplyListPage from "./ReplyListPage";
 import ReplyBlockSkeleton from "./ReplyListPage/Skeleton/Skeleton";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { color } from "@mui/system";
 
 function ReplyList() {
     const dispatch = useDispatch();
@@ -237,7 +236,14 @@ function ReplyList() {
                 </div>
             ) : (
                 <div className="intro">
-                    <h1>Welcome</h1>
+                    <h1 style={{ display: "flex", alignItems: "center" }}>
+                        Welcome to{" "}
+                        <img
+                            width={250}
+                            height={135}
+                            src="/r_jchannel.png"
+                        ></img>
+                    </h1>
                     <h3>What is jchannel?</h3>
                     <p>
                         Jchannel is an online forum where WJU students and staff

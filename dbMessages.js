@@ -117,6 +117,10 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    supporter: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 var User = mongoose.model("User", userSchema);

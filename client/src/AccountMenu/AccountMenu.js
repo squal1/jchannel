@@ -104,6 +104,14 @@ function AccountMenu() {
                 onClick={() => dispatch(loginMenuClose())}
             ></div>
             <div className="login_window">
+                <img
+                    style={{
+                        marginLeft: "35px",
+                    }}
+                    width={220}
+                    height={118}
+                    src="/r_jchannel_w_line.png"
+                ></img>
                 {user ? (
                     <div>
                         <div className="user_profile">
