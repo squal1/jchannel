@@ -16,6 +16,7 @@ function ReplyListPage({ pageNumber, replies }) {
                         author={item.author.displayName}
                         authorId={item.author._id}
                         verified={item.author.verified}
+                        admin={item.author.admin}
                         time={item.time}
                         content={item.content}
                         upvote={item.upvote}

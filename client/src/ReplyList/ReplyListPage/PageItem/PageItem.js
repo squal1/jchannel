@@ -32,6 +32,7 @@ function PageItem({
     upvotedBy,
     downvotedBy,
     quote,
+    admin,
     preview = false,
 }) {
     let navigate = useNavigate();
@@ -148,7 +149,7 @@ function PageItem({
                     <div
                         className="reply_author"
                         style={{
-                            color: verified ? "rgb(248, 183, 123)" : "white",
+                            color: admin ? "rgb(248, 183, 123)" : "white",
                         }}
                         onClick={handleViewProfile}
                     >
