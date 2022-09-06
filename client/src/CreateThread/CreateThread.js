@@ -129,7 +129,7 @@ function CreateThread() {
 
         const newReply = {
             author: user._id,
-            content: DOMPurify.sanitize(content),
+            content: content,
         };
 
         axios // Create new thread here
@@ -242,7 +242,7 @@ function CreateThread() {
                                 apiKey="n6yu8t20ieccyzq70g4q8hqld8siccaoj0fa11nqkdj4kdds"
                                 initialValue="<p></p>"
                                 init={{
-                                    selector: ".editor",
+                                    selector: "editor",
                                     content_css: "default",
                                     skin: false,
                                     content_style: "body { color: white; }",
@@ -257,11 +257,12 @@ function CreateThread() {
                                         "insertdatetime media table paste wordcount",
                                     ],
                                     toolbar:
-                                        " fontsizeselect | forecolor backcolor | bold italic underline strikethrough| alignleft aligncenter alignright | bullist numlist | image link | help",
+                                        " fontsizeselect | forecolor backcolor | bold italic underline strikethrough| alignleft aligncenter alignright | bullist numlist | image media link | help",
                                 }}
-                                onEditorChange={(context, editor) =>
-                                    setContent(context)
-                                }
+                                onEditorChange={(context, editor) => {
+                                    console.log(context);
+                                    setContent(context);
+                                }}
                             />
                         ) : (
                             <></>

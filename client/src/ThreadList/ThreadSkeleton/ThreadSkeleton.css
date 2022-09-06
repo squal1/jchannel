@@ -1,0 +1,28 @@
+.thread_block_skeleton{
+    background-color: rgb(34, 34, 34);
+    display: flex;
+    min-height: 90px;
+    height: auto;
+    border-bottom: 1px solid #7a7a7a;
+    position: relative;
+}
+
+.thread_block_username_placeholder{
+    background-color: #878787;
+    display: flex;
+    width: 100px;
+    height: 18px;
+}
+
+.thread_block_last_reply_time_placeholder{
+    background-color: #878787;
+    width: 50px;
+    height: 12px;
+}
+
+.thread_topic_placeholder{
+    background-color: #878787;
+    display: flex;
+    width: 200px;
+    height: 18px;
+}

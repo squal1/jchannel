@@ -60,7 +60,7 @@ function CreateReply() {
 
         const newReply = {
             author: user._id,
-            content: DOMPurify.sanitize(content),
+            content: content,
             quote: quote?.id,
         };
         // Create new reply here
@@ -161,7 +161,7 @@ function CreateReply() {
 
                                 toolbar: [
                                     " fontsizeselect | forecolor backcolor | bold italic underline strikethrough | alignleft aligncenter alignright ",
-                                    " bullist numlist | image link | help ",
+                                    " bullist numlist | image media link | help ",
                                 ],
                             }}
                             onEditorChange={(context, editor) =>

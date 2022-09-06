@@ -67,6 +67,19 @@
     height: auto;
 }
 
+.reply_content img{
+    height: auto; 
+    width: auto; 
+    max-width: 550px; 
+    max-height: 550px;
+}
+
+.reply_content iframe{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+
 .reply_quote_content, .reply_quote_content span, .reply_quote_content p{
     margin-left: 10px;
     color: #acabab !important;
@@ -80,6 +93,12 @@
     max-width: 300px; 
     max-height: 300px;
 }
+
+.reply_quote_content iframe{
+    height: auto; 
+    width: auto; 
+}
+
 
 .reply_content{
     overflow: hidden;

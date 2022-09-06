@@ -11,6 +11,7 @@ import {
 } from "../actions";
 import { useParams } from "react-router-dom";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import ThreadSkeleton from "./ThreadSkeleton";
 
 function ThreadList() {
     const dispatch = useDispatch();
@@ -86,7 +87,8 @@ function ThreadList() {
 
     // Infinite scroll
     useEffect(() => {
-        if (skip === 0) {
+        if (skip === 0 || skip > 100) {
+            // Limit the threads to 100
             return;
         }
 
