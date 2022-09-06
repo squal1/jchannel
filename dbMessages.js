@@ -121,6 +121,12 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    replied: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Thread",
+        },
+    ],
 });
 
 var User = mongoose.model("User", userSchema);

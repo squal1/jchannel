@@ -99,6 +99,14 @@
     width: auto; 
 }
 
+.reply_quote_content a, .reply_content a{
+    color:rgb(248, 183, 123);
+}
+  
+
+.reply_quote_content a:link, .reply_content a:link{
+    color:rgb(248, 183, 123);
+}
 
 .reply_content{
     overflow: hidden;
