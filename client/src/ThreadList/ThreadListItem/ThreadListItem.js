@@ -3,7 +3,6 @@ import moment from "moment";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    changeThreadEnd,
     changeThreadStart,
     selectThread,
     loadSameThreadStart,
@@ -48,7 +47,7 @@ function ThreadListItem({ thread }) {
                             <div
                                 className="thread_block_username"
                                 style={{
-                                    color: thread.author.verified
+                                    color: thread.author.admin
                                         ? "rgb(248, 183, 123)"
                                         : "white",
                                 }}

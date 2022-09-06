@@ -156,7 +156,14 @@ function PageItem({
                         {author}
                     </div>
                     {verified && (
-                        <VerifiedIcon className="reply_verified_icon" />
+                        <VerifiedIcon
+                            style={{
+                                color: admin ? "rgb(248, 183, 123)" : "white",
+                                scale: 0.8,
+                                marginLeft: "2px",
+                            }}
+                            className="reply_verified_icon"
+                        />
                     )}
                     {author === currentThread.author.displayName && (
                         <div className="reply_OP">OP</div>
