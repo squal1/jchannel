@@ -41,6 +41,7 @@
   display: flex;
   background-color: rgb(26, 26, 26);
   margin-top: 1rem;
+  margin-bottom: 5px;
   padding: 0.6rem 0.8rem;
   border-radius: 8px;
   width: 70%;
@@ -59,6 +60,7 @@
   display: flex;
   width: 100%;
   align-items: center;
+
 }
 
 #search_icon{
@@ -81,8 +83,8 @@
 }
 
 .my_account_button, .my_posts_button{
-  margin-top: 5px;
-  padding: 6px;
+  margin-top: 3px;
+  padding: 5px;
   width: 75%;
   font-weight: 600;
   transition: 0.1s;

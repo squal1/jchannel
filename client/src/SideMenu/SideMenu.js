@@ -59,6 +59,20 @@ function SideMenu() {
         // URL navigate
         navigate(`profile/${user._id}`);
         dispatch(selectCategory(user.displayName));
+        dispatch(refreshThreadStart());
+        // Close side menu afterwards
+        dispatch(sideMenuClose());
+    };
+
+    const handleMyActivityButtonOnClick = () => {
+        if (user === null) {
+            dispatch(loginMenuOpen());
+            return;
+        }
+        // URL navigate
+        navigate(`activity/${user._id}`);
+        dispatch(selectCategory("Activity"));
+        dispatch(refreshThreadStart());
         // Close side menu afterwards
         dispatch(sideMenuClose());
     };
@@ -99,13 +113,19 @@ function SideMenu() {
                     className="my_account_button"
                     onClick={() => dispatch(loginMenuOpen())}
                 >
-                    My profile
+                    Profile
                 </div>
                 <div
                     className="my_posts_button"
                     onClick={() => handleMyPostsButtonOnClick()}
                 >
                     My posts
+                </div>
+                <div
+                    className="my_posts_button"
+                    onClick={() => handleMyActivityButtonOnClick()}
+                >
+                    My activities
                 </div>
                 <hr />
                 <p>Channels</p>

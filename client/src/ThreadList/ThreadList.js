@@ -77,14 +77,6 @@ function ThreadList() {
         });
     }, [category]);
 
-    // Find threads of a user
-    useEffect(() => {
-        if (typeof userId === "undefined") {
-            return;
-        }
-        dispatch(refreshThreadStart());
-    }, [userId]);
-
     // Infinite scroll
     useEffect(() => {
         if (skip === 0 || skip > 100) {
@@ -125,7 +117,14 @@ function ThreadList() {
             setTimeout(() => {
                 dispatch(refreshThreadEnd());
             }, 400);
+            return;
+        }
 
+        if (currentCategory === "Activity") {
+            axios.get(`/user/activity/?userId=${user._id}`).then((response) => {
+                dispatch(setThread(response.data.replied));
+                dispatch(refreshThreadEnd());
+            }, 500);
             return;
         }
 
@@ -134,6 +133,7 @@ function ThreadList() {
             currentCategory === user?.displayName ||
             (typeof userId !== "undefined" && typeof category === "undefined")
         ) {
+            console.log("HIHI");
             dispatch(refreshThreadStart());
             axios.get(`/user/profile/?userId=${userId}`).then((response) => {
                 setTimeout(() => {

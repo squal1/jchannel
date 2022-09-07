@@ -123,6 +123,15 @@ function App() {
                             </div>
                         }
                     />
+                    <Route
+                        path="/activity/:userId"
+                        element={
+                            <div className="main_panel">
+                                <ThreadList />
+                                <ReplyList />
+                            </div>
+                        }
+                    />
                 </Routes>
             </div>
         </div>

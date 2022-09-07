@@ -367,7 +367,21 @@ app.post("/reply/:_id", (req, res) => {
                                     if (err) {
                                         console.log(err);
                                     } else {
-                                        console.log(data);
+                                        User.updateOne(
+                                            { _id: dbMessage.author },
+                                            {
+                                                $push: {
+                                                    replied: req.params._id,
+                                                },
+                                            },
+                                            (err, data) => {
+                                                if (err) {
+                                                    console.log(err);
+                                                } else {
+                                                    console.log(data);
+                                                }
+                                            }
+                                        );
                                     }
                                 }
                             );
@@ -549,9 +563,41 @@ app.get("/user/profile", (req, res) => {
         .populate({
             path: "reply",
             populate: {
-                path: "author",
+                path: "author quote",
             },
         })
+        .exec((err, data) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(data);
+            }
+        });
+});
+
+// Get all threads that the user replied to
+app.get("/user/activity", (req, res) => {
+    const userId = req.query.userId;
+
+    User.findOne({ _id: userId })
+        //.select("replied")
+        .populate({
+            path: "replied",
+            model: "Thread",
+            populate: [
+                { path: "author", model: "User" },
+                {
+                    path: "reply",
+                    model: "Reply",
+                    populate: [
+                        { path: "author", model: "User" },
+                        { path: "quote", model: "Reply" },
+                    ],
+                },
+            ],
+            options: { sort: { lastReplied: -1 } },
+        })
+        .sort({ lastReplied: -1 })
         .exec((err, data) => {
             if (err) {
                 res.status(500).send(err);
